@@ -6165,10 +6165,10 @@
     "trk": "Inizio = fondamenta + PID. Avvio = SE fare. Inizio = COME fare.",
     "combo": true,
     "stmts": [
-      "To ensure that the livello corporate has an interface to the project",
-      "To focus the project management team's attention on delivery of the stage's products",
-      "To define how progress will be overseen and controlled",
-      "To agree the approach to communicating project information"
+      "Garantire che il livello corporate disponga di un'interfaccia per il progetto",
+      "Focalizzare l'attenzione del team di gestione del progetto sulla consegna dei prodotti della fase",
+      "Definire come vigilare e controllare l'avanzamento",
+      "Concordare l'approccio alla comunicazione delle informazioni sul progetto"
     ],
     "engText": "Which TWO are objectives of the Initiating a project process?"
   },
@@ -6242,10 +6242,10 @@
     "trk": "Avvio = 'Vale la pena?' Nomina + Pianifica Inizio.",
     "combo": true,
     "stmts": [
-      "To create a common view of how the quality required will be achieved",
-      "To manage and review the plans for post-project benefici",
-      "To appoint individuals to the key project management roles",
-      "To ensure that all the necessary authorities exist for initiating the project"
+      "Creare una visione comune su come verrà raggiunta la qualità richiesta",
+      "Gestire e rivedere i piani per i benefici post-progetto",
+      "Nominare le persone per i ruoli chiave di gestione del progetto",
+      "Garantire che esistano tutte le autorità necessarie per l'avvio del progetto"
     ],
     "engText": "Which TWO are objectives of the 'starting up a project' process?"
   },
@@ -6350,10 +6350,10 @@
     "trk": "Inizio = fondamenta + PID. Avvio = SE fare. Inizio = COME fare.",
     "combo": true,
     "stmts": [
-      "To ensure that the project team focuses on delivering the approved products in the piano di fase",
-      "To ensure that the project team is authorized to proceed with the fase di avvio",
-      "To understand how changes to the agreed project products will be approved",
-      "To plan and estimate the costs for the work to deliver the products"
+      "Garantire che il team di progetto si focalizzi sulla consegna dei prodotti approvati nel piano di fase",
+      "Garantire che il team di progetto sia autorizzato a procedere con la fase di avvio",
+      "Comprendere come verranno approvate le modifiche ai prodotti del progetto concordati",
+      "Pianificare e stimare i costi per il lavoro di consegna dei prodotti"
     ],
     "engText": "Which TWO are objectives of the 'initiating a project' process?"
   },
@@ -6480,10 +6480,10 @@
     "trk": "Avvio = 'Vale la pena?' (Validazione del business case) + Nomina team, pianifica inizio: il manuale dice che l'obiettivo è garantire che il progetto sia giustificato e pianificato, quindi 1 e 4 (Validazione del business case e pianificazione) sono i due obiettivi chiave.",
     "combo": true,
     "stmts": [
-      "To define the scope of the project to enable it to be initiated",
-      "To authorize the work to deliver the project product",
-      "To understand what quality techniques will be applied in the project",
-      "To assess the alternative ways of delivering the project"
+      "Definire l'ambito del progetto per consentirne l'avvio",
+      "Autorizzare il lavoro per consegnare il prodotto del progetto",
+      "Comprendere quali tecniche di qualità verranno applicate nel progetto",
+      "Valutare le modalità alternative di consegna del progetto"
     ],
     "engText": "Which TWO are objectives of the 'starting up a project' process?"
   },
@@ -6507,10 +6507,10 @@
     "trk": "Direzione = board decide, PM esegue. Il board si riunisce solo per eccezioni e gate.",
     "combo": true,
     "stmts": [
-      "Authorize that the project team should be disbanded as work is complete",
-      "Review plans to measure the benefici after the project has closed",
-      "Check that the products can be supported by operations after the project is closed",
-      "Verify that the users' requirements have been met"
+      "Autorizzare lo scioglimento del team di progetto al completamento del lavoro",
+      "Esaminare i piani per misurare i benefici dopo la chiusura del progetto",
+      "Verificare che i prodotti possano essere supportati dalle operations dopo la chiusura del progetto",
+      "Verificare che i requisiti degli utenti siano stati soddisfatti"
     ],
     "engText": "Which TWO activities support the objectives of the 'directing a project'process?"
   },
@@ -6534,10 +6534,10 @@
     "trk": "Controllo fase = PM al timone. Assegna WP, monitora, corregge.",
     "combo": true,
     "stmts": [
-      "To respond to risks and issues as they are raised",
-      "To plan the detailed activities for the next stage of the project",
-      "To define the controls for the project",
-      "To continually assess the giustificazione del business"
+      "Rispondere ai rischi e alle questioni man mano che vengono sollevati",
+      "Pianificare le attività dettagliate per la fase successiva del progetto",
+      "Definire i controlli per il progetto",
+      "Valutare costantemente la giustificazione del business"
     ],
     "engText": "Which TWO are objectives of the 'controlling a stage' process?"
   },
@@ -6666,10 +6666,10 @@
     "trk": "Chiusura = verifica passato + prepara futuro. Anche prematura → sempre usare il processo.",
     "combo": true,
     "stmts": [
-      "To ensure the beneficio reviews enable the project benefici to be confirmed",
-      "To update the business case so that the comitato di progetto can decide whether to continue with the project",
-      "To ensure that the project team deliver the products to quality expectations",
-      "To hand over any open minacce to operations\""
+      "Garantire che i riesami dei benefici consentano di confermare i benefici del progetto",
+      "Aggiornare il business case affinché il comitato di progetto possa decidere se continuare con il progetto",
+      "Garantire che il team di progetto consegni i prodotti secondo le aspettative di qualità",
+      "Trasferire le minacce aperte alle operations"
     ],
     "engText": "\"Which TWO are objectives of the 'closing a project' process?"
   },
@@ -6736,10 +6736,10 @@
     "trk": "Avvio = 'Vale la pena?' Nomina + Pianifica Inizio.",
     "combo": true,
     "stmts": [
-      "To create a common view of how the required quality will be achieved",
-      "To give authority to initiate the project",
-      "To appoint the resources needed to do the work to initiate the project",
-      "To ensure that projects are initiated based on agreed criteri di accettazione for the project product\""
+      "Creare una visione comune su come verrà raggiunta la qualità richiesta",
+      "Conferire l'autorità per avviare il progetto",
+      "Nominare le risorse necessarie per svolgere il lavoro di avvio del progetto",
+      "Garantire che i progetti vengano avviati in base ai criteri di accettazione concordati per il prodotto del progetto"
     ],
     "engText": "\"Which TWO are objectives of the 'starting up a project' process?"
   },
@@ -6787,10 +6787,10 @@
     "trk": "Chiusura = verifica passato + prepara futuro. Anche prematura → sempre usare il processo.",
     "combo": true,
     "stmts": [
-      "To confirm to the comitato di progetto that each stage's products are approved",
-      "To review whether the project was delivered within time and cost tolleranze",
-      "To confirm whether operational staff are happy to take ownership of the products",
-      "To confirm that there is authority to close the project\""
+      "Confermare al comitato di progetto che i prodotti di ogni fase sono stati approvati",
+      "Verificare se il progetto è stato realizzato nel rispetto delle tolleranze previste per tempi e costi",
+      "Confermare se il personale operativo è disposto a farsi carico dei prodotti",
+      "Confermare che ci sia autorità per chiudere il progetto"
     ],
     "engText": "\"Which TWO are objectives of the 'closing a project' process?"
   },
@@ -6860,10 +6860,10 @@
     "trk": "Limiti = cerniera. Chiude (nessun prodotto in sospeso) + Apre (piano fase successiva).",
     "combo": true,
     "stmts": [
-      "To confirm to the comitato di progetto that there are no products outstanding for the stage",
-      "To ensure that expectations are managed via accurate reporting to the project manager during a stage",
-      "To ensure that the project management team is not distracted by delivering additional products during the stage",
-      "To request the comitato di progetto to approve work to start on the next stage\""
+      "Confermare al comitato di progetto che non siano rimasti prodotti in sospeso nella fase",
+      "Garantire che le aspettative siano gestite tramite report accurati al project manager durante una fase",
+      "Garantire che il team di gestione del progetto non si distragga realizzando prodotti extra durante la fase",
+      "Richiedere al comitato di progetto di approvare il lavoro da iniziare nella fase successiva"
     ],
     "engText": "\"Which TWO are objectives of the 'managing a stage boundary' process?"
   },
@@ -6888,10 +6888,10 @@
     "trk": "Avvio = 'Vale la pena?' Nomina + Pianifica Inizio.",
     "combo": true,
     "stmts": [
-      "To provide an interface between the livello corporate and the project",
-      "To provide the required authority to initiate the project",
-      "To plan the work required for project initiation",
-      "To provide giustificazione del business for initiating the project\""
+      "Fornire un'interfaccia tra il livello corporate e il progetto",
+      "Fornire l'autorità necessaria per avviare il progetto",
+      "Pianificare il lavoro richiesto per l'avvio del progetto",
+      "Fornire la giustificazione del business per l'avvio del progetto"
     ],
     "engText": "\"Which TWO are objectives of the 'starting up a project' process?"
   },
