@@ -41,6 +41,10 @@ a{color:var(--ac2);text-decoration:none}
 .ptx{font-size:11px;color:var(--tx2);font-weight:600;white-space:nowrap;font-family:'JetBrains Mono',monospace}
 .bm{display:none;background:none;color:var(--tx);font-size:20px;padding:4px 6px;border-radius:5px}
 .bm:hover{background:var(--sf3)}
+.bsc{background:none;color:var(--tx2);font-size:16px;padding:4px 8px;border-radius:5px;border:1px solid var(--bd);cursor:pointer;line-height:1;transition:color .15s}
+.bsc:hover{color:var(--tx);background:var(--sf3)}
+.app.sb-off .sidebar{transform:translateX(-100%)}
+.app.sb-off .main{margin-left:0}
 .hdr-btns{display:flex;gap:4px}
 
 /* Sidebar */
@@ -81,6 +85,7 @@ a{color:var(--ac2);text-decoration:none}
 .cnt{padding:20px;max-width:860px;margin:0 auto}
 
 /* Question Card */
+.nav-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}.nav-top .bt{min-width:80px}.nav-pos{flex:1;text-align:center;font-size:13px;color:var(--tx2);font-weight:600}
 .qc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .qhd{padding:12px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;background:var(--sf2)}
 .qnm{font-size:11px;font-weight:700;color:var(--ac);font-family:'JetBrains Mono',monospace}
@@ -241,6 +246,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 
   /* Header */
   .bm{display:flex;align-items:center;justify-content:center;min-width:40px;min-height:40px}
+  .bsc{display:none}
   .hdr{padding:8px 12px;gap:8px}
   .hdr h1{font-size:13px}
   .hdr-btns .bt{font-size:11px;padding:7px 10px;min-height:36px}
@@ -458,6 +464,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 <div class="main">
   <header class="hdr">
     <button class="bm" onclick="toggleSB()">☰</button>
+    <button class="bsc" id="bsc" onclick="collapseSB()" title="Nascondi/mostra menu laterale">◀</button>
     <h1>PRINCE2<em>®</em> 7 Foundation</h1>
     <div class="pw"><div class="pb"><div class="pf" id="pf"></div></div><span class="ptx" id="ptx">0/386</span></div>
     <div class="hdr-btns">
@@ -657,6 +664,7 @@ function setFilter(f, el) { S.cf = f; S.ci = 0; saveState(); var btns = document
 function doSearch(v) { S.sq = v; S.ci = 0; filterQs(); renderQ(); }
 function setSqMode(mode, el) { S.sqMode = mode; document.querySelectorAll('.sqm-btn').forEach(function(b){ b.classList.remove('on'); }); el.classList.add('on'); if (S.sq) { filterQs(); renderQ(); } }
 function toggleSB() { document.getElementById('sb').classList.toggle('op'); document.getElementById('ovrl').classList.toggle('vis'); }
+function collapseSB() { var app = document.querySelector('.app'); app.classList.toggle('sb-off'); document.getElementById('bsc').textContent = app.classList.contains('sb-off') ? '▶' : '◀'; }
 function updateProgress() { var t = Q.length, s = S.sn.size; document.getElementById('pf').style.width = (s/t*100)+'%'; document.getElementById('ptx').textContent = s+'/'+t+' viste'; }
 
 /* ===== RENDER QUESTION ===== */
@@ -673,7 +681,8 @@ function renderQ() {
   S.sn.add(q.id); S.lq = q.id; saveState();
 
   var L = ['A','B','C','D'];
-  var h = '<div class="qc">';
+  var h = '<div class="nav-top"><button class="bt bnv" onclick="navQ(-1)"' + (S.ci===0?' disabled':'') + '>← Prec</button><span class="nav-pos">' + (S.ci+1) + ' / ' + S.fq.length + '</span><button class="bt bnv" onclick="navQ(1)"' + (S.ci>=S.fq.length-1?' disabled':'') + '>Succ →</button></div>';
+  h += '<div class="qc">';
 
   var lb = q.lang === 'ENG' ? '<span class="lbg">ENG→ITA</span>' : '';
   var cb = q.combo ? ' <span class="cbg">COMBO</span>' : '';
@@ -1410,6 +1419,7 @@ fetch('questions.json')
     }
     // Auto-sync in background: pull dal Gist per ricevere progressi da altri dispositivi
     autoSyncPull();
+    setInterval(autoSyncPull, 20000); // Polling ogni 20 secondi
   })
   .catch(function(err) {
     document.getElementById('cnt').innerHTML = '<div class="loading" style="color:var(--rd)"><p style="font-size:16px;margin-bottom:8px">Errore caricamento domande</p><p>' + err.message + '</p><p style="margin-top:12px;font-size:13px;color:var(--tx2)">Assicurati che <code>questions.json</code> sia nella stessa cartella di <code>index.html</code></p></div>';
