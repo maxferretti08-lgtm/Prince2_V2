@@ -274,8 +274,9 @@ a{color:var(--ac2);text-decoration:none}
       <input type="text" id="ghGistInp" class="sinp" placeholder="opzionale - es: a1b2c3d4e5f6...">
     </div>
     <div class="modal-row">
-      <button class="bt brev" style="flex:1" onclick="saveGistSettings()">Salva</button>
-      <button class="bt bnv" style="flex:1" onclick="closeModal('gistModal')">Annulla</button>
+      <button class="bt brev" style="flex:2" onclick="saveGistSettings()">💾 Salva</button>
+      <button class="bt bnv" style="flex:1" onclick="testGistToken()">🔍 Verifica</button>
+      <button class="bt bnv" style="flex:1" onclick="closeModal('gistModal')">✕</button>
     </div>
     <div id="gistModalStatus" style="margin-top:10px;font-size:12px;text-align:center"></div>
   </div>
@@ -844,23 +845,84 @@ function syncImport() {
 function openGistModal() {
   document.getElementById('ghTokenInp').value = localStorage.getItem('ghToken') || '';
   document.getElementById('ghGistInp').value = localStorage.getItem('ghGistId') || '';
-  document.getElementById('gistModalStatus').textContent = '';
+  // Non resettare il messaggio di stato se ne è già presente uno (es. avviso da gistPull)
+  var statusEl = document.getElementById('gistModalStatus');
+  if (!statusEl.innerHTML) statusEl.textContent = '';
   openModal('gistModal');
+}
+async function testGistToken() {
+  var token = document.getElementById('ghTokenInp').value.trim();
+  var gistId = document.getElementById('ghGistInp').value.trim();
+  var statusEl = document.getElementById('gistModalStatus');
+  if (!token) { statusEl.innerHTML = '<span style="color:var(--rd)">Inserisci prima il token.</span>'; return; }
+  statusEl.innerHTML = '<span style="color:var(--yl)">⏳ Verifica in corso…</span>';
+  try {
+    // Verifica token via API GitHub
+    var resp = await fetch('https://api.github.com/user', {
+      headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}
+    });
+    var user = await resp.json();
+    if (!user.login) { statusEl.innerHTML = '<span style="color:var(--rd)">❌ Token non valido: ' + (user.message||'errore sconosciuto') + '</span>'; return; }
+    var msg = '✅ Token OK · Utente: <strong>' + user.login + '</strong>';
+    // Se c'è un Gist ID, verifica anche quello
+    if (gistId) {
+      var gr = await fetch('https://api.github.com/gists/'+gistId, {
+        headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}
+      });
+      var gdata = await gr.json();
+      if (gdata.id) msg += ' &nbsp;·&nbsp; Gist ID: ✅ trovato';
+      else msg += ' &nbsp;·&nbsp; Gist ID: <span style="color:var(--rd)">❌ non trovato (' + (gdata.message||'?') + ')</span>';
+    } else {
+      msg += ' &nbsp;·&nbsp; <span style="color:var(--yl)">Gist ID vuoto — verrà creato al primo Push</span>';
+    }
+    statusEl.innerHTML = '<span style="font-size:11px;color:var(--gn)">' + msg + '</span>';
+  } catch(e) { statusEl.innerHTML = '<span style="color:var(--rd)">❌ Errore di rete: ' + e.message + '</span>'; }
 }
 function saveGistSettings() {
   var token = document.getElementById('ghTokenInp').value.trim();
   var gistId = document.getElementById('ghGistInp').value.trim();
-  if (!token) { document.getElementById('gistModalStatus').innerHTML = '<span style="color:var(--rd)">Token richiesto.</span>'; return; }
-  localStorage.setItem('ghToken', token);
-  if (gistId) localStorage.setItem('ghGistId', gistId); else localStorage.removeItem('ghGistId');
-  closeModal('gistModal');
+  var statusEl = document.getElementById('gistModalStatus');
+  if (!token) { statusEl.innerHTML = '<span style="color:var(--rd)">Token richiesto.</span>'; return; }
+
+  // Salva in localStorage
+  try {
+    localStorage.setItem('ghToken', token);
+    if (gistId) localStorage.setItem('ghGistId', gistId);
+    else localStorage.removeItem('ghGistId');
+  } catch(e) {
+    statusEl.innerHTML = '<span style="color:var(--rd)">❌ Impossibile salvare: ' + e.message + '</span>';
+    return;
+  }
+
+  // Verifica immediata che il salvataggio sia andato a buon fine
+  var savedToken  = localStorage.getItem('ghToken');
+  var savedGistId = localStorage.getItem('ghGistId');
+
+  if (!savedToken) {
+    statusEl.innerHTML = '<span style="color:var(--rd)">⚠️ Il browser ha bloccato localStorage. Prova a disattivare la modalità privata.</span>';
+    return;
+  }
+
+  var msg = '✅ Token salvato';
+  if (savedGistId) msg += ' &nbsp;·&nbsp; Gist ID: <code style="background:var(--sf3);padding:1px 4px;border-radius:3px">' + savedGistId.substring(0,10) + '…</code>';
+  else msg += ' &nbsp;·&nbsp; <span style="color:var(--yl)">Gist ID non inserito — fai prima un Push</span>';
+  statusEl.innerHTML = '<span style="color:var(--gn);font-size:11px">' + msg + '</span>';
+
   updateGistStatusBar();
+  // Chiudi il modal dopo 1.8s così l'utente legge il feedback
+  setTimeout(function(){ closeModal('gistModal'); }, 1800);
 }
 function updateGistStatusBar() {
-  var token = localStorage.getItem('ghToken');
-  var bar = document.getElementById('gistStatusBar');
-  if (token) { bar.style.display = 'block'; bar.innerHTML = '<span class="sync-status sync-ok">☁️ Gist configurato</span>'; }
-  else { bar.style.display = 'none'; }
+  var token  = localStorage.getItem('ghToken');
+  var gistId = localStorage.getItem('ghGistId');
+  var bar    = document.getElementById('gistStatusBar');
+  if (!token) { bar.style.display = 'none'; return; }
+  bar.style.display = 'block';
+  if (token && gistId) {
+    bar.innerHTML = '<span class="sync-status sync-ok">☁️ Gist pronto · ID: ' + gistId.substring(0,8) + '…</span>';
+  } else {
+    bar.innerHTML = '<span class="sync-status sync-pending">🔑 Token OK · nessun Gist ID — fai Push</span>';
+  }
 }
 async function gistPush() {
   var token = localStorage.getItem('ghToken');
@@ -881,7 +943,13 @@ async function gistPush() {
 async function gistPull() {
   var token = localStorage.getItem('ghToken'), gistId = localStorage.getItem('ghGistId');
   if (!token) { openGistModal(); return; }
-  if (!gistId) { alert('Nessun Gist configurato. Prima esegui un "Invia".'); return; }
+  if (!gistId) {
+    // Apri direttamente le impostazioni invece di limitarsi a un alert
+    document.getElementById('gistModalStatus').innerHTML =
+      '<span style="color:var(--yl)">⚠️ Inserisci il Gist ID e clicca Salva, poi riprova il Pull.</span>';
+    openGistModal();
+    return;
+  }
   var bar = document.getElementById('gistStatusBar');
   bar.style.display = 'block'; bar.innerHTML = '<span class="sync-status sync-pending">⏳ Ricezione...</span>';
   try {
