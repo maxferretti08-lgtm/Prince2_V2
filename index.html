@@ -486,10 +486,10 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 <!-- Bottom nav mobile -->
 <nav class="mob-nav" id="mobNav">
   <button onclick="toggleSB()"><span class="ico">☰</span>Menu</button>
-  <button onclick="showIndex()"><span class="ico">📋</span>Indice</button>
+  <button onclick="filterQs();renderQ();scrollTo(0,0)" id="mobDomande"><span class="ico">📖</span>Domande</button>
   <button onclick="openExamModal()"><span class="ico">🎯</span>Esame</button>
-  <button onclick="gistPush()"><span class="ico">☁️↑</span>Push</button>
-  <button onclick="gistPull()"><span class="ico">☁️↓</span>Pull</button>
+  <button onclick="gistPush()"><span class="ico">☁️↑</span>Salva</button>
+  <button onclick="gistPull()"><span class="ico">☁️↓</span>Aggiorna</button>
 </nav>
 </div>
 
@@ -746,7 +746,7 @@ function renderQ() {
 }
 
 /* ===== INTERACTIONS ===== */
-function pickAns(el) { var id = parseInt(el.dataset.qid), l = el.dataset.let; if (S.an[id]) return; S.an[id] = l; saveState(); renderQ(); }
+function pickAns(el) { var id = parseInt(el.dataset.qid), l = el.dataset.let; if (S.an[id]) return; S.an[id] = l; saveState(); renderQ(); gistAutoPush(); }
 function toggleRev() { var r = document.getElementById('rv'); r.classList.toggle('vis'); document.getElementById('brv').textContent = r.classList.contains('vis') ? 'Nascondi' : 'Mostra risposta'; }
 function toggleFlag(el) {
   var id = parseInt(el.dataset.qid);
@@ -765,6 +765,7 @@ function toggleFlag(el) {
   // Altrimenti aggiorna solo il bottone in-place (preserva reveal, evita scroll-jump)
   el.textContent = isFlagged ? '⚠️ Segnalata' : '⚠️ Segna';
   if (isFlagged) el.classList.add('fg'); else el.classList.remove('fg');
+  gistAutoPush();
 }
 function navQ(d) { S.ci = Math.max(0, Math.min(S.fq.length-1, S.ci+d)); saveState(); renderQ(); scrollTo(0,0); }
 function resetOne(el) { var id = parseInt(el.dataset.qid); if (S.an[id]) delete S.an[id]; saveState(); renderQ(); }
@@ -1036,6 +1037,20 @@ function showSourceMap() {
       '<div class="src-table-wrap"><table class="src-table"><thead>' + thead + '</thead><tbody>' + tbody + '</tbody></table></div>' +
       '<div style="margin-top:12px;text-align:center"><button class="bt bnv btn-sm" onclick="S.ci=0;buildSidebar();filterQs();renderQ()">← Torna allo studio</button></div>';
   }, 50);
+}
+
+/* ===== AUTO-PUSH silenzioso dopo ogni risposta/segnalazione ===== */
+function gistAutoPush() {
+  var token = localStorage.getItem('ghToken'), gistId = localStorage.getItem('ghGistId');
+  if (!token || !gistId) return;
+  var flArr = [...S.fl].map(function(x){return parseInt(x,10);});
+  var snArr = [...S.sn].map(function(x){return parseInt(x,10);});
+  var d = {fl:flArr, sn:snArr, an:JSON.parse(JSON.stringify(S.an)), ts:new Date().toISOString(), v:2};
+  fetch('https://api.github.com/gists/'+gistId, {
+    method:'PATCH',
+    headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
+    body:JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:JSON.stringify(d,null,2)}}})
+  }).catch(function(){});
 }
 
 /* ===== AUTO-SYNC (pull al caricamento + push quando la pagina viene nascosta) ===== */
