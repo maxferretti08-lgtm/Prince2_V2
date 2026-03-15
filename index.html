@@ -56,12 +56,9 @@ a{color:var(--ac2);text-decoration:none}
 .ni .ct{margin-left:auto;font-size:10px;font-weight:700;background:var(--sf3);padding:1px 6px;border-radius:8px;min-width:22px;text-align:center;color:var(--tx3)}
 .ni.on .ct{background:var(--acg);color:var(--ac2)}
 .nd{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.sfl{padding:8px 10px;border-top:1px solid var(--bd)}
-.sfl h3{font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:5px;padding-left:4px}
 .fb{display:block;width:100%;text-align:left;padding:6px 10px;border-radius:5px;font-size:12px;color:var(--tx2);background:none;margin-bottom:1px;transition:all .12s}
 .fb:hover{background:var(--sf3);color:var(--tx)}
 .fb.on{background:var(--acg);color:var(--ac);font-weight:600}
-.sac{padding:8px 10px 10px;border-top:1px solid var(--bd)}
 .sinp{width:100%;padding:7px 10px;background:var(--sf3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:12px;outline:none;transition:border-color .15s}
 .sinp:focus{border-color:var(--ac)}
 .sinp::placeholder{color:var(--tx3)}
@@ -102,13 +99,22 @@ a{color:var(--ac2);text-decoration:none}
 .opt.sel .olt{background:var(--ac);color:#fff}
 .otx{flex:1}
 
-/* Collapsible */
+/* Collapsible (question card) */
 .coll{margin-top:10px}
 .coll summary{font-size:12px;color:var(--tx3);cursor:pointer;font-weight:600;padding:6px 0;list-style:none;transition:color .12s}
 .coll summary:hover{color:var(--tx2)}
 .coll summary::before{content:'▸ ';font-size:9px}
 .coll[open] summary::before{content:'▾ '}
 .coll-body{padding:8px 0 0}
+/* Collapsible sidebar sections */
+.sb-coll{border-top:1px solid var(--bd)}
+.sb-coll>summary{font-size:10px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:1.2px;cursor:pointer;padding:10px 16px;list-style:none;display:flex;align-items:center;justify-content:space-between;transition:color .12s;-webkit-user-select:none;user-select:none}
+.sb-coll>summary:hover{color:var(--tx)}
+.sb-coll>summary::after{content:'▼';font-size:9px;transition:transform .2s;color:var(--tx3);font-weight:400}
+.sb-coll[open]>summary::after{transform:rotate(180deg)}
+.sb-coll-body{padding:4px 10px 10px}
+/* Search highlight */
+mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1px;font-style:normal}
 .qsrl{font-size:11px;color:var(--tx3);font-family:'JetBrains Mono',monospace;padding-left:6px}
 .qsrl div{margin-bottom:2px}
 
@@ -291,7 +297,7 @@ a{color:var(--ac2);text-decoration:none}
   .mob-nav{display:flex}
 
   /* Sidebar action buttons */
-  .sac .bnv{min-height:38px;font-size:11px;padding:8px 6px}
+  .sb-coll-body .bnv{min-height:38px;font-size:11px;padding:8px 6px}
   .bex{min-height:44px;font-size:13px;padding:11px}
 
   /* Tables on mobile */
@@ -375,9 +381,18 @@ a{color:var(--ac2);text-decoration:none}
       <label style="font-size:11px;color:var(--tx3);font-weight:600;display:block;margin-bottom:4px">GITHUB TOKEN (scope: gist)</label>
       <input type="password" id="ghTokenInp" class="sinp" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
     </div>
-    <div style="margin-bottom:14px">
-      <label style="font-size:11px;color:var(--tx3);font-weight:600;display:block;margin-bottom:4px">GIST ID (lascia vuoto per crearne uno nuovo)</label>
+    <div style="margin-bottom:10px">
+      <label style="font-size:11px;color:var(--tx3);font-weight:600;display:block;margin-bottom:4px">GIST ID (lascia vuoto per crearne uno nuovo al primo Push)</label>
       <input type="text" id="ghGistInp" class="sinp" placeholder="opzionale - es: a1b2c3d4e5f6...">
+    </div>
+    <div id="gistShareBox" style="display:none;margin-bottom:12px;background:var(--sf3);border:1px solid var(--bd);border-radius:8px;padding:10px 12px">
+      <div style="font-size:11px;color:var(--tx3);font-weight:600;margin-bottom:6px">📲 CONDIVIDI CON ALTRI DISPOSITIVI</div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:8px">Copia l'ID Gist e inseriscilo nelle impostazioni dell'altro dispositivo:</div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <input type="text" id="gistShareId" class="sinp" readonly style="font-family:monospace;font-size:12px;flex:1">
+        <button class="bt brev" style="white-space:nowrap" onclick="var v=document.getElementById('gistShareId').value;navigator.clipboard.writeText(v).then(function(){showToast('✅ Gist ID copiato!','ok')}).catch(function(){document.getElementById('gistShareId').select();document.execCommand('copy');showToast('✅ Copiato!','ok')})">Copia ID</button>
+      </div>
+      <a id="gistShareUrl" href="#" target="_blank" style="font-size:11px;color:var(--ac2);margin-top:6px;display:block">Apri Gist su GitHub ↗</a>
     </div>
     <div class="modal-row">
       <button class="bt brev" style="flex:2" onclick="saveGistSettings()">💾 Salva</button>
@@ -392,38 +407,43 @@ a{color:var(--ac2);text-decoration:none}
   <div class="shd"><span class="shd-logo">📚</span><h2>Argomenti</h2></div>
   <div class="sbx"><input type="text" class="sinp" placeholder="🔍 Cerca domanda..." oninput="doSearch(this.value)"></div>
   <nav class="sn" id="sn"></nav>
-  <div class="sfl">
-    <h3>Filtri</h3>
-    <button class="fb on" onclick="setFilter('all',this)">📋 Tutte</button>
-    <button class="fb" onclick="setFilter('flagged',this)">⚠️ Segnalate</button>
-    <button class="fb" onclick="setFilter('combo',this)">🔢 Combo</button>
-    <button class="fb" onclick="setFilter('eng',this)">🇬🇧 Da inglese</button>
-    <button class="fb" onclick="setFilter('unseen',this)">🆕 Non viste</button>
-    <button class="fb" onclick="setFilter('wrong',this)">❌ Sbagliate</button>
-  </div>
-  <div class="sac">
+  <details class="sb-coll" open id="filtriColl">
+    <summary>Filtri</summary>
+    <div class="sb-coll-body">
+      <button class="fb on" onclick="setFilter('all',this)">📋 Tutte</button>
+      <button class="fb" onclick="setFilter('flagged',this)">⚠️ Segnalate</button>
+      <button class="fb" onclick="setFilter('combo',this)">🔢 Combo</button>
+      <button class="fb" onclick="setFilter('eng',this)">🇬🇧 Da inglese</button>
+      <button class="fb" onclick="setFilter('unseen',this)">🆕 Non viste</button>
+      <button class="fb" onclick="setFilter('wrong',this)">❌ Sbagliate</button>
+    </div>
+  </details>
+  <div style="padding:8px 10px 4px">
     <button class="bex" onclick="openExamModal()">🎯 Simulazione (60 dom.)</button>
-    <button class="bnv" style="width:100%;font-size:11px;padding:7px;margin-bottom:4px" onclick="showSourceMap()">🗺️ Mappa sorgenti</button>
-    <div style="display:flex;gap:4px;margin-bottom:4px">
-      <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="exportFile()">⬇ Esporta</button>
-      <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="document.getElementById('impF').click()">⬆ Importa</button>
-      <input type="file" id="impF" accept=".json" style="display:none" onchange="importFile(this)">
-    </div>
-    <div style="display:flex;gap:4px;margin-bottom:4px">
-      <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="openGistModal()">☁️ Impostazioni</button>
-      <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="syncLink()">🔗 Link sync</button>
-    </div>
-    <div style="display:flex;gap:4px;margin-bottom:4px">
-      <button class="bnv" style="flex:1;font-size:10px;padding:6px;color:var(--ac)" onclick="gistPush()">⬆ Gist Push</button>
-      <button class="bnv" style="flex:1;font-size:10px;padding:6px;color:var(--pu)" onclick="gistPull()">⬇ Gist Pull</button>
-    </div>
-    <div id="syncBox" style="display:none;margin-bottom:4px">
-      <input type="text" id="syncUrl" class="sinp" readonly style="font-size:10px;margin-bottom:3px">
-      <button class="bnv" style="width:100%;font-size:10px;padding:5px" onclick="copySync()">📋 Copia link</button>
-    </div>
-    <div id="gistStatusBar" style="display:none;text-align:center;margin-bottom:4px"></div>
-    <button class="bnv" style="width:100%;font-size:10px;padding:6px;color:var(--rd)" onclick="resetAll()">🔄 Reset risposte</button>
   </div>
+  <details class="sb-coll" id="impostazioniColl">
+    <summary>⚙️ Impostazioni</summary>
+    <div class="sb-coll-body">
+      <button class="bnv" style="width:100%;font-size:11px;padding:7px;margin-bottom:6px" onclick="showSourceMap()">🗺️ Mappa sorgenti</button>
+      <div id="gistStatusBar" style="display:none;text-align:center;margin-bottom:6px;font-size:11px"></div>
+      <div style="display:flex;gap:4px;margin-bottom:4px">
+        <button class="bnv" style="flex:1;font-size:10px;padding:6px;color:var(--ac)" onclick="gistPush()">☁️↑ Push</button>
+        <button class="bnv" style="flex:1;font-size:10px;padding:6px;color:var(--pu)" onclick="gistPull()">☁️↓ Pull</button>
+      </div>
+      <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:4px" onclick="openGistModal()">⚙️ Configura Gist</button>
+      <div style="display:flex;gap:4px;margin-bottom:4px">
+        <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="exportFile()">⬇ Esporta</button>
+        <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="document.getElementById('impF').click()">⬆ Importa</button>
+        <input type="file" id="impF" accept=".json" style="display:none" onchange="importFile(this)">
+      </div>
+      <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:4px" onclick="syncLink()">🔗 Link sync</button>
+      <div id="syncBox" style="display:none;margin-bottom:4px">
+        <input type="text" id="syncUrl" class="sinp" readonly style="font-size:10px;margin-bottom:3px">
+        <button class="bnv" style="width:100%;font-size:10px;padding:5px" onclick="copySync()">📋 Copia link</button>
+      </div>
+      <button class="bnv" style="width:100%;font-size:10px;padding:6px;color:var(--rd)" onclick="resetAll()">🔄 Reset risposte</button>
+    </div>
+  </details>
 </aside>
 
 <div class="main">
@@ -451,9 +471,9 @@ a{color:var(--ac2);text-decoration:none}
 <nav class="mob-nav" id="mobNav">
   <button onclick="toggleSB()"><span class="ico">☰</span>Menu</button>
   <button onclick="showIndex()"><span class="ico">📋</span>Indice</button>
-  <button onclick="showStats()"><span class="ico">📊</span>Stats</button>
   <button onclick="openExamModal()"><span class="ico">🎯</span>Esame</button>
-  <button onclick="gistPush()"><span class="ico">☁️</span>Sync</button>
+  <button onclick="gistPush()"><span class="ico">☁️↑</span>Push</button>
+  <button onclick="gistPull()"><span class="ico">☁️↓</span>Pull</button>
 </nav>
 </div>
 
@@ -518,6 +538,11 @@ function hasSavedProgress() {
 
 /* ===== UTILS ===== */
 function esc(s) { if (!s) return ''; var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function hlSearch(text, sq) {
+  if (!sq || !text) return esc(text);
+  var parts = text.split(new RegExp('(' + sq.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'));
+  return parts.map(function(p, i) { return i % 2 === 1 ? '<mark>' + esc(p) + '</mark>' : esc(p); }).join('');
+}
 function gc(a) { return a.substring(0,2); }
 function closeModal(id) { document.getElementById(id).classList.remove('vis'); }
 function openModal(id) { document.getElementById(id).classList.add('vis'); }
@@ -583,7 +608,7 @@ function doFresh() {
 function filterQs() {
   var q = Q;
   if (S.ca !== '00') q = q.filter(function(x){ return gc(x.area) === S.ca; });
-  if (S.sq) { var s = S.sq.toLowerCase(); q = q.filter(function(x){ return x.text.toLowerCase().indexOf(s) >= 0 || x.opts.some(function(o){ return o.toLowerCase().indexOf(s) >= 0; }); }); }
+  if (S.sq) { var s = S.sq.toLowerCase(); q = q.filter(function(x){ return x.text.toLowerCase().indexOf(s) >= 0 || x.opts.some(function(o){ return o.toLowerCase().indexOf(s) >= 0; }) || (x.exp && x.exp.toLowerCase().indexOf(s) >= 0) || (x.trk && x.trk.toLowerCase().indexOf(s) >= 0); }); }
   if (S.cf === 'flagged') q = q.filter(function(x){ return S.fl.has(x.id); });
   else if (S.cf === 'combo') q = q.filter(function(x){ return x.combo; });
   else if (S.cf === 'eng') q = q.filter(function(x){ return x.lang === 'ENG'; });
@@ -628,10 +653,11 @@ function renderQ() {
 
   var lb = q.lang === 'ENG' ? '<span class="lbg">ENG→ITA</span>' : '';
   var cb = q.combo ? ' <span class="cbg">COMBO</span>' : '';
-  h += '<div class="qhd"><span class="qnm">' + (S.ci+1) + '/' + S.fq.length + ' — #' + q.id + cb + lb + '</span><span class="qar">' + q.area + '</span></div>';
+  var sqLabel = S.sq ? ' <span style="color:var(--yl);font-weight:400;font-size:11px">🔍 ' + esc(S.sq) + '</span>' : '';
+  h += '<div class="qhd"><span class="qnm">' + (S.ci+1) + '/' + S.fq.length + ' — #' + q.id + cb + lb + sqLabel + '</span><span class="qar">' + q.area + '</span></div>';
 
   h += '<div class="qbd">';
-  h += '<div class="qtx">' + esc(q.text) + '</div>';
+  h += '<div class="qtx">' + hlSearch(q.text, S.sq) + '</div>';
 
   if (q.engText) {
     h += '<button class="etog" onclick="var b=document.getElementById(\'engbox\');b.style.display=b.style.display===\'block\'?\'none\':\'block\'">🇬🇧 Mostra originale inglese</button>';
@@ -648,7 +674,7 @@ function renderQ() {
   for (var i = 0; i < q.opts.length; i++) {
     var cl = 'opt';
     if (aw) { if (L[i] === q.ans) cl += ' ok'; else if (L[i] === aw) cl += ' no'; }
-    h += '<div class="' + cl + '" data-qid="' + q.id + '" data-let="' + L[i] + '" onclick="pickAns(this)"><span class="olt">' + L[i] + '</span><span class="otx">' + esc(q.opts[i]) + '</span></div>';
+    h += '<div class="' + cl + '" data-qid="' + q.id + '" data-let="' + L[i] + '" onclick="pickAns(this)"><span class="olt">' + L[i] + '</span><span class="otx">' + hlSearch(q.opts[i], S.sq) + '</span></div>';
   }
   h += '</div>';
 
@@ -979,6 +1005,64 @@ function showSourceMap() {
   }, 50);
 }
 
+/* ===== AUTO-SYNC (pull al caricamento + push quando la pagina viene nascosta) ===== */
+async function autoSyncPull() {
+  var token = localStorage.getItem('ghToken');
+  var gistId = localStorage.getItem('ghGistId');
+  if (!token || !gistId) return; // Nessuna configurazione, salta
+  try {
+    var resp = await fetch('https://api.github.com/gists/' + gistId, {
+      headers: {'Authorization':'token ' + token, 'Accept':'application/vnd.github.v3+json'}
+    });
+    if (!resp.ok) return;
+    var result = await resp.json();
+    var fileInfo = result.files && result.files['prince2_progress.json'];
+    if (!fileInfo) return;
+    var content = fileInfo.content;
+    if (!content && fileInfo.truncated && fileInfo.raw_url) {
+      var rawResp = await fetch(fileInfo.raw_url, {headers:{'Authorization':'token '+token}});
+      content = await rawResp.text();
+    }
+    if (!content) return;
+    var d; try { d = JSON.parse(content); } catch(e) { return; }
+    if (!d || typeof d.an === 'undefined') return;
+    var remFl = (Array.isArray(d.fl)?d.fl:[]).map(function(x){return parseInt(x,10);}).filter(function(x){return !isNaN(x);});
+    var remSn = (Array.isArray(d.sn)?d.sn:[]).map(function(x){return parseInt(x,10);}).filter(function(x){return !isNaN(x);});
+    var remAn = (d.an && typeof d.an === 'object') ? d.an : {};
+    // Merge: il remoto aggiunge ciò che manca in locale (senza sovrascrivere)
+    var added = 0;
+    remFl.forEach(function(x){ if (!S.fl.has(x)) { S.fl.add(x); added++; } });
+    remSn.forEach(function(x){ if (!S.sn.has(x)) { S.sn.add(x); added++; } });
+    for (var k in remAn) { if (!S.an.hasOwnProperty(k)) { S.an[k] = remAn[k]; added++; } }
+    if (added > 0) {
+      saveState();
+      buildSidebar(); filterQs(); updateProgress();
+      // Re-render solo se il modal di resume NON è aperto
+      var resumeModal = document.getElementById('resumeModal');
+      if (!S.em && !(resumeModal && resumeModal.classList.contains('vis'))) renderQ();
+      var ts = d.ts ? d.ts.slice(0,10) : '';
+      showToast('☁️ Sync: +' + added + ' novità ricevute' + (ts ? ' (' + ts + ')' : ''), 'ok');
+      updateGistStatusBar();
+    }
+  } catch(e) { /* auto-sync silenzioso */ }
+}
+// Auto-push silenzioso quando l'utente nasconde la pagina (cambia app, scheda, chiude)
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState !== 'hidden') return;
+  var token = localStorage.getItem('ghToken');
+  var gistId = localStorage.getItem('ghGistId');
+  if (!token || !gistId || !hasSavedProgress()) return;
+  var flArr = [...S.fl].map(function(x){return parseInt(x,10);});
+  var snArr = [...S.sn].map(function(x){return parseInt(x,10);});
+  var d = {fl:flArr, sn:snArr, an:JSON.parse(JSON.stringify(S.an)), ts:new Date().toISOString(), v:2};
+  fetch('https://api.github.com/gists/' + gistId, {
+    method: 'PATCH',
+    keepalive: true, // garantisce completamento anche se la pagina viene chiusa
+    headers: {'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
+    body: JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:JSON.stringify(d,null,2)}}})
+  }).catch(function(){});
+});
+
 /* ===== SYNC via LINK ===== */
 function syncLink() {
   var d = {fl:[...S.fl], sn:[...S.sn], an:S.an};
@@ -1009,7 +1093,18 @@ function syncImport() {
 /* ===== GITHUB GIST SYNC ===== */
 function openGistModal() {
   document.getElementById('ghTokenInp').value = localStorage.getItem('ghToken') || '';
-  document.getElementById('ghGistInp').value = localStorage.getItem('ghGistId') || '';
+  var gistId = localStorage.getItem('ghGistId') || '';
+  document.getElementById('ghGistInp').value = gistId;
+  // Mostra/aggiorna la sezione condivisione se c'è già un Gist ID
+  var shareBox = document.getElementById('gistShareBox');
+  if (gistId) {
+    document.getElementById('gistShareId').value = gistId;
+    var gistUrl = 'https://gist.github.com/' + gistId;
+    document.getElementById('gistShareUrl').href = gistUrl;
+    shareBox.style.display = 'block';
+  } else {
+    shareBox.style.display = 'none';
+  }
   // Non resettare il messaggio di stato se ne è già presente uno (es. avviso da gistPull)
   var statusEl = document.getElementById('gistModalStatus');
   if (!statusEl.innerHTML) statusEl.textContent = '';
@@ -1069,13 +1164,20 @@ function saveGistSettings() {
   }
 
   var msg = '✅ Token salvato';
-  if (savedGistId) msg += ' &nbsp;·&nbsp; Gist ID: <code style="background:var(--sf3);padding:1px 4px;border-radius:3px">' + savedGistId.substring(0,10) + '…</code>';
-  else msg += ' &nbsp;·&nbsp; <span style="color:var(--yl)">Gist ID non inserito — fai prima un Push</span>';
+  if (savedGistId) {
+    msg += ' &nbsp;·&nbsp; Gist ID salvato';
+    // Aggiorna la sezione condivisione
+    document.getElementById('gistShareId').value = savedGistId;
+    document.getElementById('gistShareUrl').href = 'https://gist.github.com/' + savedGistId;
+    document.getElementById('gistShareBox').style.display = 'block';
+  } else {
+    msg += ' &nbsp;·&nbsp; <span style="color:var(--yl)">Gist ID non inserito — fai prima un Push</span>';
+    document.getElementById('gistShareBox').style.display = 'none';
+  }
   statusEl.innerHTML = '<span style="color:var(--gn);font-size:11px">' + msg + '</span>';
 
   updateGistStatusBar();
-  // Chiudi il modal dopo 1.8s così l'utente legge il feedback
-  setTimeout(function(){ closeModal('gistModal'); }, 1800);
+  // Non chiudere automaticamente: l'utente potrebbe voler copiare il Gist ID
 }
 function updateGistStatusBar() {
   var token  = localStorage.getItem('ghToken');
@@ -1125,11 +1227,15 @@ async function gistPush() {
     var result = await resp.json();
     if (result.id) {
       localStorage.setItem('ghGistId', result.id);
+      var gistUrl = result.html_url || ('https://gist.github.com/' + result.id);
       updateGistStatusBar();
       var okMsg = '✅ Push OK ' + new Date().toLocaleTimeString('it-IT') +
-        ' · ' + flArr.length + ' segn · ' + Object.keys(anCopy).length + ' risp · ' + snArr.length + ' viste';
+        ' · ' + flArr.length + ' segn · ' + Object.keys(anCopy).length + ' risp · ' + snArr.length + ' viste' +
+        ' &nbsp;|&nbsp; <strong>Gist ID per altri dispositivi:</strong> <code style="background:var(--sf3);padding:1px 5px;border-radius:3px;user-select:all">' + result.id + '</code>' +
+        ' <button onclick="navigator.clipboard.writeText(\'' + result.id + '\').then(function(){showToast(\'✅ Gist ID copiato!\',\'ok\')}).catch(function(){showToast(\'Copia manualmente l\\u0027ID\',\'info\')})" style="background:var(--ac);color:#fff;border:none;padding:2px 8px;border-radius:4px;font-size:11px;cursor:pointer;margin-left:4px">Copia ID</button>' +
+        ' <a href="' + gistUrl + '" target="_blank" style="font-size:11px;color:var(--ac2);margin-left:4px">Apri Gist ↗</a>';
       bar.innerHTML = '<span class="sync-status sync-ok">' + okMsg + '</span>';
-      showToast('☁️ Push completato!', 'ok');
+      showToast('☁️ Push OK — copia il Gist ID per altri dispositivi', 'ok');
     } else {
       bar.innerHTML = '<span class="sync-status sync-err">❌ Risposta inattesa dal server</span>';
       showToast('❌ Push fallito', 'err');
@@ -1201,8 +1307,12 @@ async function gistPull() {
       for (var k in remAn) { if (!S.an.hasOwnProperty(k)) S.an[k] = remAn[k]; }
     }
 
+    // Reset filtro a "Tutte" per evitare "Nessuna domanda trovata" dopo il pull
+    S.cf = 'all'; S.ca = '00'; S.ci = 0;
     saveState();
     buildSidebar();
+    document.querySelectorAll('.fb').forEach(function(b){ b.classList.remove('on'); });
+    document.querySelector('.fb').classList.add('on');
     filterQs();
     renderQ();
     updateProgress();
@@ -1274,6 +1384,8 @@ fetch('questions.json')
       buildSidebar(); filterQs();
       renderQ();
     }
+    // Auto-sync in background: pull dal Gist per ricevere progressi da altri dispositivi
+    autoSyncPull();
   })
   .catch(function(err) {
     document.getElementById('cnt').innerHTML = '<div class="loading" style="color:var(--rd)"><p style="font-size:16px;margin-bottom:8px">Errore caricamento domande</p><p>' + err.message + '</p><p style="margin-top:12px;font-size:13px;color:var(--tx2)">Assicurati che <code>questions.json</code> sia nella stessa cartella di <code>index.html</code></p></div>';
