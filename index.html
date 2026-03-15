@@ -25,9 +25,9 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation}
 a{color:var(--ac2);text-decoration:none}
 
 /* Layout */
-.app{display:flex;min-height:100vh}
+.app{min-height:100vh}
 .sidebar{width:var(--sw);background:var(--sf);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .25s ease}
-.main{flex:1;margin-left:var(--sw);min-height:100vh}
+.main{margin-left:var(--sw);min-height:100vh}
 .ovrl{display:none;position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.6);z-index:90;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 .ovrl.vis{display:block}
 
@@ -616,7 +616,7 @@ function renderQ() {
   filterQs(); updateProgress();
   if (S.em) { renderExamQ(); return; }
   if (S.fq.length === 0) {
-    c.innerHTML = '<div style="text-align:center;padding:60px 16px;color:var(--tx2)"><div style="font-size:40px;margin-bottom:12px">🔍</div><p style="font-size:16px;font-weight:600;margin-bottom:6px">Nessuna domanda trovata</p><p style="font-size:13px">Cambia filtro o area.</p></div>';
+    c.innerHTML = '<div style="text-align:center;padding:60px 16px;color:var(--tx2)"><div style="font-size:40px;margin-bottom:12px">🔍</div><p style="font-size:16px;font-weight:600;margin-bottom:6px">Nessuna domanda trovata</p><p style="font-size:13px;margin-bottom:20px">Il filtro attivo non ha risultati per quest\'area.</p><button class="bt brev" onclick="S.cf=\'all\';S.ca=\'00\';S.ci=0;saveState();buildSidebar();document.querySelectorAll(\'.fb\').forEach(function(b){b.classList.remove(\'on\')});document.querySelector(\'.fb\').classList.add(\'on\');filterQs();renderQ()">📋 Mostra tutte le domande</button></div>';
     return;
   }
 
@@ -709,7 +709,7 @@ function toggleFlag(el) {
 }
 function navQ(d) { S.ci = Math.max(0, Math.min(S.fq.length-1, S.ci+d)); saveState(); renderQ(); scrollTo(0,0); }
 function resetOne(el) { var id = parseInt(el.dataset.qid); if (S.an[id]) delete S.an[id]; saveState(); renderQ(); }
-function resetAll() { if (!confirm("Reset TUTTE le risposte?\nLe segnalazioni verranno mantenute.")) return; S.an = {}; S.sn = new Set(); saveState(); updateProgress(); renderQ(); }
+function resetAll() { if (!confirm("Reset TUTTE le risposte?\nLe segnalazioni verranno mantenute.")) return; S.an = {}; S.sn = new Set(); S.cf = 'all'; S.ca = '00'; S.ci = 0; saveState(); buildSidebar(); document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('on')}); document.querySelector('.fb').classList.add('on'); filterQs(); updateProgress(); renderQ(); }
 
 /* ===== STATS ===== */
 function showStats() {
@@ -1269,6 +1269,9 @@ fetch('questions.json')
     if (hasSavedProgress()) {
       checkResume();
     } else {
+      // Nessun progresso: reimposta filtro e area ai default per evitare "Nessuna domanda trovata"
+      S.cf = 'all'; S.ca = '00'; S.ci = 0; saveState();
+      buildSidebar(); filterQs();
       renderQ();
     }
   })
