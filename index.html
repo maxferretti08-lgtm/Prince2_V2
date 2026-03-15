@@ -930,21 +930,46 @@ async function gistPush() {
   var bar = document.getElementById('gistStatusBar');
   bar.style.display = 'block'; bar.innerHTML = '<span class="sync-status sync-pending">⏳ Invio...</span>';
   try {
-    var d = {fl:[...S.fl],sn:[...S.sn],an:S.an,ts:new Date().toISOString()};
+    // Deep copy di tutti i dati: evita problemi di reference e garantisce snapshot coerente
+    var flArr = [...S.fl].map(function(x){return parseInt(x,10);});
+    var snArr = [...S.sn].map(function(x){return parseInt(x,10);});
+    var anCopy = JSON.parse(JSON.stringify(S.an));
+    var d = {
+      fl: flArr,
+      sn: snArr,
+      an: anCopy,
+      ts: new Date().toISOString(),
+      v: 2  // versione formato, utile per compatibilità futura
+    };
+    var payload = JSON.stringify(d, null, 2);
     var gistId = localStorage.getItem('ghGistId');
     var method = gistId ? 'PATCH' : 'POST';
     var url = gistId ? 'https://api.github.com/gists/'+gistId : 'https://api.github.com/gists';
-    var resp = await fetch(url, {method:method, headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'}, body:JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:JSON.stringify(d,null,2)}}})});
+    var resp = await fetch(url, {
+      method: method,
+      headers: {'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
+      body: JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:payload}}})
+    });
+    if (!resp.ok) {
+      var errJson = await resp.json().catch(function(){return {};});
+      bar.innerHTML = '<span class="sync-status sync-err">❌ HTTP ' + resp.status + ': ' + (errJson.message||'errore') + '</span>';
+      return;
+    }
     var result = await resp.json();
-    if (result.id) { localStorage.setItem('ghGistId', result.id); bar.innerHTML = '<span class="sync-status sync-ok">✅ Salvato ' + new Date().toLocaleTimeString('it-IT') + '</span>'; }
-    else { bar.innerHTML = '<span class="sync-status sync-err">❌ Errore: ' + (result.message||'?') + '</span>'; }
+    if (result.id) {
+      localStorage.setItem('ghGistId', result.id);
+      updateGistStatusBar();
+      bar.innerHTML = '<span class="sync-status sync-ok">✅ Push OK ' + new Date().toLocaleTimeString('it-IT') +
+        ' &nbsp;·&nbsp; ' + flArr.length + ' segn &nbsp;·&nbsp; ' + Object.keys(anCopy).length + ' risp &nbsp;·&nbsp; ' + snArr.length + ' viste</span>';
+    } else {
+      bar.innerHTML = '<span class="sync-status sync-err">❌ Risposta inattesa dal server</span>';
+    }
   } catch(e) { bar.innerHTML = '<span class="sync-status sync-err">❌ ' + e.message + '</span>'; }
 }
 async function gistPull() {
   var token = localStorage.getItem('ghToken'), gistId = localStorage.getItem('ghGistId');
   if (!token) { openGistModal(); return; }
   if (!gistId) {
-    // Apri direttamente le impostazioni invece di limitarsi a un alert
     document.getElementById('gistModalStatus').innerHTML =
       '<span style="color:var(--yl)">⚠️ Inserisci il Gist ID e clicca Salva, poi riprova il Pull.</span>';
     openGistModal();
@@ -953,16 +978,67 @@ async function gistPull() {
   var bar = document.getElementById('gistStatusBar');
   bar.style.display = 'block'; bar.innerHTML = '<span class="sync-status sync-pending">⏳ Ricezione...</span>';
   try {
-    var resp = await fetch('https://api.github.com/gists/'+gistId, {headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});
+    var resp = await fetch('https://api.github.com/gists/'+gistId, {
+      headers: {'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}
+    });
+    if (!resp.ok) { bar.innerHTML = '<span class="sync-status sync-err">❌ HTTP ' + resp.status + ' — Gist ID errato?</span>'; return; }
     var result = await resp.json();
-    var content = result.files && result.files['prince2_progress.json'] && result.files['prince2_progress.json'].content;
-    if (!content) { bar.innerHTML = '<span class="sync-status sync-err">❌ File non trovato nel Gist</span>'; return; }
-    var d = JSON.parse(content);
-    var mode = confirm("Dati ricevuti dal Gist (" + (d.ts||'?') + ").\n\nOK = Unisci\nAnnulla = Sostituisci");
-    if (mode) { if(d.fl) d.fl.forEach(function(x){S.fl.add(x)}); if(d.sn) d.sn.forEach(function(x){S.sn.add(x)}); if(d.an) for(var k in d.an){if(!S.an[k])S.an[k]=d.an[k]} }
-    else { S.fl = new Set(d.fl||[]); S.sn = new Set(d.sn||[]); S.an = d.an||{}; }
-    saveState(); buildSidebar(); filterQs(); renderQ(); updateProgress();
-    bar.innerHTML = '<span class="sync-status sync-ok">✅ Ricevuto · Viste: ' + S.sn.size + '</span>';
+
+    // Recupera il file dal Gist
+    var fileInfo = result.files && result.files['prince2_progress.json'];
+    if (!fileInfo) { bar.innerHTML = '<span class="sync-status sync-err">❌ File prince2_progress.json non trovato nel Gist</span>'; return; }
+
+    // Gestisce il contenuto truncated (GitHub tronca file > ~1MB, recupera dal raw_url)
+    var content = fileInfo.content;
+    if (!content && fileInfo.truncated && fileInfo.raw_url) {
+      var rawResp = await fetch(fileInfo.raw_url, {headers:{'Authorization':'token '+token}});
+      content = await rawResp.text();
+    }
+    if (!content) { bar.innerHTML = '<span class="sync-status sync-err">❌ Contenuto vuoto nel Gist</span>'; return; }
+
+    // Parse e validazione
+    var d;
+    try { d = JSON.parse(content); } catch(pe) { bar.innerHTML = '<span class="sync-status sync-err">❌ JSON non valido nel Gist</span>'; return; }
+    if (!d || typeof d !== 'object' || typeof d.an === 'undefined') {
+      bar.innerHTML = '<span class="sync-status sync-err">❌ Formato dati non riconosciuto (campo "an" mancante)</span>'; return;
+    }
+
+    // Conversione type-safe: garantisce sempre interi nelle Set, indipendentemente da come erano stati serializzati
+    var remFl = (Array.isArray(d.fl) ? d.fl : []).map(function(x){return parseInt(x,10);}).filter(function(x){return !isNaN(x);});
+    var remSn = (Array.isArray(d.sn) ? d.sn : []).map(function(x){return parseInt(x,10);}).filter(function(x){return !isNaN(x);});
+    var remAn = (d.an && typeof d.an === 'object') ? d.an : {};
+    var remAnCount = Object.keys(remAn).length;
+    var remTs = (d.ts||'').slice(0,16).replace('T',' ') || '?';
+
+    // Dialog informativo: mostra esattamente cosa c'è nel Gist
+    var msg = 'Dati trovati nel Gist (' + remTs + '):\n' +
+              '  • ' + remFl.length + ' domande segnalate\n' +
+              '  • ' + remAnCount + ' risposte date\n' +
+              '  • ' + remSn.length + ' domande viste\n\n' +
+              'Premi OK per SOSTITUIRE i dati locali con questi.\n' +
+              'Premi Annulla per UNIRE (le risposte locali hanno priorità).';
+    var replace = confirm(msg);
+
+    if (replace) {
+      // Sostituisce completamente — copia profonda per evitare mutazioni accidentali
+      S.fl = new Set(remFl);
+      S.sn = new Set(remSn);
+      S.an = JSON.parse(JSON.stringify(remAn));
+    } else {
+      // Unisce: aggiunge dati remoti senza sovrascrivere quelli locali
+      remFl.forEach(function(x){ S.fl.add(x); });
+      remSn.forEach(function(x){ S.sn.add(x); });
+      for (var k in remAn) { if (!S.an.hasOwnProperty(k)) S.an[k] = remAn[k]; }
+    }
+
+    saveState();
+    buildSidebar();
+    filterQs();
+    renderQ();
+    updateProgress();
+    var mode = replace ? 'Sostituito' : 'Unito';
+    bar.innerHTML = '<span class="sync-status sync-ok">✅ Pull OK · ' + mode + ' &nbsp;·&nbsp; ' +
+      S.fl.size + ' segn &nbsp;·&nbsp; ' + Object.keys(S.an).length + ' risp &nbsp;·&nbsp; ' + S.sn.size + ' viste</span>';
   } catch(e) { bar.innerHTML = '<span class="sync-status sync-err">❌ ' + e.message + '</span>'; }
 }
 
