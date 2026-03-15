@@ -25,14 +25,14 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation}
 a{color:var(--ac2);text-decoration:none}
 
 /* Layout */
-.app{display:flex;min-height:100vh;overflow-x:hidden}
+.app{display:flex;min-height:100vh}
 .sidebar{width:var(--sw);background:var(--sf);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .25s ease}
 .main{flex:1;margin-left:var(--sw);min-height:100vh}
-.ovrl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;backdrop-filter:blur(2px)}
+.ovrl{display:none;position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.6);z-index:90;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 .ovrl.vis{display:block}
 
 /* Header */
-.hdr{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);padding:10px 20px;display:flex;align-items:center;gap:12px}
+.hdr{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.95);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);padding:10px 20px;display:flex;align-items:center;gap:12px}
 .hdr h1{font-size:14px;font-weight:700;white-space:nowrap;letter-spacing:-.2px}
 .hdr h1 em{color:var(--ac);font-style:normal}
 .pw{flex:1;display:flex;align-items:center;gap:8px}
@@ -48,9 +48,9 @@ a{color:var(--ac2);text-decoration:none}
 .shd-logo{font-size:18px}
 .shd h2{font-size:11px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:1.5px}
 .sbx{padding:8px 10px 4px}
-.sn{flex:1;overflow-y:auto;padding:4px 6px}
+.sn{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 6px}
 .sn::-webkit-scrollbar{width:4px}.sn::-webkit-scrollbar-track{background:transparent}.sn::-webkit-scrollbar-thumb{background:var(--bd);border-radius:2px}
-.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:12.5px;color:var(--tx2);transition:all .12s;user-select:none}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:12.5px;color:var(--tx2);transition:all .12s;-webkit-user-select:none;user-select:none}
 .ni:hover{background:var(--sf3);color:var(--tx)}
 .ni.on{background:var(--acg);color:var(--ac);font-weight:600}
 .ni .ct{margin-left:auto;font-size:10px;font-weight:700;background:var(--sf3);padding:1px 6px;border-radius:8px;min-width:22px;text-align:center;color:var(--tx3)}
@@ -144,7 +144,7 @@ a{color:var(--ac2);text-decoration:none}
 .itb tr{cursor:pointer}
 
 /* Exam bar */
-.exb{position:sticky;top:52px;z-index:40;background:rgba(13,17,23,.97);backdrop-filter:blur(16px);padding:8px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--bd)}
+.exb{position:sticky;top:52px;z-index:40;background:rgba(13,17,23,.97);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);padding:8px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--bd)}
 /* Exam dots */
 .exam-dots-wrap{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;padding:8px 16px 16px}
 .exam-dot{width:26px;height:26px;border-radius:5px;font-size:9px;font-weight:600;background:var(--sf2);color:var(--tx2);border:1px solid var(--bd);cursor:pointer;transition:all .1s;display:inline-flex;align-items:center;justify-content:center}
@@ -165,10 +165,11 @@ a{color:var(--ac2);text-decoration:none}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* Modal */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-bg{display:none;position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .modal-bg.vis{display:flex}
 .modal{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:24px;max-width:500px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.6);animation:mslide .2s ease}
 @keyframes mslide{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes mslide-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 .modal h2{font-size:18px;font-weight:700;margin-bottom:6px}
 .modal p{font-size:13px;color:var(--tx2);margin-bottom:16px;line-height:1.6}
 .modal-row{display:flex;gap:8px;margin-top:10px}
@@ -281,7 +282,6 @@ a{color:var(--ac2);text-decoration:none}
   /* Modal */
   .modal{border-radius:16px 16px 0 0;max-width:100%;width:100%;position:fixed;bottom:0;left:0;right:0;margin:0;padding:24px 20px calc(20px + env(safe-area-inset-bottom,0px));animation:mslide-up .25s ease}
   .modal-bg.vis{align-items:flex-end}
-  @keyframes mslide-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
   .diff-btns{gap:6px}
   .diff-btn{padding:12px 10px}
   .modal-row{gap:6px}
