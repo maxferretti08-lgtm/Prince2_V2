@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>PRINCE2 7 Foundation - Studio</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -20,12 +20,12 @@
   --r:10px;--sw:256px;
   --sh:0 8px 24px rgba(0,0,0,.4)
 }
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
-button{font-family:inherit;cursor:pointer;border:none}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation}
 a{color:var(--ac2);text-decoration:none}
 
 /* Layout */
-.app{display:flex;min-height:100vh}
+.app{display:flex;min-height:100vh;overflow-x:hidden}
 .sidebar{width:var(--sw);background:var(--sf);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .25s ease}
 .main{flex:1;margin-left:var(--sw);min-height:100vh}
 .ovrl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;backdrop-filter:blur(2px)}
@@ -145,6 +145,11 @@ a{color:var(--ac2);text-decoration:none}
 
 /* Exam bar */
 .exb{position:sticky;top:52px;z-index:40;background:rgba(13,17,23,.97);backdrop-filter:blur(16px);padding:8px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--bd)}
+/* Exam dots */
+.exam-dots-wrap{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;padding:8px 16px 16px}
+.exam-dot{width:26px;height:26px;border-radius:5px;font-size:9px;font-weight:600;background:var(--sf2);color:var(--tx2);border:1px solid var(--bd);cursor:pointer;transition:all .1s;display:inline-flex;align-items:center;justify-content:center}
+.exam-dot.answered{background:var(--ac);color:#fff;border-color:var(--ac)}
+.exam-dot.current{border:2px solid var(--ac2)}
 .etm{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700}
 .etm.warn{color:var(--rd)}
 .etm.ok{color:var(--gn)}
@@ -209,23 +214,124 @@ a{color:var(--ac2);text-decoration:none}
 .sec-title{font-size:20px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .sec-title small{font-size:13px;color:var(--tx2);font-weight:400}
 
+/* Toast notification */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);z-index:500;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:10px 18px;font-size:13px;font-weight:600;color:var(--tx);box-shadow:0 8px 32px rgba(0,0,0,.5);opacity:0;transition:all .3s ease;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:var(--gn);color:var(--gn)}
+.toast.err{border-color:var(--rd);color:var(--rd)}
+.toast.info{border-color:var(--ac);color:var(--ac)}
+#toastEl{display:block}
+
 /* Responsive */
 @media(max-width:768px){
-  .sidebar{transform:translateX(-100%);width:270px}
+  /* Sidebar */
+  .sidebar{transform:translateX(-100%);width:min(290px,85vw)}
   .sidebar.op{transform:translateX(0)}
-  .main{margin-left:0}
-  .bm{display:block}
+  .main{margin-left:0;padding-bottom:70px}
+
+  /* Header */
+  .bm{display:flex;align-items:center;justify-content:center;min-width:40px;min-height:40px}
+  .hdr{padding:8px 12px;gap:8px}
   .hdr h1{font-size:13px}
-  .cnt{padding:14px}
-  .qbd{padding:14px 14px 10px}
-  .qhd,.qact{padding:10px 14px}
-  .sgr{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
-  .diff-btns{flex-direction:column}
-  .hdr-btns .bt{font-size:10px;padding:5px 8px}
+  .hdr-btns .bt{font-size:11px;padding:7px 10px;min-height:36px}
+  .pw{gap:5px}
+  .ptx{font-size:10px}
+
+  /* Content */
+  .cnt{padding:12px;padding-bottom:80px}
+
+  /* Question card */
+  .qhd{padding:10px 14px}
+  .qbd{padding:16px 14px 12px}
+  .qtx{font-size:16px;line-height:1.7}
+  .qact{padding:10px 12px;gap:6px;flex-wrap:wrap}
+
+  /* Options — tap targets grandi */
+  .opt{padding:14px 12px;font-size:15px;gap:10px;-webkit-tap-highlight-color:transparent}
+  .olt{width:30px;height:30px;font-size:12px;flex-shrink:0}
+
+  /* Action buttons larger for touch */
+  .bt{min-height:40px;padding:8px 14px;font-size:13px}
+  .brev{min-height:42px;padding:9px 16px;flex:1}
+  .bfl{min-height:42px;padding:9px 12px;font-size:12px}
+  .brst{min-height:36px;padding:6px 12px}
+  .bt.bnv{min-height:44px;padding:10px 20px;font-size:18px;line-height:1}
+  /* qact su mobile: flex wrap in 2 righe */
+  .qact{flex-wrap:wrap;gap:7px}
+  .qact .brev{flex:2;min-width:120px}
+  .qact .bfl{flex:1;min-width:100px}
+  .qact .brst{order:5}
+  .qact .spc{display:none}
+  .qact .bt.bnv{flex:1;order:6;text-align:center}
+
+  /* Stats grid */
+  .sgr{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+  .scd{padding:12px}
+  .svl{font-size:24px}
+
+  /* Exam */
+  .exb{padding:6px 12px;gap:10px}
+  .etm{font-size:15px}
+  .esc{font-size:11px}
+  .exam-dots-wrap{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;padding:10px 12px 14px}
+  .exam-dot{width:30px;height:30px;border-radius:6px;font-size:10px;font-weight:700;border:2px solid var(--bd);background:var(--sf2);color:var(--tx2);cursor:pointer;transition:all .1s;display:inline-flex;align-items:center;justify-content:center}
+  .exam-dot.answered{background:var(--ac);color:#fff;border-color:var(--ac)}
+  .exam-dot.current{border-color:var(--ac2);outline:2px solid var(--ac2)}
+
+  /* Modal */
+  .modal{border-radius:16px 16px 0 0;max-width:100%;width:100%;position:fixed;bottom:0;left:0;right:0;margin:0;padding:24px 20px calc(20px + env(safe-area-inset-bottom,0px));animation:mslide-up .25s ease}
+  .modal-bg.vis{align-items:flex-end}
+  @keyframes mslide-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+  .diff-btns{gap:6px}
+  .diff-btn{padding:12px 10px}
+  .modal-row{gap:6px}
+  .modal-row .bt{padding:11px 10px;font-size:13px}
+
+  /* Bottom nav */
+  .mob-nav{display:flex}
+
+  /* Sidebar action buttons */
+  .sac .bnv{min-height:38px;font-size:11px;padding:8px 6px}
+  .bex{min-height:44px;font-size:13px;padding:11px}
+
+  /* Tables on mobile */
+  .itb th:nth-child(3),.itb td:nth-child(3){max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .itb th:nth-child(2),.itb td:nth-child(2){max-width:90px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .itb{font-size:11px}
+
+  /* Source map hidden on mobile (too wide) */
+  .src-table-wrap{font-size:10px}
+
+  /* Exam results */
+  .eres{padding:16px}
+  .eres h2{font-size:18px}
+
+  /* Reveal */
+  .qrv{margin-top:12px;padding-top:12px}
+  .qaw{font-size:14px}
+  .qexp,.qtrk{font-size:13px;line-height:1.7}
+
+  /* Collapsible */
+  .coll summary{font-size:13px;padding:8px 0}
+
+  /* Resume card */
+  .resume-card{padding:16px}
+  .rs-stat .n{font-size:20px}
+
+  /* Toast at top on mobile */
+  .toast{top:70px;bottom:auto;transform:translateX(-50%) translateY(-20px)}
+  .toast.show{transform:translateX(-50%) translateY(0)}
 }
+
+/* Bottom nav bar — mobile only */
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:80;background:var(--sf);border-top:1px solid var(--bd);padding:6px 12px calc(6px + env(safe-area-inset-bottom,0px));gap:6px;justify-content:space-around;align-items:center}
+.mob-nav button{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;color:var(--tx2);font-size:10px;font-weight:600;padding:4px 6px;border-radius:6px;min-width:44px;min-height:44px;justify-content:center;transition:color .12s}
+.mob-nav button:hover,.mob-nav button.on{color:var(--ac)}
+.mob-nav button .ico{font-size:18px;line-height:1}
 </style>
 </head>
 <body>
+<div id="toastEl" class="toast"></div>
 <div class="app">
 <div class="ovrl" id="ovrl" onclick="toggleSB()"></div>
 
@@ -341,6 +447,14 @@ a{color:var(--ac2);text-decoration:none}
     <div class="loading"><div class="spin"></div><p>Caricamento domande...</p></div>
   </div>
 </div>
+<!-- Bottom nav mobile -->
+<nav class="mob-nav" id="mobNav">
+  <button onclick="toggleSB()"><span class="ico">☰</span>Menu</button>
+  <button onclick="showIndex()"><span class="ico">📋</span>Indice</button>
+  <button onclick="showStats()"><span class="ico">📊</span>Stats</button>
+  <button onclick="openExamModal()"><span class="ico">🎯</span>Esame</button>
+  <button onclick="gistPush()"><span class="ico">☁️</span>Sync</button>
+</nav>
 </div>
 
 <script>
@@ -380,17 +494,23 @@ var SRC_PATTERNS = [
   {col:'SIM2-ENG',re:/SIM[_-]+2[_-]+ENG|SIM[_-]+ENG[_-]+2/i}
 ];
 
-var S = {ca:'00',cf:'all',ci:0,fq:[],fl:new Set(),sn:new Set(),an:{},sq:'',em:false,eq:[],ea:{},es:null,et:null,examDiff:'easy'};
+var S = {ca:'00',cf:'all',ci:0,lq:null,fq:[],fl:new Set(),sn:new Set(),an:{},sq:'',em:false,eq:[],ea:{},es:null,et:null,examDiff:'easy'};
 
 /* ===== PERSISTENCE ===== */
 function loadState() {
   try {
     var v = localStorage.getItem('p2s7');
-    if (v) { var p = JSON.parse(v); S.fl = new Set(p.fl||[]); S.sn = new Set(p.sn||[]); S.an = p.an||{}; S.ci = p.ci||0; S.ca = p.ca||'00'; S.cf = p.cf||'all'; }
+    if (v) {
+      var p = JSON.parse(v);
+      S.fl = new Set((p.fl||[]).map(function(x){return parseInt(x,10);}));
+      S.sn = new Set((p.sn||[]).map(function(x){return parseInt(x,10);}));
+      S.an = p.an||{}; S.ci = p.ci||0; S.ca = p.ca||'00'; S.cf = p.cf||'all';
+      S.lq = p.lq||null;
+    }
   } catch(e) {}
 }
 function saveState() {
-  try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,ci:S.ci,ca:S.ca,cf:S.cf})); } catch(e) {}
+  try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq})); } catch(e) {}
 }
 function hasSavedProgress() {
   return S.sn.size > 0 || Object.keys(S.an).length > 0;
@@ -401,6 +521,19 @@ function esc(s) { if (!s) return ''; var d = document.createElement('div'); d.te
 function gc(a) { return a.substring(0,2); }
 function closeModal(id) { document.getElementById(id).classList.remove('vis'); }
 function openModal(id) { document.getElementById(id).classList.add('vis'); }
+
+/* ===== TOAST ===== */
+var _toastTimer = null;
+function showToast(msg, type) {
+  var el = document.getElementById('toastEl');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'toast' + (type ? ' ' + type : '');
+  void el.offsetWidth; // reflow
+  el.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 3200);
+}
 
 /* ===== RESUME SCREEN ===== */
 function checkResume() {
@@ -419,20 +552,31 @@ function checkResume() {
 }
 function doResume() {
   closeModal('resumeModal');
-  // Restore filter state
-  var btns = document.querySelectorAll('.fb');
-  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('on');
-  var fBtns = document.querySelectorAll('.fb');
-  for (var i = 0; i < fBtns.length; i++) {
-    var fb = fBtns[i];
-    if (fb.getAttribute('onclick') && fb.getAttribute('onclick').indexOf("'" + S.cf + "'") >= 0) fb.classList.add('on');
+  // Ripristina pulsante filtro attivo
+  document.querySelectorAll('.fb').forEach(function(fb) {
+    var oc = fb.getAttribute('onclick') || '';
+    if (oc.indexOf("'" + S.cf + "'") >= 0) fb.classList.add('on');
+    else fb.classList.remove('on');
+  });
+  buildSidebar(); filterQs();
+  // Naviga all'ultima domanda vista (per ID, non per indice)
+  if (S.lq !== null) {
+    var idx = S.fq.findIndex ? S.fq.findIndex(function(x){ return x.id === S.lq; }) : -1;
+    if (idx < 0) { // fallback se findIndex non disponibile o domanda non nel filtro attuale
+      for (var i = 0; i < S.fq.length; i++) { if (S.fq[i].id === S.lq) { idx = i; break; } }
+    }
+    if (idx >= 0) S.ci = idx;
   }
-  buildSidebar(); filterQs(); renderQ();
+  renderQ();
+  scrollTo(0, 0);
 }
 function doFresh() {
   closeModal('resumeModal');
-  S.ci = 0; S.ca = '00'; S.cf = 'all';
-  buildSidebar(); filterQs(); renderQ();
+  // Solo reset navigazione, le risposte restano (usa Reset dal menu per azzerare tutto)
+  S.ci = 0; S.ca = '00'; S.cf = 'all'; S.lq = null; saveState();
+  document.querySelectorAll('.fb').forEach(function(fb){ fb.classList.remove('on'); });
+  document.querySelector('.fb').classList.add('on'); // "Tutte" è il primo
+  buildSidebar(); filterQs(); renderQ(); scrollTo(0,0);
 }
 
 /* ===== FILTERING ===== */
@@ -477,7 +621,7 @@ function renderQ() {
   }
 
   var q = S.fq[S.ci], fg = S.fl.has(q.id), aw = S.an[q.id];
-  S.sn.add(q.id); saveState();
+  S.sn.add(q.id); S.lq = q.id; saveState();
 
   var L = ['A','B','C','D'];
   var h = '<div class="qc">';
@@ -545,7 +689,24 @@ function renderQ() {
 /* ===== INTERACTIONS ===== */
 function pickAns(el) { var id = parseInt(el.dataset.qid), l = el.dataset.let; if (S.an[id]) return; S.an[id] = l; saveState(); renderQ(); }
 function toggleRev() { var r = document.getElementById('rv'); r.classList.toggle('vis'); document.getElementById('brv').textContent = r.classList.contains('vis') ? 'Nascondi' : 'Mostra risposta'; }
-function toggleFlag(el) { var id = parseInt(el.dataset.qid); if (S.fl.has(id)) S.fl.delete(id); else S.fl.add(id); saveState(); renderQ(); }
+function toggleFlag(el) {
+  var id = parseInt(el.dataset.qid);
+  if (S.fl.has(id)) S.fl.delete(id); else S.fl.add(id);
+  var isFlagged = S.fl.has(id);
+  saveState();
+  showToast(isFlagged ? '⚠️ Domanda segnalata' : 'Segnalazione rimossa', isFlagged ? 'info' : '');
+  // Se il filtro attivo è "Segnalate", aggiorna la lista (la domanda deve sparire/apparire)
+  if (S.cf === 'flagged') {
+    // Preserva lo stato reveal prima del re-render
+    var wasRevealed = document.getElementById('rv') && document.getElementById('rv').classList.contains('vis');
+    renderQ();
+    if (wasRevealed && document.getElementById('rv')) document.getElementById('rv').classList.add('vis');
+    return;
+  }
+  // Altrimenti aggiorna solo il bottone in-place (preserva reveal, evita scroll-jump)
+  el.textContent = isFlagged ? '⚠️ Segnalata' : '⚠️ Segna';
+  if (isFlagged) el.classList.add('fg'); else el.classList.remove('fg');
+}
 function navQ(d) { S.ci = Math.max(0, Math.min(S.fq.length-1, S.ci+d)); saveState(); renderQ(); scrollTo(0,0); }
 function resetOne(el) { var id = parseInt(el.dataset.qid); if (S.an[id]) delete S.an[id]; saveState(); renderQ(); }
 function resetAll() { if (!confirm("Reset TUTTE le risposte?\nLe segnalazioni verranno mantenute.")) return; S.an = {}; S.sn = new Set(); saveState(); updateProgress(); renderQ(); }
@@ -699,8 +860,12 @@ function renderExamQ() {
   }
   var op = '';
   for (var i = 0; i < q.opts.length; i++) { var cl = 'opt' + (aw === L[i] ? ' sel' : ''); op += '<div class="' + cl + '" data-qid="' + q.id + '" data-let="' + L[i] + '" onclick="examPick(this)"><span class="olt">' + L[i] + '</span><span class="otx">' + esc(q.opts[i]) + '</span></div>'; }
-  var dots = '<div style="display:flex;gap:3px;justify-content:center;flex-wrap:wrap;padding:8px 16px 16px">';
-  for (var i = 0; i < S.eq.length; i++) { var ea = S.ea[S.eq[i].id], cur = i === S.ci; dots += '<button style="width:26px;height:26px;border-radius:5px;font-size:9px;font-weight:600;background:' + (ea?'var(--ac)':'var(--sf2)') + ';color:' + (ea?'#fff':'var(--tx2)') + ';border:' + (cur?'2px solid var(--ac2)':'1px solid var(--bd)') + ';cursor:pointer;transition:all .1s" onclick="S.ci=' + i + ';renderExamQ()">' + (i+1) + '</button>'; }
+  var dots = '<div class="exam-dots-wrap">';
+  for (var i = 0; i < S.eq.length; i++) {
+    var ea = S.ea[S.eq[i].id], cur = i === S.ci;
+    var dc = 'exam-dot' + (ea ? ' answered' : '') + (cur ? ' current' : '');
+    dots += '<button class="' + dc + '" onclick="S.ci=' + i + ';renderExamQ()">' + (i+1) + '</button>';
+  }
   dots += '</div>';
   c.innerHTML = '<div class="qc">' +
     '<div class="qhd"><span class="qnm">Domanda ' + (S.ci+1) + '/60 — #' + q.id + '</span><span class="qar">' + q.area + '</span></div>' +
@@ -952,19 +1117,24 @@ async function gistPush() {
     });
     if (!resp.ok) {
       var errJson = await resp.json().catch(function(){return {};});
-      bar.innerHTML = '<span class="sync-status sync-err">❌ HTTP ' + resp.status + ': ' + (errJson.message||'errore') + '</span>';
+      var errMsg = 'HTTP ' + resp.status + ': ' + (errJson.message||'errore');
+      bar.innerHTML = '<span class="sync-status sync-err">❌ ' + errMsg + '</span>';
+      showToast('❌ Push — ' + errMsg, 'err');
       return;
     }
     var result = await resp.json();
     if (result.id) {
       localStorage.setItem('ghGistId', result.id);
       updateGistStatusBar();
-      bar.innerHTML = '<span class="sync-status sync-ok">✅ Push OK ' + new Date().toLocaleTimeString('it-IT') +
-        ' &nbsp;·&nbsp; ' + flArr.length + ' segn &nbsp;·&nbsp; ' + Object.keys(anCopy).length + ' risp &nbsp;·&nbsp; ' + snArr.length + ' viste</span>';
+      var okMsg = '✅ Push OK ' + new Date().toLocaleTimeString('it-IT') +
+        ' · ' + flArr.length + ' segn · ' + Object.keys(anCopy).length + ' risp · ' + snArr.length + ' viste';
+      bar.innerHTML = '<span class="sync-status sync-ok">' + okMsg + '</span>';
+      showToast('☁️ Push completato!', 'ok');
     } else {
       bar.innerHTML = '<span class="sync-status sync-err">❌ Risposta inattesa dal server</span>';
+      showToast('❌ Push fallito', 'err');
     }
-  } catch(e) { bar.innerHTML = '<span class="sync-status sync-err">❌ ' + e.message + '</span>'; }
+  } catch(e) { bar.innerHTML = '<span class="sync-status sync-err">❌ ' + e.message + '</span>'; showToast('❌ ' + e.message, 'err'); }
 }
 async function gistPull() {
   var token = localStorage.getItem('ghToken'), gistId = localStorage.getItem('ghGistId');
@@ -981,7 +1151,7 @@ async function gistPull() {
     var resp = await fetch('https://api.github.com/gists/'+gistId, {
       headers: {'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}
     });
-    if (!resp.ok) { bar.innerHTML = '<span class="sync-status sync-err">❌ HTTP ' + resp.status + ' — Gist ID errato?</span>'; return; }
+    if (!resp.ok) { var em = 'HTTP ' + resp.status + ' — Gist ID errato?'; bar.innerHTML = '<span class="sync-status sync-err">❌ ' + em + '</span>'; showToast('❌ Pull — ' + em, 'err'); return; }
     var result = await resp.json();
 
     // Recupera il file dal Gist
@@ -1037,9 +1207,10 @@ async function gistPull() {
     renderQ();
     updateProgress();
     var mode = replace ? 'Sostituito' : 'Unito';
-    bar.innerHTML = '<span class="sync-status sync-ok">✅ Pull OK · ' + mode + ' &nbsp;·&nbsp; ' +
-      S.fl.size + ' segn &nbsp;·&nbsp; ' + Object.keys(S.an).length + ' risp &nbsp;·&nbsp; ' + S.sn.size + ' viste</span>';
-  } catch(e) { bar.innerHTML = '<span class="sync-status sync-err">❌ ' + e.message + '</span>'; }
+    bar.innerHTML = '<span class="sync-status sync-ok">✅ Pull OK · ' + mode + ' · ' +
+      S.fl.size + ' segn · ' + Object.keys(S.an).length + ' risp · ' + S.sn.size + ' viste</span>';
+    showToast('☁️ Pull OK — ' + mode + '!', 'ok');
+  } catch(e) { bar.innerHTML = '<span class="sync-status sync-err">❌ ' + e.message + '</span>'; showToast('❌ ' + e.message, 'err'); }
 }
 
 /* ===== EXPORT / IMPORT ===== */
@@ -1079,7 +1250,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowRight') navQ(1);
   else if (e.key === 'ArrowLeft') navQ(-1);
   else if (e.key === ' ') { e.preventDefault(); toggleRev(); }
-  else if (e.key === 'f') { var q = S.fq[S.ci]; if (q) { if(S.fl.has(q.id)) S.fl.delete(q.id); else S.fl.add(q.id); saveState(); renderQ(); } }
+  else if (e.key === 'f') { var q = S.fq[S.ci]; if (q) { if(S.fl.has(q.id)) S.fl.delete(q.id); else S.fl.add(q.id); var isFl = S.fl.has(q.id); saveState(); var btn = document.querySelector('.bfl'); if(btn){ btn.textContent = isFl ? '⚠️ Segnalata' : '⚠️ Segna'; if(isFl) btn.classList.add('fg'); else btn.classList.remove('fg'); } showToast(isFl ? '⚠️ Segnalata' : 'Segnalazione rimossa', isFl ? 'info' : ''); } }
   else if ('abcd'.indexOf(e.key.toLowerCase()) >= 0) { var q = S.fq[S.ci]; if (q && !S.an[q.id]) { S.an[q.id] = e.key.toUpperCase(); saveState(); renderQ(); } }
 });
 
