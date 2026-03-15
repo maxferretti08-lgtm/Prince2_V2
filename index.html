@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>PRINCE2 7 Foundation - Studio</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -47,11 +47,12 @@ a{color:var(--ac2);text-decoration:none}
 .hdr-cnt{font-size:11px;color:var(--ac2);font-family:'JetBrains Mono',monospace;white-space:nowrap;flex-shrink:0}
 .hdr-pb{flex:1;height:4px;background:var(--sf3);border-radius:2px;overflow:hidden;min-width:40px;max-width:160px}
 .pf{height:100%;background:linear-gradient(90deg,var(--ac),var(--pu));border-radius:2px;transition:width .5s ease}
-.hdr-row2{display:flex;align-items:center;gap:5px}
-.hdr-search{flex:1;padding:5px 9px;font-size:12px}
-.hdr-clr{background:none;border:1px solid var(--bd);color:var(--tx3);font-size:11px;font-weight:600;padding:4px 8px;border-radius:6px;cursor:pointer;white-space:nowrap;transition:all .12s;line-height:1;flex-shrink:0}
+.hdr-row2{display:flex;align-items:stretch;gap:5px}
+.hdr-search{flex:1;padding:0 9px;font-size:16px;height:32px;line-height:32px;box-sizing:border-box}
+.hdr-clr{background:none;border:1px solid var(--bd);color:var(--tx3);font-size:11px;font-weight:600;padding:0 8px;border-radius:6px;cursor:pointer;white-space:nowrap;transition:all .12s;height:32px;line-height:32px;flex-shrink:0;box-sizing:border-box}
 .hdr-clr:hover{color:var(--tx);background:var(--sf3)}
-.hdr-sqm{display:flex;gap:3px;flex-shrink:0}
+.hdr-sqm{display:flex;gap:3px;flex-shrink:0;height:32px}
+.hdr-sqm .sqm-btn{height:32px;padding:0 8px;line-height:32px;box-sizing:border-box}
 /* Nav bottom (same layout as nav-top, below the question card) */
 .nav-bot{display:flex;align-items:center;gap:8px;margin-top:8px}.nav-bot .bt{min-width:80px}
 /* Button active states */
@@ -263,9 +264,10 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   .hdr-area{font-size:12px;max-width:140px}
   .hdr-cnt{font-size:10px}
   .hdr-pb{display:none}
-  .hdr-search{font-size:11px;padding:4px 8px}
-  .hdr-clr{font-size:10px;padding:3px 6px}
-  .sqm-btn{font-size:9px;padding:3px 5px}
+  .hdr-search{font-size:16px;height:30px;line-height:30px;padding:0 8px}
+  .hdr-clr{font-size:10px;height:30px;line-height:30px;padding:0 6px}
+  .hdr-sqm{height:30px}
+  .hdr-sqm .sqm-btn{height:30px;line-height:30px;font-size:9px;padding:0 5px}
 
   /* Nav-top sticky su mobile (header ~80px) */
   .nav-top{position:sticky;top:80px;z-index:40;background:var(--bg);padding:8px 0;margin:0}
