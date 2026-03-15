@@ -303,8 +303,12 @@ a{color:var(--ac2);text-decoration:none}
       <input type="file" id="impF" accept=".json" style="display:none" onchange="importFile(this)">
     </div>
     <div style="display:flex;gap:4px;margin-bottom:4px">
-      <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="openGistModal()">☁️ Sync Gist</button>
+      <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="openGistModal()">☁️ Impostazioni</button>
       <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="syncLink()">🔗 Link sync</button>
+    </div>
+    <div style="display:flex;gap:4px;margin-bottom:4px">
+      <button class="bnv" style="flex:1;font-size:10px;padding:6px;color:var(--ac)" onclick="gistPush()">⬆ Gist Push</button>
+      <button class="bnv" style="flex:1;font-size:10px;padding:6px;color:var(--pu)" onclick="gistPull()">⬇ Gist Pull</button>
     </div>
     <div id="syncBox" style="display:none;margin-bottom:4px">
       <input type="text" id="syncUrl" class="sinp" readonly style="font-size:10px;margin-bottom:3px">
