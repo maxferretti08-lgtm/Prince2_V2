@@ -244,14 +244,22 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   .sidebar.op{transform:translateX(0)}
   .main{margin-left:0;padding-bottom:70px}
 
-  /* Header */
-  .bm{display:flex;align-items:center;justify-content:center;min-width:40px;min-height:40px}
+  /* Header — compatto su mobile */
+  .bm{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px}
   .bsc{display:none}
-  .hdr{padding:8px 12px;gap:8px}
-  .hdr h1{font-size:13px}
-  .hdr-btns .bt{font-size:11px;padding:7px 10px;min-height:36px}
-  .pw{gap:5px}
-  .ptx{font-size:10px}
+  .hdr{padding:6px 10px;gap:8px}
+  .hdr h1{display:none}
+  .hdr-btns{display:none}
+  .pw{gap:6px;flex:1}
+  .pb{height:5px}
+  .ptx{font-size:11px}
+
+  /* Nav-top sticky su mobile */
+  .nav-top{position:sticky;top:57px;z-index:40;background:var(--bg);padding:8px 0;margin:0}
+  .nav-top .bt{flex:1;min-height:50px;font-size:17px;font-weight:700}
+  .nav-pos{font-size:14px;font-weight:700;color:var(--tx)}
+  /* Nascondi frecce duplicate in basso su mobile */
+  .qact .qnb{display:none}
 
   /* Content */
   .cnt{padding:12px;padding-bottom:80px}
@@ -737,8 +745,8 @@ function renderQ() {
   h += '<button class="bt bfl ' + (fg?'fg':'') + '" data-qid="' + q.id + '" onclick="toggleFlag(this)">' + (fg ? '⚠️ Segnalata' : '⚠️ Segna') + '</button>';
   h += '<button class="brst" data-qid="' + q.id + '" onclick="resetOne(this)" title="Reset questa domanda">↺</button>';
   h += '<span class="spc"></span>';
-  h += '<button class="bt bnv" onclick="navQ(-1)"' + (S.ci===0?' disabled':'') + '>←</button>';
-  h += '<button class="bt bnv" onclick="navQ(1)"' + (S.ci>=S.fq.length-1?' disabled':'') + '>→</button>';
+  h += '<button class="bt bnv qnb" onclick="navQ(-1)"' + (S.ci===0?' disabled':'') + '>←</button>';
+  h += '<button class="bt bnv qnb" onclick="navQ(1)"' + (S.ci>=S.fq.length-1?' disabled':'') + '>→</button>';
   h += '</div></div>';
 
   c.innerHTML = h;
@@ -1411,6 +1419,25 @@ document.addEventListener('keydown', function(e) {
   else if (e.key === 'f') { var q = S.fq[S.ci]; if (q) { if(S.fl.has(q.id)) S.fl.delete(q.id); else S.fl.add(q.id); var isFl = S.fl.has(q.id); saveState(); var btn = document.querySelector('.bfl'); if(btn){ btn.textContent = isFl ? '⚠️ Segnalata' : '⚠️ Segna'; if(isFl) btn.classList.add('fg'); else btn.classList.remove('fg'); } showToast(isFl ? '⚠️ Segnalata' : 'Segnalazione rimossa', isFl ? 'info' : ''); } }
   else if ('abcd'.indexOf(e.key.toLowerCase()) >= 0) { var q = S.fq[S.ci]; if (q && !S.an[q.id]) { S.an[q.id] = e.key.toUpperCase(); saveState(); renderQ(); } }
 });
+
+/* ===== SWIPE (mobile) ===== */
+(function(){
+  var tx=0,ty=0,moving=false;
+  document.addEventListener('touchstart',function(e){
+    if(e.target.closest('.sidebar,.modal-bg,.mob-nav,.hdr')) return;
+    tx=e.changedTouches[0].clientX; ty=e.changedTouches[0].clientY; moving=false;
+  },{passive:true});
+  document.addEventListener('touchmove',function(e){
+    var dx=Math.abs(e.changedTouches[0].clientX-tx), dy=Math.abs(e.changedTouches[0].clientY-ty);
+    if(dx>dy*1.2&&dx>10) moving=true;
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(!moving||S.em) return;
+    if(e.target.closest('.sidebar,.modal-bg,.mob-nav,.hdr,.opt')) return;
+    var dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>55){ if(dx<0) navQ(1); else navQ(-1); }
+  },{passive:true});
+})();
 
 /* ===== INIT ===== */
 loadState();
