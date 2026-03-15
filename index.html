@@ -62,6 +62,9 @@ a{color:var(--ac2);text-decoration:none}
 .sinp{width:100%;padding:7px 10px;background:var(--sf3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:12px;outline:none;transition:border-color .15s}
 .sinp:focus{border-color:var(--ac)}
 .sinp::placeholder{color:var(--tx3)}
+.sqm-row{display:flex;gap:4px;margin-top:5px}
+.sqm-btn{flex:1;padding:4px 6px;font-size:10px;font-weight:600;border-radius:5px;background:var(--sf3);color:var(--tx3);border:1px solid var(--bd);transition:all .12s;cursor:pointer}
+.sqm-btn.on{background:var(--acg);color:var(--ac);border-color:var(--ac)}
 
 /* Buttons */
 .bex{display:block;width:100%;padding:9px;border-radius:7px;font-size:12.5px;font-weight:600;background:linear-gradient(135deg,var(--ac),var(--pu));color:#fff;text-align:center;transition:all .15s;margin-bottom:5px;box-shadow:0 2px 8px rgba(88,166,255,.2)}
@@ -405,7 +408,13 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 
 <aside class="sidebar" id="sb">
   <div class="shd"><span class="shd-logo">📚</span><h2>Argomenti</h2></div>
-  <div class="sbx"><input type="text" class="sinp" placeholder="🔍 Cerca domanda..." oninput="doSearch(this.value)"></div>
+  <div class="sbx">
+    <input type="text" id="searchInp" class="sinp" placeholder="🔍 Cerca parola chiave..." oninput="doSearch(this.value)">
+    <div class="sqm-row">
+      <button class="sqm-btn on" id="sqmAll" onclick="setSqMode('all',this)">Tutto</button>
+      <button class="sqm-btn" id="sqmText" onclick="setSqMode('text',this)">Solo domanda</button>
+    </div>
+  </div>
   <nav class="sn" id="sn"></nav>
   <details class="sb-coll" open id="filtriColl">
     <summary>Filtri</summary>
@@ -514,7 +523,7 @@ var SRC_PATTERNS = [
   {col:'SIM2-ENG',re:/SIM[_-]+2[_-]+ENG|SIM[_-]+ENG[_-]+2/i}
 ];
 
-var S = {ca:'00',cf:'all',ci:0,lq:null,fq:[],fl:new Set(),sn:new Set(),an:{},sq:'',em:false,eq:[],ea:{},es:null,et:null,examDiff:'easy'};
+var S = {ca:'00',cf:'all',ci:0,lq:null,fq:[],fl:new Set(),sn:new Set(),an:{},sq:'',sqMode:'all',em:false,eq:[],ea:{},es:null,et:null,examDiff:'easy'};
 
 /* ===== PERSISTENCE ===== */
 function loadState() {
@@ -584,6 +593,13 @@ function doResume() {
     else fb.classList.remove('on');
   });
   buildSidebar(); filterQs();
+  // Se il filtro salvato non ha risultati (es. cf='flagged' ma nessuna segnalata), reimposta tutto
+  if (S.fq.length === 0) {
+    S.cf = 'all'; S.ca = '00'; S.ci = 0; saveState();
+    document.querySelectorAll('.fb').forEach(function(b){ b.classList.remove('on'); });
+    document.querySelector('.fb').classList.add('on');
+    buildSidebar(); filterQs();
+  }
   // Naviga all'ultima domanda vista (per ID, non per indice)
   if (S.lq !== null) {
     var idx = S.fq.findIndex ? S.fq.findIndex(function(x){ return x.id === S.lq; }) : -1;
@@ -608,7 +624,14 @@ function doFresh() {
 function filterQs() {
   var q = Q;
   if (S.ca !== '00') q = q.filter(function(x){ return gc(x.area) === S.ca; });
-  if (S.sq) { var s = S.sq.toLowerCase(); q = q.filter(function(x){ return x.text.toLowerCase().indexOf(s) >= 0 || x.opts.some(function(o){ return o.toLowerCase().indexOf(s) >= 0; }) || (x.exp && x.exp.toLowerCase().indexOf(s) >= 0) || (x.trk && x.trk.toLowerCase().indexOf(s) >= 0); }); }
+  if (S.sq) {
+    var s = S.sq.toLowerCase();
+    if (S.sqMode === 'text') {
+      q = q.filter(function(x){ return x.text.toLowerCase().indexOf(s) >= 0; });
+    } else {
+      q = q.filter(function(x){ return x.text.toLowerCase().indexOf(s) >= 0 || x.opts.some(function(o){ return o.toLowerCase().indexOf(s) >= 0; }) || (x.exp && x.exp.toLowerCase().indexOf(s) >= 0) || (x.trk && x.trk.toLowerCase().indexOf(s) >= 0); });
+    }
+  }
   if (S.cf === 'flagged') q = q.filter(function(x){ return S.fl.has(x.id); });
   else if (S.cf === 'combo') q = q.filter(function(x){ return x.combo; });
   else if (S.cf === 'eng') q = q.filter(function(x){ return x.lang === 'ENG'; });
@@ -632,6 +655,7 @@ function buildSidebar() {
 function setArea(c) { S.ca = c; S.ci = 0; saveState(); buildSidebar(); filterQs(); renderQ(); if (innerWidth < 769) toggleSB(); }
 function setFilter(f, el) { S.cf = f; S.ci = 0; saveState(); var btns = document.querySelectorAll('.fb'); for (var i = 0; i < btns.length; i++) btns[i].classList.remove('on'); el.classList.add('on'); filterQs(); renderQ(); }
 function doSearch(v) { S.sq = v; S.ci = 0; filterQs(); renderQ(); }
+function setSqMode(mode, el) { S.sqMode = mode; document.querySelectorAll('.sqm-btn').forEach(function(b){ b.classList.remove('on'); }); el.classList.add('on'); if (S.sq) { filterQs(); renderQ(); } }
 function toggleSB() { document.getElementById('sb').classList.toggle('op'); document.getElementById('ovrl').classList.toggle('vis'); }
 function updateProgress() { var t = Q.length, s = S.sn.size; document.getElementById('pf').style.width = (s/t*100)+'%'; document.getElementById('ptx').textContent = s+'/'+t+' viste'; }
 
@@ -653,7 +677,7 @@ function renderQ() {
 
   var lb = q.lang === 'ENG' ? '<span class="lbg">ENG→ITA</span>' : '';
   var cb = q.combo ? ' <span class="cbg">COMBO</span>' : '';
-  var sqLabel = S.sq ? ' <span style="color:var(--yl);font-weight:400;font-size:11px">🔍 ' + esc(S.sq) + '</span>' : '';
+  var sqLabel = S.sq ? ' <span style="color:var(--yl);font-weight:400;font-size:11px">🔍 ' + esc(S.sq) + (S.sqMode === 'text' ? ' (solo testo)' : '') + '</span>' : '';
   h += '<div class="qhd"><span class="qnm">' + (S.ci+1) + '/' + S.fq.length + ' — #' + q.id + cb + lb + sqLabel + '</span><span class="qar">' + q.area + '</span></div>';
 
   h += '<div class="qbd">';
