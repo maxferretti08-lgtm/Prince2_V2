@@ -17,7 +17,7 @@
     ],
     "lang": "ITA",
     "exp": "La gestione per eccezione delega autorità con tolleranze. Ogni livello agisce entro le tolleranze; escalation solo se si prevede di superarle.",
-    "trk": "Piramide: Board → PM → TM. Tolleranze = tutti i 7 target (B-T-C-Q-A-S-R), non solo tempi e costi."
+    "trk": "Il principio \"gestione per eccezione\" implica che il comitato di progetto fissi tolleranze per ogni fase, non solo tempi e costi, ma tutti i 7 target (B-T-C-Q-A-S-R). Il manuale dice: \"Il comitato di progetto dovrebbe fissare tolleranze per la fase\", quindi ogni volta che si delega autorità al Project Manager, il comitato deve definire i limiti entro cui il Project Manager può operare."
   },
   {
     "id": 2,
@@ -38,7 +38,7 @@
     ],
     "lang": "ITA",
     "exp": "La gestione per fasi divide il progetto in fasi con gate di controllo. Ogni fine fase il board decide se proseguire. Minimo 2 fasi obbligatorie.",
-    "trk": "Rischio alto = fasi CORTE (più controllo). 2 fasi minime = Avvio + almeno 1 consegna."
+    "trk": "Il principio \"gestione per fasi\" prevede che il progetto sia suddiviso in fasi per garantire un controllo migliore, quindi la fine di una fase deve fornire un punto di controllo per il comitato di progetto, come dice il manuale. Ricorda: \"Fasi corte = controllo alto\"."
   },
   {
     "id": 3,
@@ -60,7 +60,7 @@
     ],
     "lang": "ITA",
     "exp": "L'adattamento considera fattori interni (procedure, cultura, sistemi aziendali) ed esterni (leggi, normative, standard di settore).",
-    "trk": "Interno = dentro l'organizzazione. Esterno = fuori. Leggi/normative = ESTERNO. Procedure aziendali = INTERNO."
+    "trk": "Interno = dentro l'organizzazione, quindi considera le procedure aziendali, non le leggi esterne. Il manuale dice: adattare PRINCE2 significa considerare le esigenze interne dell'organizzazione."
   },
   {
     "id": 4,
@@ -81,7 +81,7 @@
     ],
     "lang": "ITA",
     "exp": "La gestione per fasi divide il progetto in fasi con gate di controllo. Ogni fine fase il board decide se proseguire. Minimo 2 fasi obbligatorie.",
-    "trk": "Rischio alto = fasi CORTE (più controllo). 2 fasi minime = Avvio + almeno 1 consegna."
+    "trk": "Rischio alto = fasi CORTE, 2 fasi minime per valutare se procedere con la realizzazione del prodotto. Il manuale dice: il comitato di progetto decide se proseguire dopo ogni fase."
   },
   {
     "id": 5,
@@ -102,7 +102,7 @@
     ],
     "lang": "ITA",
     "exp": "I 7 principi PRINCE2 sono obbligatori ma adattabili. Il team decide come applicarli nel proprio contesto.",
-    "trk": "Principi = legge per tutti, ma ogni progetto li applica a modo suo tramite l'adattamento."
+    "trk": "Assicurazione di una giustificazione continua del business: il progetto deve avere un valore per l'organizzazione, quindi deve allinearsi agli obiettivi dell'organizzazione committente, il manuale dice: \"una giustificazione continua del business\"."
   },
   {
     "id": 6,
@@ -122,7 +122,7 @@
     ],
     "lang": "ITA",
     "exp": "La giustificazione continua del business garantisce che il progetto rimanga auspicabile (desiderabile per il business), vitale (finanziariamente sostenibile) e realizzabile (tecnicamente fattibile).",
-    "trk": "A-V-R: Auspicabile + Vitale + Realizzabile. Se ne manca uno → il progetto va fermato."
+    "trk": "A-V-R: Auspicabile, Vitale e Realizzabile, se manca uno, fermati. Il manuale dice che il progetto deve rimanere giustificato per tutta la sua durata, quindi A-V-R è la chiave per assicurare una giustificazione continua del business."
   },
   {
     "id": 7,
@@ -141,7 +141,7 @@
     ],
     "lang": "ITA",
     "exp": "Il principio richiede che tutti i ruoli siano definiti chiaramente. Il board ha 3 interessi: business (Executive), utenti (Utente Senior), fornitori (Fornitore Senior).",
-    "trk": "Triade: Executive (business) + Utente Senior (benefici) + Fornitore Senior (consegna, può essere ESTERNO)."
+    "trk": "Il manuale dice: le parti interessate possono essere esterne. Ricorda la \"Triade\" con il Fornitore Senior come possibile esterno, per cui i fornitori sono parti interessate esterne al business."
   },
   {
     "id": 8,
@@ -160,7 +160,7 @@
     ],
     "lang": "ITA",
     "exp": "La gestione per eccezione delega autorità con tolleranze. Ogni livello agisce entro le tolleranze; escalation solo se si prevede di superarle.",
-    "trk": "Piramide: Board → PM → TM. Tolleranze = tutti i 7 target (B-T-C-Q-A-S-R), non solo tempi e costi."
+    "trk": "Il principio di \"gestione per eccezione\" consente che le decisioni vengano prese dalle persone giuste al momento giusto, focalizzandosi su tolleranze (B-T-C-Q-A-S-R) e non solo su tempi e costi, permettendo così una gestione efficiente e oportuna."
   },
   {
     "id": 9,
@@ -180,7 +180,7 @@
     ],
     "lang": "ITA",
     "exp": "I 7 principi PRINCE2 sono obbligatori ma adattabili. Il team decide come applicarli nel proprio contesto.",
-    "trk": "Principi = legge per tutti, ma ogni progetto li applica a modo suo tramite l'adattamento."
+    "trk": "Principi = linee guida fisse, ma adattabili: permettono al team di progetto di decidere come applicare il metodo al progetto, come dice il manuale."
   },
   {
     "id": 10,
@@ -199,7 +199,7 @@
     ],
     "lang": "ITA",
     "exp": "I 7 principi PRINCE2 sono obbligatori ma adattabili. Il team decide come applicarli nel proprio contesto.",
-    "trk": "Principi = legge per tutti, ma ogni progetto li applica a modo suo tramite l'adattamento."
+    "trk": "Il principio \"Apprendimento dall'esperienza\" si applica esaminando progetti precedenti per identificare miglioramenti, poiché il manuale dice che si tratta di un approccio continuo di apprendimento. \nRicorda \"A\" come Archiviazione di conoscenze da esperienze passate."
   },
   {
     "id": 11,
@@ -219,7 +219,7 @@
     ],
     "lang": "ITA",
     "exp": "L'apprendimento dall'esperienza prevede: all'avvio si consultano le lezioni passate, durante il progetto si registrano nuove lezioni, alla chiusura si condividono.",
-    "trk": "Identificata ≠ Appresa. Identificare = sapere. Apprendere = cambiare comportamento."
+    "trk": "Il manuale dice: apprendere dall'esperienza significa mettere in pratica le lezioni apprese. Ricorda: Identificare ≠ Apprendere, il primo è solo conoscenza, il secondo è cambiamento, quindi l'obiettivo è implementare miglioramenti."
   },
   {
     "id": 12,
@@ -240,7 +240,7 @@
     ],
     "lang": "ENG",
     "exp": "L'apprendimento dall'esperienza prevede: all'avvio si consultano le lezioni passate, durante il progetto si registrano nuove lezioni, alla chiusura si condividono.",
-    "trk": "Identificata ≠ Appresa. Identificare = sapere. Apprendere = cambiare comportamento.",
+    "trk": "Il principio 'apprendimento dall'esperienza' richiede che le lezioni dei progetti precedenti siano riesaminate all'inizio di un progetto, poiché \"Identificata\" non significa \"Appresa\", ovvero conoscere non significa cambiare comportamento.",
     "engText": "Which statement about the 'learn from experience' principle is CORRECT?"
   },
   {
@@ -262,7 +262,7 @@
     ],
     "lang": "ENG",
     "exp": "L'adattamento considera fattori interni (procedure, cultura, sistemi aziendali) ed esterni (leggi, normative, standard di settore).",
-    "trk": "Interno = dentro l'organizzazione. Esterno = fuori. Leggi/normative = ESTERNO. Procedure aziendali = INTERNO.",
+    "trk": "Esterno = fuori dall'organizzazione, quindi considera le normative esterne come salute e sicurezza, mentre procedure aziendali sono interne.",
     "engText": "Which is an external factor to consider when tailoring PRINCE2?"
   },
   {
@@ -282,7 +282,7 @@
     ],
     "lang": "ENG",
     "exp": "I 7 principi PRINCE2 sono obbligatori ma adattabili. Il team decide come applicarli nel proprio contesto.",
-    "trk": "Principi = legge per tutti, ma ogni progetto li applica a modo suo tramite l'adattamento.",
+    "trk": "Il principio \"Apprendimento dall'esperienza\" si applica quando si analizzano progetti passati per migliorare il presente, poiché il manuale sottolinea l'importanza di trarre insegnamento dalle esperienze precedenti. Questo principio si distingue dagli altri perché si concentra sull'apprendimento continuo e sull'applicazione di lezioni apprese.",
     "engText": "Which principle is being applied when previous projects are reviewed. to identify improvements that can be applied to this project?"
   },
   {
@@ -302,7 +302,7 @@
     ],
     "lang": "ENG",
     "exp": "L'apprendimento dall'esperienza prevede: all'avvio si consultano le lezioni passate, durante il progetto si registrano nuove lezioni, alla chiusura si condividono.",
-    "trk": "Identificata ≠ Appresa. Identificare = sapere. Apprendere = cambiare comportamento.",
+    "trk": "Il manuale dice: apprendimento dall'esperienza significa applicare le lezioni apprese. Ricorda: Identificare ≠ Apprendere, il primo è solo conoscenza, il secondo porta a cambiamento e miglioramento.",
     "engText": "What is a goal of the 'learn from experience' principle?"
   },
   {
@@ -326,7 +326,7 @@
     ],
     "lang": "ENG",
     "exp": "La giustificazione continua del business garantisce che il progetto rimanga auspicabile (desiderabile per il business), vitale (finanziariamente sostenibile) e realizzabile (tecnicamente fattibile).",
-    "trk": "A-V-R: Auspicabile + Vitale + Realizzabile. Se ne manca uno → il progetto va fermato.",
+    "trk": "Il manuale dice: la giustificazione del business deve rimanere valida. Ricorda \"Viva\": Valida per tutta la durata, In caso di cambio, Ancora valida.",
     "engText": "Which statement about the 'ensure continued business justification' principle is CORRECT?"
   },
   {
@@ -346,7 +346,7 @@
     ],
     "lang": "ENG",
     "exp": "L'adattamento considera fattori interni (procedure, cultura, sistemi aziendali) ed esterni (leggi, normative, standard di settore).",
-    "trk": "Interno = dentro l'organizzazione. Esterno = fuori. Leggi/normative = ESTERNO. Procedure aziendali = INTERNO.",
+    "trk": "Il comitato di progetto applica il principio di \"Assicurazione di una giustificazione continua del business\" poiché l'ambiente esterno è cambiato, quindi la giustificazione originale del progetto non è più valida. Il manuale dice: la giustificazione del business deve essere continua e valida per tutta la durata del progetto.",
     "engText": "The project board has decided that the project should close prematurely as the external environment has changed. Which principle is being applied?"
   },
   {
@@ -366,7 +366,7 @@
     ],
     "lang": "ENG",
     "exp": "Il principio richiede che tutti i ruoli siano definiti chiaramente. Il board ha 3 interessi: business (Executive), utenti (Utente Senior), fornitori (Fornitore Senior).",
-    "trk": "Triade: Executive (business) + Utente Senior (benefici) + Fornitore Senior (consegna, può essere ESTERNO).",
+    "trk": "Il principio \"definire ruoli, responsabilità e relazioni\" include anche i fornitori come parti interessate esterne, poiché il manuale sottolinea l'importanza di considerare tutte le parti interessate, comprese quelle esterne al business. La triade Executive, Utente Senior e Fornitore Senior (che può essere esterno) aiuta a ricordare che i fornitori possono essere coinvolti esternamente.",
     "engText": "Which statement about the 'define roles. responsibilities and relationships' principle is CORRECT?"
   },
   {
@@ -386,7 +386,7 @@
     ],
     "lang": "ENG",
     "exp": "I 7 principi PRINCE2 sono obbligatori ma adattabili. Il team decide come applicarli nel proprio contesto.",
-    "trk": "Principi = legge per tutti, ma ogni progetto li applica a modo suo tramite l'adattamento.",
+    "trk": "Il principio \"Gestione per eccezione\" si applica quando si fissano limiti per consentire al project manager di lavorare efficacemente, poiché il manuale dice: è fondamentale delegare l'autorità al project manager.",
     "engText": "Which principle is being applied when setting limits for the seven aspects of performance to enable the project manager to work effectively?"
   },
   {
@@ -406,7 +406,7 @@
     ],
     "lang": "ENG",
     "exp": "I 7 principi PRINCE2 sono obbligatori ma adattabili. Il team decide come applicarli nel proprio contesto.",
-    "trk": "Principi = legge per tutti, ma ogni progetto li applica a modo suo tramite l'adattamento.",
+    "trk": "Principi = linee guida universali, il team di progetto decide come applicarle tramite l'adattamento, rendendo il metodo PRINCE2 flessibile per ogni progetto.",
     "engText": "Which statement describes how the principles support effective project management?"
   },
   {
@@ -426,7 +426,7 @@
     ],
     "lang": "ENG",
     "exp": "La focalizzazione sui prodotti assicura che il progetto si concentri su cosa consegnare prima di pianificare come farlo.",
-    "trk": "Prodotti = COSA consegnare. Piani = COME consegnare. Prima il cosa, poi il come.",
+    "trk": "Il manuale dice: \"giustificazione continua del business\" è il principio che assicura il valore dei prodotti. Ricorda: \"COSA\" (prodotti) ha senso solo se c'è una giustificazione \"CONTINUA\" del business, altrimenti non vale la pena consegnare.",
     "engText": "Which principle is being applied when reviewing whether the project will deliver valuable products?"
   },
   {
@@ -446,7 +446,7 @@
     ],
     "lang": "ENG",
     "exp": "L'adattamento considera fattori interni (procedure, cultura, sistemi aziendali) ed esterni (leggi, normative, standard di settore).",
-    "trk": "Interno = dentro l'organizzazione. Esterno = fuori. Leggi/normative = ESTERNO. Procedure aziendali = INTERNO.",
+    "trk": "Il principio si applica perché si definiscono ruoli e responsabilità tra l'azienda e il fornitore esterno, come specificato nel manuale: \"Definire ruoli, responsabilità e relazioni\" è fondamentale per garantire la chiarezza e l'efficacia della collaborazione. Il trucco è: \"Esterno richiede Definizione\" per evitare di confondere con altri principi.",
     "engText": "An external IT company is being appointed to deliver a new accounting system as part of a project. Which principle is being applied when agreeing the contract with the IT company?"
   },
   {
@@ -466,7 +466,7 @@
     ],
     "lang": "ENG",
     "exp": "La gestione per eccezione delega autorità con tolleranze. Ogni livello agisce entro le tolleranze; escalation solo se si prevede di superarle.",
-    "trk": "Piramide: Board → PM → TM. Tolleranze = tutti i 7 target (B-T-C-Q-A-S-R), non solo tempi e costi.",
+    "trk": "Il principio di gestione per eccezione consente che le decisioni vengano prese dalle persone giuste al momento giusto, evitando così il sovraccarico di informazioni e concentrandosi solo sulle eccezioni rispetto alle tolleranze definite. Il manuale dice: gestione per eccezione significa focus sulle eccezioni, non sulla gestione quotidiana.",
     "engText": "What does the 'manage by exception' principle enable?"
   },
   {
@@ -486,7 +486,7 @@
     ],
     "lang": "ENG",
     "exp": "I 7 principi PRINCE2 sono obbligatori ma adattabili. Il team decide come applicarli nel proprio contesto.",
-    "trk": "Principi = legge per tutti, ma ogni progetto li applica a modo suo tramite l'adattamento.",
+    "trk": "Il project manager applica Gestione per eccezione perché consente di gestire le deviazioni dal piano, come un ritardo di consegna. Il manuale dice: focalizzarsi sulle eccezioni, non sulla gestione quotidiana.",
     "engText": "The project manager agreed with the team manager that a work package can be delivered up to 1 week later than shown on the team plan. Which principle is being applied by the project manager?"
   },
   {
@@ -506,7 +506,7 @@
     ],
     "lang": "ENG",
     "exp": "La focalizzazione sui prodotti assicura che il progetto si concentri su cosa consegnare prima di pianificare come farlo.",
-    "trk": "Prodotti = COSA consegnare. Piani = COME consegnare. Prima il cosa, poi il come.",
+    "trk": "Il project manager raccomanda di combinare prodotti, quindi si parla di cosa consegnare: Documentazione di inizio progetto. Il manuale dice: \"definizione dei prodotti\" è cruciale, e questo avviene nel PID.",
     "engText": "The project manager has recommended that some of the management products for the project should be combined. In which management product should this be documented?"
   },
   {
@@ -527,7 +527,7 @@
     ],
     "lang": "ENG",
     "exp": "L'apprendimento dall'esperienza prevede: all'avvio si consultano le lezioni passate, durante il progetto si registrano nuove lezioni, alla chiusura si condividono.",
-    "trk": "Identificata ≠ Appresa. Identificare = sapere. Apprendere = cambiare comportamento.",
+    "trk": "Il Comitato di progetto approva le proposte perché è l'ente responsabile della governance del progetto, il manuale dice: \"Il Comitato di progetto è responsabile dell'approvazione delle proposte\". Non confondere con il Project Manager che si occupa dell'esecuzione.",
     "engText": "Based on a review of lessons reports from previous projects. some proposals have been made on how to apply PRINCE2 to a project. Which role should be accountable for approving these proposals?"
   },
   {
@@ -548,7 +548,7 @@
     ],
     "lang": "ENG",
     "exp": "I 7 principi PRINCE2 sono obbligatori ma adattabili. Il team decide come applicarli nel proprio contesto.",
-    "trk": "Principi = legge per tutti, ma ogni progetto li applica a modo suo tramite l'adattamento.",
+    "trk": "Il comitato di progetto applica il principio di \"Assicurazione di una giustificazione continua del business\" perché valuta la sostenibilità a lungo termine del progetto, come dice il manuale: \"Il progetto deve avere una giustificazione continua\".",
     "engText": "Which The benefits management approach has been reviewed by the project board to ensure there are sufficient benefit reviews after the project has closed. Which principle is the project board applying?"
   },
   {
@@ -570,7 +570,7 @@
     ],
     "lang": "ENG",
     "exp": "La gestione per eccezione delega autorità con tolleranze. Ogni livello agisce entro le tolleranze; escalation solo se si prevede di superarle.",
-    "trk": "Piramide: Board → PM → TM. Tolleranze = tutti i 7 target (B-T-C-Q-A-S-R), non solo tempi e costi.",
+    "trk": "Il rischio fissa i limiti rispetto al costo delle minacce aggregate poiché il principio di gestione per eccezione richiede di monitorare e controllare le eccezioni ai tolleranze, e il rischio è uno dei 7 target (B-T-C-Q-A-S-R) che definiscono questi limiti. Il manuale dice: gestione per eccezione significa concedere poteri decisionali solo entro i limiti stabiliti.",
     "engText": "According to the 'manage by exception' principle. which aspect of performance sets limits against the cost of aggregated threats?"
   },
   {
@@ -592,7 +592,7 @@
     ],
     "lang": "ENG",
     "exp": "La gestione per fasi divide il progetto in fasi con gate di controllo. Ogni fine fase il board decide se proseguire. Minimo 2 fasi obbligatorie.",
-    "trk": "Rischio alto = fasi CORTE (più controllo). 2 fasi minime = Avvio + almeno 1 consegna.",
+    "trk": "Il manuale dice: \"fasi per controllare il progetto\". 2 fasi minime = Avvio + almeno 1 consegna, permette al comitato di progetto di valutare se procedere, riducendo il rischio.",
     "engText": "Which is the BEST reason for a PRINCE2 project to have at least two stages?"
   },
   {
@@ -614,7 +614,7 @@
     ],
     "lang": "ENG",
     "exp": "I 7 principi PRINCE2 sono obbligatori ma adattabili. Il team decide come applicarli nel proprio contesto.",
-    "trk": "Principi = legge per tutti, ma ogni progetto li applica a modo suo tramite l'adattamento.",
+    "trk": "Il principio \"Assicurazione di una giustificazione continua del business\" garantisce l'allineamento agli obiettivi aziendali, poiché il manuale dice: \"il progetto deve avere una giustificazione continua\". Ricorda: \"Giustificazione\" = obiettivi aziendali, non solo budget.",
     "engText": "Which principle should ensure that a project remains aligned with the objectives of the investing organizations?"
   },
   {
@@ -635,7 +635,7 @@
     ],
     "lang": "ENG",
     "exp": "I 7 principi PRINCE2 sono obbligatori ma adattabili. Il team decide come applicarli nel proprio contesto.",
-    "trk": "Principi = legge per tutti, ma ogni progetto li applica a modo suo tramite l'adattamento.",
+    "trk": "Il project manager applica il principio di \"Definire ruoli, responsabilità e relazioni\" perché identifica le parti interessate chiave e i loro ruoli, il manuale dice: è fondamentale adattare i principi a ogni progetto.",
     "engText": "The project manager has identified that there are a small number of important stakeholders on a project. These stakeholders will have a significant influence on the success of the project. Which principle is being applied by the project manager when identifying this information?"
   },
   {
@@ -656,7 +656,7 @@
     ],
     "lang": "ITA",
     "exp": "Verificare valuta se il BC rimane valido. Si fa durante il progetto (anche in chiusura) per valutare la probabilità futura dei benefici.",
-    "trk": "Verificare = probabilità futura (durante progetto). Confermare = benefici già realizzati (dopo progetto)."
+    "trk": "Verificare = valuta probabilità futura, quindi durante il progetto il project manager deve valutare se gli esiti porteranno i miglioramenti attesi. Confermare = certifica benefici già realizzati, quindi dopo il progetto."
   },
   {
     "id": 33,
@@ -677,7 +677,7 @@
     ],
     "lang": "ITA",
     "exp": "L'esito è il risultato del cambiamento nel mondo reale dopo che gli output vengono utilizzati. È il ponte tra output e beneficio.",
-    "trk": "Catena: Output (cosa consegni) → Esito (cosa cambia) → Beneficio (vantaggio misurabile)."
+    "trk": "Ricorda: Esito è il cambiamento, non il prodotto. Il manuale dice che l'Esito è il risultato delle attività, quindi è il cambiamento che si verifica, non l'Output che è il risultato fisico."
   },
   {
     "id": 34,
@@ -698,7 +698,7 @@
     ],
     "lang": "ITA",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive."
+    "trk": "L'utente senior si concentra sull'efficacia degli output, quindi pensa a \"Allineamento\" = A, come in \"Azienda\" che vuole risultati. Il manuale dice: l'allineamento aiuta a raggiungere gli obiettivi di business."
   },
   {
     "id": 35,
@@ -718,7 +718,7 @@
     ],
     "lang": "ITA",
     "exp": "L'approccio alla gestione dei benefici definisce come, quando e con quale frequenza misurare i benefici.",
-    "trk": "'Come misurare i benefici', 'frequenza riesami' → Approccio gestione benefici (non BC)."
+    "trk": "Ricorda 'Riesami per benefici' → Approccio alla gestione dei benefici, poiché si concentra sulla conferma del raggiungimento dei miglioramenti misurabili attesi, non sul Business Case (BC) che giustifica l'investimento. Il manuale dice: \"...l'Approccio alla gestione dei benefici è un prodotto di gestione che descrive come saranno misurati e valutati i benefici del progetto\"."
   },
   {
     "id": 36,
@@ -739,7 +739,7 @@
     ],
     "lang": "ITA",
     "exp": "La gestione per fasi consente al board di valutare periodicamente se l'investimento resta giustificato. È il meccanismo pratico della giustificazione continua.",
-    "trk": "Giustificazione continua = perché. Gestione per fasi = come. 'Valutare l'investimento man mano' → Fasi."
+    "trk": "Giustificazione continua = principio, Gestione per fasi = controllo in fasi, quindi \"valutare l'investimento man mano\" → Gestione per fasi. Il manuale dice: controllare il progetto in fasi giustifica il proseguimento."
   },
   {
     "id": 37,
@@ -759,7 +759,7 @@
     ],
     "lang": "ITA",
     "exp": "Verificare valuta se il BC rimane valido. Si fa durante il progetto (anche in chiusura) per valutare la probabilità futura dei benefici.",
-    "trk": "Verificare = probabilità futura (durante progetto). Confermare = benefici già realizzati (dopo progetto)."
+    "trk": "Verificare = valuta l'impatto sul business case durante il progetto, mentre Confermare si riferisce ai benefici già realizzati dopo il progetto, quindi il nuovo rischio deve essere valutato nel passo \"Verificare\" per aggiornare il business case."
   },
   {
     "id": 38,
@@ -779,7 +779,7 @@
     ],
     "lang": "ITA",
     "exp": "Mantenere aggiorna il BC con i dati reali di avanzamento — costi effettivi, tempi reali, variazioni.",
-    "trk": "'Dati reali', 'aggiornare', 'avanzamento effettivo' → sempre Mantenere."
+    "trk": "Il business case deve essere aggiornato alla fine di ogni fase, quindi serve una fase di 'Mantenimento' per riflettere l'avanzamento ottenuto, non una fase di creazione o chiusura. Il manuale dice: il Mantenere assicura che il business case rimanga valido e aggiornato durante tutto il ciclo di vita del progetto."
   },
   {
     "id": 39,
@@ -799,7 +799,7 @@
     ],
     "lang": "ITA",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive."
+    "trk": "BC = 'Vale la pena continuare?' a ogni limite di fase, per allineare il progetto con il business case e garantire la sostenibilità finanziaria. Il manuale dice: l'allineamento con il business case ai limiti di fase consente al comitato di progetto di valutare se proseguire o meno."
   },
   {
     "id": 40,
@@ -818,7 +818,7 @@
     ],
     "lang": "ITA",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive."
+    "trk": "BC = 'Vale la pena continuare?' perché assicura una giustificazione continua del business, il manuale dice: questo principio verifica se il progetto è desiderabile, fattibile e realizzabile."
   },
   {
     "id": 41,
@@ -837,7 +837,7 @@
     ],
     "lang": "ITA",
     "exp": "L'approccio alla gestione dei benefici definisce come, quando e con quale frequenza misurare i benefici.",
-    "trk": "'Come misurare i benefici', 'frequenza riesami' → Approccio gestione benefici (non BC)."
+    "trk": "Ricorda che l'Approccio alla gestione dei benefici definisce come e quando verificare i miglioramenti attesi, quindi è lì che si specifica la frequenza di controllo. Il manuale dice: è fondamentale pianificare la gestione dei benefici per raggiungere gli obiettivi del progetto, quindi l'Approccio alla gestione dei benefici è il posto giusto per specificare la frequenza di verifica."
   },
   {
     "id": 42,
@@ -856,7 +856,7 @@
     ],
     "lang": "ITA",
     "exp": "Il beneficio è un miglioramento MISURABILE percepito come VANTAGGIO dall'organizzazione che investe.",
-    "trk": "Beneficio = misurabile + miglioramento + vantaggio. Tutte e 3 le condizioni."
+    "trk": "Beneficio = miglioramento misurabile e percepito come vantaggio, altrimenti è solo un cambiamento. Il manuale dice: il beneficio deve essere percepito come un vantaggio dall'organizzazione investitrice."
   },
   {
     "id": 43,
@@ -875,7 +875,7 @@
     ],
     "lang": "ITA",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive."
+    "trk": "BC = 'Vale la pena continuare?' perché collega gli output agli esiti, Il manuale dice: il Business Case guida le decisioni sull'investimento nel progetto."
   },
   {
     "id": 44,
@@ -894,7 +894,7 @@
     ],
     "lang": "ENG",
     "exp": "Mantenere aggiorna il BC con i dati reali di avanzamento — costi effettivi, tempi reali, variazioni.",
-    "trk": "'Dati reali', 'aggiornare', 'avanzamento effettivo' → sempre Mantenere.",
+    "trk": "Il business case va aggiornato con dati effettivi alla fine di ogni fase in \"Mantenere\" perché serve a valutare l'avanzamento reale rispetto al piano, il manuale dice: è fondamentale per la gestione continua del business case.",
     "engText": "In which step of business case management procedure should the business case be updated with actual progress at the end of each stage?"
   },
   {
@@ -914,7 +914,7 @@
     ],
     "lang": "ENG",
     "exp": "Il beneficio è un miglioramento MISURABILE percepito come VANTAGGIO dall'organizzazione che investe.",
-    "trk": "Beneficio = misurabile + miglioramento + vantaggio. Tutte e 3 le condizioni.",
+    "trk": "Beneficio = miglioramento misurabile e percepito come vantaggio. Il manuale dice: è un termine chiave nel Business Case, quindi ricorda che il beneficio è ciò che l'organizzazione investitrice percepisce come vantaggio.",
     "engText": "Which term is defined as the measurable improvement perceived as an advantage by the investing organization?"
   },
   {
@@ -934,7 +934,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "BC = 'Vale la pena continuare?' Il manuale dice: le fasi aiutano ad allineare il progetto con il business case ai limiti di fase, dando così fiducia al comitato di progetto.",
     "engText": "How does the use of project stages give the project board confidence in proceeding with delivery?"
   },
   {
@@ -954,7 +954,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "Il manuale dice: \"Assicurazione di una giustificazione continua del business\" è il principio che garantisce la desiderabilità, vitalità e realizzabilità del progetto. BC = 'Giustificazione continua' per l'Executive.",
     "engText": "Which principle is being applied by the business case practice when confidence is provided that the project is desirable. viable and achievable?"
   },
   {
@@ -974,7 +974,7 @@
     ],
     "lang": "ENG",
     "exp": "L'approccio alla gestione dei benefici definisce come, quando e con quale frequenza misurare i benefici.",
-    "trk": "'Come misurare i benefici', 'frequenza riesami' → Approccio gestione benefici (non BC).",
+    "trk": "Per ricordare dove specificare la frequenza di verifica dei miglioramenti misurabili attesi, pensa: \"Il manuale dice che l'Approccio alla gestione dei benefici definisce come misurare e verificare i benefici, quindi è lì che si specifica la frequenza di riesame, non nel Business Case (BC) che solo giustifica l'investimento\".",
     "engText": "Which should specify how frequently to review whether the expected measurable improvements have been achieved?"
   },
   {
@@ -994,7 +994,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "BC = 'Vale la pena continuare?' perché collega gli output del progetto agli esiti, Il manuale dice: il Business Case è lo strumento decisionale dell'Executive per valutare la fattibilità del progetto.",
     "engText": "Which practice provides effective guidance to identify the link from project outputs to outcomes?"
   },
   {
@@ -1014,7 +1014,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "Il comitato di progetto approva il Documentazione di inizio progetto (DIP) per definire l'ambito e i tempi, poiché il manuale dice che il DIP stabilisce formalmente l'obiettivo del progetto. BC (Business Case) è diverso, si concentra sulla domanda \"Vale la pena continuare?\".",
     "engText": "Which management product should the project board approve to commit to the project scope and timescale?"
   },
   {
@@ -1034,7 +1034,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "BC = 'Vale la pena continuare?' Il manuale dice che il Business Case è lo strumento decisionale per il Project Executive per valutare se il progetto è ancora valido.",
     "engText": "What is a purpose of the business case practice?"
   },
   {
@@ -1054,7 +1054,7 @@
     ],
     "lang": "ENG",
     "exp": "Per decidere se avviare un progetto si usano il Project brief (cosa fare) e il Business case (perché farlo).",
-    "trk": "Brief = COSA. BC = PERCHÉ. Insieme danno al board tutto per decidere.",
+    "trk": "Il manuale dice: il Business Case giustifica il progetto. Ricorda: Brief (COSA) + BC (PERCHÉ) = Decisione informata per il Board.",
     "engText": "Which should be used to justify whether the project should be progressed?"
   },
   {
@@ -1074,7 +1074,7 @@
     ],
     "lang": "ENG",
     "exp": "Un obiettivo quantificabile di sostenibilità (es. riduzione CO2 dell'8-12%) viene catturato come tolleranza di sostenibilità.",
-    "trk": "Obiettivi ambientali misurabili → tolleranza di sostenibilità, NON tolleranza dei benefici.",
+    "trk": "Obiettivi ambientali misurabili come riduzione dell'impronta di carbonio → tolleranza di sostenibilità, poiché il manuale definisce la sostenibilità come un aspetto chiave del Business Case, distinguendola dalla tolleranza dei benefici che si concentra sugli aspetti finanziari.",
     "engText": "A government department has a target to reduce its carbon footprint by 8-12%. How should this requirement be captured?"
   },
   {
@@ -1094,7 +1094,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "Il nuovo rischio va valutato in \"Verificare\" perché il manuale dice che qui si controlla l'impatto sui benefici, quindi Vale la pena continuare? Controlla l'impatto sul business case.",
     "engText": "During a stage. the project manager recorded a new risk on the riskregister. In which step of the business case management technique should its impact on the business case be assessed?"
   },
   {
@@ -1114,7 +1114,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "BC = Benefici Continui: l'utente senior deve garantire l'impegno degli utenti per adottare i nuovi prodotti, altrimenti \"non vale la pena continuare\".",
     "engText": "How should the senior user fulfil their responsibility for continued realization of benefits post-project?"
   },
   {
@@ -1134,7 +1134,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "PID = Progetto Iniziato Dichiarato, il Documento di inizio progetto fornisce la base per la gestione del progetto, come dice il manuale: \"fornisce la base per la gestione del progetto\".",
     "engText": "Which management product BEST provides the project team with a basis for the ongoing management of the overall project?"
   },
   {
@@ -1154,7 +1154,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "BC = 'Vale la pena continuare?' si traduce in miglioramenti misurabili, il manuale dice: il Business Case definisce gli esiti desiderati.",
     "engText": "What do the desired outcomes directly result in?"
   },
   {
@@ -1174,7 +1174,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "BC = 'Vale la pena continuare?' perché giustifica l'investimento, il manuale dice che il Business Case deve dimostrare il valore del progetto.",
     "engText": "Which should provide confidence that there is a robust justification for undertaking a project?"
   },
   {
@@ -1194,7 +1194,7 @@
     ],
     "lang": "ENG",
     "exp": "L'output è il prodotto tangibile o intangibile consegnato dal progetto — il deliverable.",
-    "trk": "Output = deliverable consegnato dal team. Esito = conseguenza dell'uso dell'output.",
+    "trk": "Output = risultato concreto, mentre Esito è l'impatto a lungo termine: il manuale dice che l'Output è il risultato tangibile o intangibile di un'attività, quindi è il prodotto finale dell'azione.",
     "engText": "Which term is defined as the tangible or intangible deliverable of an activity?"
   },
   {
@@ -1214,7 +1214,7 @@
     ],
     "lang": "ENG",
     "exp": "Un obiettivo quantificabile di sostenibilità (es. riduzione CO2 dell'8-12%) viene catturato come tolleranza di sostenibilità.",
-    "trk": "Obiettivi ambientali misurabili → tolleranza di sostenibilità, NON tolleranza dei benefici.",
+    "trk": "Il manuale dice: la giustificazione del business è definita considerando i requisiti di qualità dei prodotti e come influenzano i target di tempo, costo o sostenibilità, quindi ricorda \"Qualità influenza Tempo, Costo e Sostenibilità\" per evitare la trappola di confondere i sette aspetti di prestazione del progetto.",
     "engText": "How are some of the seven aspects of project performance used when establishing business justification?"
   },
   {
@@ -1235,7 +1235,7 @@
     ],
     "lang": "ENG",
     "exp": "Sviluppare è il primo passo della tecnica BC: si costruisce il business case dalle informazioni disponibili, incluso il mandato.",
-    "trk": "4 passi BC: Sviluppare → Verificare → Mantenere → Confermare. Il mandato è input di Sviluppare.",
+    "trk": "Il mandato è input di Sviluppare, poiché è qui che si definisce il business case iniziale, quindi è logico riesaminarlo in questa fase. Il manuale dice: il business case è la base per tutte le decisioni di progetto, quindi Sviluppare è il passo chiave per il mandato.",
     "engText": "In which step of the business case management technique should the project mandate be reviewed?"
   },
   {
@@ -1258,7 +1258,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "Il project manager applica \"Apprendimento dall'esperienza\" perché utilizza le lezioni apprese da progetti precedenti per migliorare il business case attuale, evitando errori come la sottostima dei costi. Il manuale dice: l'apprendimento dall'esperienza è un principio chiave per migliorare la gestione dei progetti.",
     "engText": "When developing a business case. the project manager reviewed the end project report from a previous similar project that stated that costs had been underestimated on the project. Which principle is being applied by the project manager when reviewing this information?"
   },
   {
@@ -1279,7 +1279,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "Il trucco è: \"DIP\", Documentazione di Inizio Progetto, guida le parti interessate su come gestire il progetto, mentre il BC (Business Case) è lo strumento decisionale dell'Executive per valutare se il progetto è ancora valido.",
     "engText": "Which management product should guide stakeholders on how to manage multiple aspects of the project?"
   },
   {
@@ -1300,7 +1300,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "BC = 'Vale la pena continuare?' Aggiornalo alla fine di ogni fase, altrimenti il progetto perde il suo valore, come dice il manuale: gestione continua del business case durante il ciclo di vita del progetto.",
     "engText": "As part of the 'business case management' technique. how is the business case maintained during the project lifecycle?"
   },
   {
@@ -1322,7 +1322,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "BC = 'Vale la pena continuare?' Il Project Manager verifica se gli esiti portano i miglioramenti attesi in 'Verificare', non in 'Definire' o 'Sviluppare'.",
     "engText": "As part of the 'closing a project' process. the project manager needs to assess whether the outcomes are likely to deliver the expected performance improvements post-project. In which step of 'business case management' technique should the project manager assess this?"
   },
   {
@@ -1344,7 +1344,7 @@
     ],
     "lang": "ENG",
     "exp": "L'esito è il risultato del cambiamento nel mondo reale dopo che gli output vengono utilizzati. È il ponte tra output e beneficio.",
-    "trk": "Catena: Output (cosa consegni) → Esito (cosa cambia) → Beneficio (vantaggio misurabile).",
+    "trk": "Il manuale dice: l'Esito è il risultato delle attività, quindi ricorda \"Output porta a Esito, che a sua volta porta a Beneficio\", evitando di confondere Esito con Beneficio, che è il vantaggio misurabile.",
     "engText": "Which term is defined as being achieved as a result of the activities undertaken to facilitate the change?"
   },
   {
@@ -1367,7 +1367,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "L'utente senior applica l'allineamento dei prodotti agli obiettivi di business, perché il manuale dice che il Business Case deve essere allineato agli obiettivi di business, quindi BC = \"Allineamento ai bisogni dell'azienda\".",
     "engText": "The senior user needs to ensure that the outputs will be used effectively to achieve the outcomes and realize the benefits. Which element of effective business case management is the senior user applying?"
   },
   {
@@ -1389,7 +1389,7 @@
     ],
     "lang": "ENG",
     "exp": "L'approccio alla gestione dei benefici definisce come, quando e con quale frequenza misurare i benefici.",
-    "trk": "'Come misurare i benefici', 'frequenza riesami' → Approccio gestione benefici (non BC).",
+    "trk": "Ricorda 'Miglioramenti misurabili' → Approccio alla gestione dei benefici, poiché definisce come misurare e valutare i benefici attesi, evitando la trappola di confonderlo con il Business Case, che giustifica l'investimento.",
     "engText": "The project manager needs to plan the reviews to confirm whether the expected measurable improvements have been achieved. Which management product should the project manager produce?"
   },
   {
@@ -1412,7 +1412,7 @@
     ],
     "lang": "ENG",
     "exp": "La gestione per fasi consente al board di valutare periodicamente se l'investimento resta giustificato. È il meccanismo pratico della giustificazione continua.",
-    "trk": "Giustificazione continua = perché. Gestione per fasi = come. 'Valutare l'investimento man mano' → Fasi.",
+    "trk": "Giustificazione continua = verifica dell'investimento, quindi \"perché\" è giustificato. Gestione per fasi = controllo per fasi, quindi \"come\" si verifica, ovvero valutando l'investimento man mano che il progetto avanza.",
     "engText": "The project board needs to review whether the investment remains justified as the project progresses according to plan. Which principle is being applied by the 'business case' practice when the project board undertakes this review?"
   },
   {
@@ -1433,7 +1433,7 @@
     ],
     "lang": "ENG",
     "exp": "Il business case fornisce la giustificazione formale per il progetto. L'Executive è responsabile di mantenerlo valido.",
-    "trk": "BC = 'Vale la pena continuare?' Lo strumento decisionale dell'Executive.",
+    "trk": "Il comitato di progetto sta applicando il principio di \"Focalizzazione sui benefici\" (non sui prodotti), assicurandosi che i benefici siano valutati dopo la chiusura del progetto. Il manuale dice: il Business Case è lo strumento decisionale dell'Executive, quindi BC = 'Vale la pena continuare?' si riferisce alla valutazione dei benefici.",
     "engText": "The benefits management approach has been reviewed by the project board to ensure there are sufficient benefit reviews after the project has closed. Which principle is the project board applying?"
   },
   {
@@ -1453,7 +1453,7 @@
     ],
     "lang": "ENG",
     "exp": "L'esito è il risultato del cambiamento nel mondo reale dopo che gli output vengono utilizzati. È il ponte tra output e beneficio.",
-    "trk": "Catena: Output (cosa consegni) → Esito (cosa cambia) → Beneficio (vantaggio misurabile).",
+    "trk": "Il trucco è: \"Esito\" è il risultato del cambiamento, come dice il manuale, quindi ricorda che l'Esito influenza il mondo reale, a differenza dell'Output che è solo un prodotto.",
     "engText": "Identify the missing word in the following sentence: An [?] is the result of change. normally affecting real-world behaviour and circumstances."
   },
   {
@@ -1474,7 +1474,7 @@
     ],
     "lang": "ITA",
     "exp": "Il Project Executive ha accountability totale: investimento, governance, struttura organizzativa, sicurezza e benessere del team.",
-    "trk": "Executive = responsabile di TUTTO. Progetta la struttura, rappresenta il business."
+    "trk": "Il Project Executive è responsabile della sicurezza e del benessere del team poiché rappresenta il business e deve garantire che il progetto sia condotto in modo responsabile. Il manuale dice che il Project Executive ha la responsabilità ultima del progetto, quindi è logico che si occupi anche della sicurezza e del benessere del team."
   },
   {
     "id": 73,
@@ -1495,7 +1495,7 @@
     ],
     "lang": "ITA",
     "exp": "Le descrizioni dei ruoli specificano cosa fa ciascun ruolo, le responsabilità e le interazioni. In PRINCE2 v7 includono anche l'accountability per la sostenibilità.",
-    "trk": "Descrizioni ruoli = mansionario (COSA FA). Struttura team = organigramma (CHI)."
+    "trk": "Descrizioni dei ruoli = garanzia dell'utente, poiché definisce le responsabilità. Il manuale dice: è fondamentale per la comprensione dei ruoli, quindi l'utente senior deve consultarlo per capire come sarà supportato nel progetto."
   },
   {
     "id": 74,
@@ -1515,7 +1515,7 @@
     ],
     "lang": "ITA",
     "exp": "La transizione verifica che i team operativi abbiano preso in carico gli output. È il passaggio di consegne progetto → operations.",
-    "trk": "4 passi: Comprendere → Progettare → Sviluppare → Transizione. 'Prendere in carico' = Transizione."
+    "trk": "Il project manager deve assicurarsi della \"Transizione\" perchè è il passo dove gli output del progetto vengono consegnati e presi in carico dai team operativi, mentre gli altri passi (Comprendere, Progettare, Sviluppare) si focalizzano sulla pianificazione e realizzazione degli output, non sulla loro consegna."
   },
   {
     "id": 75,
@@ -1536,7 +1536,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Organizzazione definisce la governance: chi fa cosa, chi risponde a chi nel team di progetto.",
-    "trk": "Organizzazione = 'Chi riporta a chi'. Non Piani (chi/quando) né Avanzamento (come va)."
+    "trk": "Suddividi il lavoro quando ci sono molti pacchetti, usa il mix interno/esterno. Il manuale dice: struttura di suddivisione del lavoro aiuta a gestire meglio i vari pacchetti di lavoro."
   },
   {
     "id": 76,
@@ -1556,7 +1556,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Organizzazione definisce la governance: chi fa cosa, chi risponde a chi nel team di progetto.",
-    "trk": "Organizzazione = 'Chi riporta a chi'. Non Piani (chi/quando) né Avanzamento (come va)."
+    "trk": "Organizzazione = 'Chi riporta a chi', poiché definisce le responsabilità e i canali di reporting all'interno del team di gestione del progetto. Il manuale dice che l'organizzazione si concentra su ruoli e responsabilità, quindi \"a chi devono riportare\" è la chiave."
   },
   {
     "id": 77,
@@ -1576,7 +1576,7 @@
     ],
     "lang": "ITA",
     "exp": "Le descrizioni dei ruoli specificano cosa fa ciascun ruolo, le responsabilità e le interazioni. In PRINCE2 v7 includono anche l'accountability per la sostenibilità.",
-    "trk": "Descrizioni ruoli = mansionario (COSA FA). Struttura team = organigramma (CHI)."
+    "trk": "Descrizioni dei ruoli è la risposta corretta perché specifica l'accountability individuale, mentre l'organigramma mostra solo la struttura, quindi \"chi fa cosa\" è diverso da \"chi è responsabile di cosa\", il manuale dice che le Descrizioni dei ruoli definiscono le responsabilità individuali."
   },
   {
     "id": 78,
@@ -1596,7 +1596,7 @@
     ],
     "lang": "ITA",
     "exp": "Il Project Executive ha accountability totale: investimento, governance, struttura organizzativa, sicurezza e benessere del team.",
-    "trk": "Executive = responsabile di TUTTO. Progetta la struttura, rappresenta il business."
+    "trk": "Il Project Executive è il responsabile di garantire la giustificazione del progetto, rappresentando le esigenze del business, quindi \"E\" come \"Economico\" e \"Efficiente\". Il manuale dice: il Project Executive è chiave per la giustificazione continua del progetto."
   },
   {
     "id": 79,
@@ -1616,7 +1616,7 @@
     ],
     "lang": "ITA",
     "exp": "Il Project Executive ha accountability totale: investimento, governance, struttura organizzativa, sicurezza e benessere del team.",
-    "trk": "Executive = responsabile di TUTTO. Progetta la struttura, rappresenta il business."
+    "trk": "Executive = E' il capo, quindi progetta l'organizzazione, rappresenta il business e tiene tutto sotto controllo, come dice il manuale: \"Il ruolo di Executive è quello di garantire che il progetto sia allineato agli obiettivi dell'organizzazione\"."
   },
   {
     "id": 80,
@@ -1636,7 +1636,7 @@
     ],
     "lang": "ITA",
     "exp": "Gestire i cambiamenti all'ecosistema è il passo per le modifiche continue durante il ciclo di vita del progetto.",
-    "trk": "Transizione = fine progetto (handover). Gestire cambiamenti = durante il progetto."
+    "trk": "Gestire i cambiamenti è la fase in cui si valutano le modifiche richieste, poiché il manuale dice che è fondamentale adattarsi alle esigenze del progetto. Transizione riguarda la fine del progetto, mentre gestire i cambiamenti è un'attività continua."
   },
   {
     "id": 81,
@@ -1655,7 +1655,7 @@
     ],
     "lang": "ITA",
     "exp": "PRINCE2 usa 'team di progetto' nel senso più ampio: chiunque contribuisca al progetto o ne usi i risultati.",
-    "trk": "'Team di progetto' (ampio, tutti) ≠ 'Team di gestione' (solo chi gestisce)."
+    "trk": "Il manuale dice: stabilire la struttura organizzativa. Ricorda: \"Chi fa cosa\" per evitare confusione tra ruoli."
   },
   {
     "id": 82,
@@ -1675,7 +1675,7 @@
     ],
     "lang": "ITA",
     "exp": "La struttura del team mostra chi ricopre i ruoli, incluse le persone chiave ESTERNE al core team.",
-    "trk": "'Persone chiave esterne' → Struttura team. 'Cosa fa un ruolo' → Descrizione ruolo."
+    "trk": "'Esterno' → Struttura team, perché descrive ruoli al di fuori del team di progetto, come dice il manuale: \"definisce le responsabilità delle persone chiave\"."
   },
   {
     "id": 83,
@@ -1694,7 +1694,7 @@
     ],
     "lang": "ENG",
     "exp": "Gestire i cambiamenti all'ecosistema è il passo per le modifiche continue durante il ciclo di vita del progetto.",
-    "trk": "Transizione = fine progetto (handover). Gestire cambiamenti = durante il progetto.",
+    "trk": "Gestire i cambiamenti è il passo giusto perché riguarda l'adattamento continuo del progetto, mentre transizione è la fase finale di handover. Il manuale dice: \"Gestire i cambiamenti\" è un'attività continua che si verifica durante tutto il progetto, quindi è logico che le modifiche vengano considerate in questa fase.",
     "engText": "In which step of the PRINCE2 technique for organizational design and development should the changes required to the project management team at the end of a stage be considered?"
   },
   {
@@ -1714,7 +1714,7 @@
     ],
     "lang": "ENG",
     "exp": "La struttura del team mostra chi ricopre i ruoli, incluse le persone chiave ESTERNE al core team.",
-    "trk": "'Persone chiave esterne' → Struttura team. 'Cosa fa un ruolo' → Descrizione ruolo.",
+    "trk": "\"Persone chiave esterne\" → Struttura team, poiché descrive le responsabilità al di fuori del team di progetto, il manuale dice: è fondamentale definire i ruoli e le responsabilità delle persone chiave.",
     "engText": "Which management product is MOST LIKELY to describe the responsibilities of relevant key individuals outside of the project team?"
   },
   {
@@ -1734,7 +1734,7 @@
     ],
     "lang": "ENG",
     "exp": "Il Project Executive ha accountability totale: investimento, governance, struttura organizzativa, sicurezza e benessere del team.",
-    "trk": "Executive = responsabile di TUTTO. Progetta la struttura, rappresenta il business.",
+    "trk": "Executive = progetta l'organizzazione, rappresenta il business, \"il manuale dice\" che è responsabile della strategia. Non confondere con il Project Manager, che si occupa di gestire il progetto, non di progettare l'organizzazione.",
     "engText": "Which role is responsible for organizational design?"
   },
   {
@@ -1755,7 +1755,7 @@
     ],
     "lang": "ENG",
     "exp": "Il Project Executive ha accountability totale: investimento, governance, struttura organizzativa, sicurezza e benessere del team.",
-    "trk": "Executive = responsabile di TUTTO. Progetta la struttura, rappresenta il business.",
+    "trk": "Il Project Executive rappresenta il business, garantendo la giustificazione del progetto in termini di qualità-prezzo, come indicato nel manuale: \"Il Project Executive è responsabile della giustificazione commerciale del progetto\". Ricorda: Executive = Esigenze Esecutive del Business.",
     "engText": "According to the guidance for effective organizing. how should a project be organized to ensure it can be justified as value for money throughout its life?"
   },
   {
@@ -1775,7 +1775,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Organizzazione definisce la governance: chi fa cosa, chi risponde a chi nel team di progetto.",
-    "trk": "Organizzazione = 'Chi riporta a chi'. Non Piani (chi/quando) né Avanzamento (come va).",
+    "trk": "Il termine \"Parte interessata\" indica chiunque abbia l'influenza per incidere sul successo di un progetto, ricorda che il manuale dice che le parti interessate sono coloro che hanno un interesse legittimo nel progetto. Non confondere con \"Stakeholder\" che è lo stesso concetto, la trappola è pensare a \"Responsabile\" o \"Team\".",
     "engText": "Which term is defined as anyone who has the influence to impact the success of a project?"
   },
   {
@@ -1798,7 +1798,7 @@
     ],
     "lang": "ENG",
     "exp": "PRINCE2 usa 'team di progetto' nel senso più ampio: chiunque contribuisca al progetto o ne usi i risultati.",
-    "trk": "'Team di progetto' (ampio, tutti) ≠ 'Team di gestione' (solo chi gestisce).",
+    "trk": "Il manuale dice: stabilire ruoli e responsabilità. Ricorda: \"Team di progetto\" (chi fa) ≠ \"Team di gestione\" (chi decide), la pratica 'organizzazione' definisce chi riporta a chi.",
     "engText": "Which is a purpose of the 'organizing' practice?"
   },
   {
@@ -1818,7 +1818,7 @@
     ],
     "lang": "ENG",
     "exp": "Raccogliere feedback dagli stakeholder e usarlo per migliorare la struttura è un'applicazione dell'apprendimento dall'esperienza.",
-    "trk": "Feedback → imparare → cambiare = Apprendimento. Non 'Definire ruoli' (che è statico).",
+    "trk": "Feedback significa imparare e adattare, quindi Apprendimento dall'esperienza. Il manuale dice: \"...l'organizzazione deve essere in grado di adattarsi alle esigenze del progetto\", quindi non è solo definire ruoli statici.",
     "engText": "The project manager has received feedback from stakeholdersidentifying the need to change the project team structure. Which principle is being applied by the 'organizing' practice when actioning this feedback?"
   },
   {
@@ -1838,7 +1838,7 @@
     ],
     "lang": "ENG",
     "exp": "Le descrizioni dei ruoli specificano cosa fa ciascun ruolo, le responsabilità e le interazioni. In PRINCE2 v7 includono anche l'accountability per la sostenibilità.",
-    "trk": "Descrizioni ruoli = mansionario (COSA FA). Struttura team = organigramma (CHI).",
+    "trk": "Descrizioni dei ruoli = mansionario con accountability, mentre Struttura team è solo organigramma senza responsabilità specifiche: il manuale dice che le Descrizioni dei ruoli definiscono le responsabilità individuali, quindi è lì che vanno specificati i target di sostenibilità.",
     "engText": "Which management product should specify individual accountability for sustainability targets?"
   },
   {
@@ -1858,7 +1858,7 @@
     ],
     "lang": "ENG",
     "exp": "Il Project Board ha l'autorità di DIRIGERE il progetto. Il PM GESTISCE. Non confondere i due verbi.",
-    "trk": "Board DIRIGE ≠ PM GESTISCE. 'Autorità di dirigere' → Project Board.",
+    "trk": "Il manuale dice: il Comitato di progetto (Project Board) ha l'autorità di dirigere il progetto, quindi 'dirigere' → Project Board, non il Project Manager che gestisce.",
     "engText": "What is defined as having the authority to direct the project within the remit set by the business?"
   },
   {
@@ -1878,7 +1878,7 @@
     ],
     "lang": "ENG",
     "exp": "Sviluppare l'ecosistema include onboarding, integrazione persone, visite in loco, formazione del team.",
-    "trk": "Nuovo membro + visita in loco = inserimento pratico = Sviluppare.",
+    "trk": "Nuovo membro + visita in loco = Sviluppare l'ecosistema del progetto, poiché il manuale dice che questa fase include lo sviluppo dell'ambiente di lavoro e l'integrazione dei nuovi membri nel team. Attenzione a non confondere con le altre fasi, in quanto solo Sviluppare l'ecosistema del progetto si concentra sullo sviluppo organizzativo e sociale del progetto.",
     "engText": "A new team member has just joined the project team and will be going on a site visit. In which step of the organizational design and development technique should this occur?"
   },
   {
@@ -1898,7 +1898,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Organizzazione definisce la governance: chi fa cosa, chi risponde a chi nel team di progetto.",
-    "trk": "Organizzazione = 'Chi riporta a chi'. Non Piani (chi/quando) né Avanzamento (come va).",
+    "trk": "Organizzazione = Assicurazione di una giustificazione continua del business, poiché il Project Executive allinea le decisioni alle esigenze aziendali in continua evoluzione. Il manuale dice: la giustificazione del business deve essere continua e valutata regolarmente.",
     "engText": "Which principle is being applied by the 'organizing' practice when theproject executive ensures that decisions align to changing business needs?"
   },
   {
@@ -1918,7 +1918,7 @@
     ],
     "lang": "ENG",
     "exp": "La struttura del team mostra chi ricopre i ruoli, incluse le persone chiave ESTERNE al core team.",
-    "trk": "'Persone chiave esterne' → Struttura team. 'Cosa fa un ruolo' → Descrizione ruolo.",
+    "trk": "Il responsabile di dipartimento deve conoscere i membri del team di progetto, quindi esamina la Struttura del team di gestione del progetto, che definisce i ruoli e le responsabilità. Il manuale dice: è il cuore dell'organizzazione del progetto.",
     "engText": "A new department head wants to know which members of staff will be involved in the project. Which management product should the department head review?"
   },
   {
@@ -1938,7 +1938,7 @@
     ],
     "lang": "ENG",
     "exp": "PRINCE2 usa 'team di progetto' nel senso più ampio: chiunque contribuisca al progetto o ne usi i risultati.",
-    "trk": "'Team di progetto' (ampio, tutti) ≠ 'Team di gestione' (solo chi gestisce).",
+    "trk": "Il manuale dice: \"Team di progetto\" indica tutte le persone coinvolte, a differenza del \"Team di gestione\" che si riferisce solo ai ruoli di gestione, quindi ricorda 'Team di progetto' per l'intero gruppo di lavoro.",
     "engText": "Identify the missing word in the following sentence: 'PRINCE2 uses the term [?] to cover all people required to allocate their time to the project.'"
   },
   {
@@ -1958,7 +1958,7 @@
     ],
     "lang": "ENG",
     "exp": "Comprendere l'ecosistema è il passo iniziale: analisi delle strutture esistenti, HR, obiettivi personali, cultura aziendale.",
-    "trk": "Comprendere = passo 1 = come funziona GIÀ l'organizzazione.",
+    "trk": "Comprendere l'ecosistema organizzativo è il passo giusto perché si definiscono gli obiettivi e le responsabilità, il manuale dice: \"Comprendere\" significa analizzare come funziona già l'organizzazione, quindi è logico che qui si definiscano anche gli obiettivi personali.",
     "engText": "In which step of the organizational design and development technique should responsibility for setting personal objectives be agreed?"
   },
   {
@@ -1979,7 +1979,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Organizzazione definisce la governance: chi fa cosa, chi risponde a chi nel team di progetto.",
-    "trk": "Organizzazione = 'Chi riporta a chi'. Non Piani (chi/quando) né Avanzamento (come va).",
+    "trk": "Il manuale dice: l'ecosistema del progetto è l'ambito in cui il progetto opera. Quindi, il passo \"Progettare l'ecosistema del progetto\" è informato dall'elenco di attività poiché definisce il contesto organizzativo in cui queste attività saranno svolte. Non si tratta di pianificazione (piani) né di controllo (avanzamento), ma di definire l'ambito organizzativo.",
     "engText": "The project manager has created a list of tasks to produce the project's products. Which step of the 'organizational design and development' technique should be informed by this list?"
   },
   {
@@ -2001,7 +2001,7 @@
     ],
     "lang": "ENG",
     "exp": "La struttura del team mostra chi ricopre i ruoli, incluse le persone chiave ESTERNE al core team.",
-    "trk": "'Persone chiave esterne' → Struttura team. 'Cosa fa un ruolo' → Descrizione ruolo.",
+    "trk": "Il nuovo membro cerca di capire la struttura del team, quindi deve consultare la Struttura del team di gestione del progetto, che descrive ruoli e responsabilità. Il manuale dice: è fondamentale conoscere la struttura del team per una gestione efficace del progetto.",
     "engText": "A new team member has joined the project team and wants to understand who else is on the project team. and who they report to. Which management product should the team member review?"
   },
   {
@@ -2022,7 +2022,7 @@
     ],
     "lang": "ENG",
     "exp": "Il Project Executive ha accountability totale: investimento, governance, struttura organizzativa, sicurezza e benessere del team.",
-    "trk": "Executive = responsabile di TUTTO. Progetta la struttura, rappresenta il business.",
+    "trk": "Il Project Executive è responsabile del finanziamento perché rappresenta il business e prende decisioni strategiche, come dice il manuale: è il \"Senior User\" che garantisce il valore del progetto per l'organizzazione.",
     "engText": "Which member of the project management team should secure funding for the project before the project starts?"
   },
   {
@@ -2043,7 +2043,7 @@
     ],
     "lang": "ENG",
     "exp": "Il Project Executive ha accountability totale: investimento, governance, struttura organizzativa, sicurezza e benessere del team.",
-    "trk": "Executive = responsabile di TUTTO. Progetta la struttura, rappresenta il business.",
+    "trk": "Il Project Executive si concentra sulla sicurezza e sul benessere del team di progetto, poiché è il rappresentante del business e deve garantire che il progetto sia condotto in modo responsabile. Il manuale dice: \"Il Project Executive è responsabile per l'intero progetto\", quindi include anche la sicurezza e il benessere del team.",
     "engText": "Which role is responsible for focusing on the safety and well-being of the project team?"
   },
   {
@@ -2065,7 +2065,7 @@
     ],
     "lang": "ENG",
     "exp": "Le descrizioni dei ruoli specificano cosa fa ciascun ruolo, le responsabilità e le interazioni. In PRINCE2 v7 includono anche l'accountability per la sostenibilità.",
-    "trk": "Descrizioni ruoli = mansionario (COSA FA). Struttura team = organigramma (CHI).",
+    "trk": "Descrizioni dei ruoli: comprende le responsabilità, il manuale dice che definisce \"cosa\" fa ogni ruolo, quindi è il prodotto giusto per capire il supporto dell'utente senior. Struttura del team è diverso, è come un organigramma, mostra \"chi\" fa cosa.",
     "engText": "The senior user needs to understand how user assurance will support the senior user on the project. Which management product should the senior user review?"
   },
   {
@@ -2087,7 +2087,7 @@
     ],
     "lang": "ENG",
     "exp": "La transizione verifica che i team operativi abbiano preso in carico gli output. È il passaggio di consegne progetto → operations.",
-    "trk": "4 passi: Comprendere → Progettare → Sviluppare → Transizione. 'Prendere in carico' = Transizione.",
+    "trk": "Ricorda \"Transizione\" perché è il momento in cui il progetto diventa operativo e i team prendono in carico la gestione dell'output, come dice il manuale: \"Transizione del progetto nell'ecosistema organizzativo\". Non confondere con gli altri passi, solo in Transizione si \"prende in carico\" l'output.",
     "engText": "The project manager needs to confirm that operational teams are responsible for the running of the outputs. During which step of the 'organizational design and development' technique should the project manager ensure this?"
   },
   {
@@ -2109,7 +2109,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Organizzazione definisce la governance: chi fa cosa, chi risponde a chi nel team di progetto.",
-    "trk": "Organizzazione = 'Chi riporta a chi'. Non Piani (chi/quando) né Avanzamento (come va).",
+    "trk": "Organizzazione = 'Chi riporta a chi', focalizzati sui ruoli e responsabilità, non sulla pianificazione (Piani) né sul monitoraggio (Avanzamento), il manuale dice: definire i ruoli e le responsabilità del team di gestione del progetto.",
     "engText": "What should the 'organizing' practice address?"
   },
   {
@@ -2130,7 +2130,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte."
+    "trk": "Qualità = aspettative DOCUMENTATE, cattura requisiti quando necessario, non quando realizzato. Il manuale dice: la gestione della qualità deve essere proattiva, non reattiva."
   },
   {
     "id": 105,
@@ -2151,7 +2151,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte."
+    "trk": "Qualità = aspettative DOCUMENTATE, altrimenti non si può verificare se sono state soddisfatte. Il manuale dice che la qualità deve essere definita e accettata dalle parti interessate, quindi serve la documentazione."
   },
   {
     "id": 106,
@@ -2171,7 +2171,7 @@
     ],
     "lang": "ITA",
     "exp": "Acquisire i requisiti è il primo passo: si rivede la descrizione del prodotto per estrarre requisiti dettagliati.",
-    "trk": "Requisiti il PRIMA possibile. Prima li catturi, meno errori costosi fai."
+    "trk": "Acquisire i requisiti degli utenti è il passo giusto, poiché il manuale dice che è qui che si identificano i requisiti dettagliati dei prodotti. Ricorda: \"Requisiti Precisi Inizialmente\" per evitare errori costosi."
   },
   {
     "id": 107,
@@ -2190,7 +2190,7 @@
     ],
     "lang": "ITA",
     "exp": "Il registro della qualità traccia lo stato di ogni attività di qualità: pianificata, in test, approvata. È il calendario delle ispezioni.",
-    "trk": "'Stato del test', 'quando ispezionare', 'pianificato per ispezione' → Registro qualità."
+    "trk": "Il team manager registra informazioni di qualità nel Registro della qualità, poiché il manuale dice che questo registro contiene informazioni sulla qualità dei prodotti. Ricorda: \"Qualità non approvata? Registro della qualità è la strada!\""
   },
   {
     "id": 108,
@@ -2209,7 +2209,7 @@
     ],
     "lang": "ITA",
     "exp": "La documentazione di inizio progetto (PID) contiene tutti gli approcci di gestione: qualità, rischio, comunicazione, ecc.",
-    "trk": "PID = documento master. 'Dove trovano info gli stakeholder sugli approcci' → PID."
+    "trk": "Il manuale dice: la qualità è fondamentale. \nPID = documento master, dove gli stakeholder trovano info sugli approcci di qualità, garantendo aspettative soddisfatte."
   },
   {
     "id": 109,
@@ -2228,7 +2228,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte."
+    "trk": "Il comitato di progetto garantisce il progetto, non la qualità: ricorda che la garanzia del progetto è un ruolo di controllo generale, mentre la garanzia di qualità è sui requisiti documentati, quindi se non è scritto non è qualità."
   },
   {
     "id": 110,
@@ -2248,7 +2248,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte."
+    "trk": "Il controllo di qualità spesso richiede validazione esterna, quindi \"Dare fiducia\" implica un'esternalità. Il manuale dice: la qualità è soddisfare le specifiche, quindi serve un'esternalità per validarle, altrimenti sarebbe un'autovalutazione interna."
   },
   {
     "id": 111,
@@ -2268,7 +2268,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte."
+    "trk": "Qualità = aspettative definite, il manuale dice che le misure qualitative vengono identificate nella Creazione di descrizioni dei prodotti, quindi devono essere scritte per essere valutate."
   },
   {
     "id": 112,
@@ -2288,7 +2288,7 @@
     ],
     "lang": "ITA",
     "exp": "La documentazione di inizio progetto (PID) contiene tutti gli approcci di gestione: qualità, rischio, comunicazione, ecc.",
-    "trk": "PID = documento master. 'Dove trovano info gli stakeholder sugli approcci' → PID."
+    "trk": "Il PID (Documentazione dell'inizio del progetto) è il punto di riferimento per gli stakeholder, poiché fornisce informazioni sugli approcci e le tecniche di gestione della qualità. Il manuale dice: il PID descrive come saranno gestiti la qualità, il rischio e gli cambiamenti nel progetto."
   },
   {
     "id": 113,
@@ -2307,7 +2307,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte."
+    "trk": "Il manuale dice: pianifica le tecniche di qualità, quindi aggiorna il registro della qualità. Qualità = pianificazione DOCUMENTATA, non basta pensare: dev'essere scritta."
   },
   {
     "id": 114,
@@ -2326,7 +2326,7 @@
     ],
     "lang": "ENG",
     "exp": "La documentazione di inizio progetto (PID) contiene tutti gli approcci di gestione: qualità, rischio, comunicazione, ecc.",
-    "trk": "PID = documento master. 'Dove trovano info gli stakeholder sugli approcci' → PID.",
+    "trk": "Il PID (Product Initiation Document) fornisce informazioni dettagliate agli stakeholder, quindi se cercano tecniche di gestione della qualità, il PID è la scelta giusta. Il manuale dice: è il documento master che contiene tutti i dettagli del progetto.",
     "engText": "Which management product should provide stakeholders with details of techniques to support effective quality management?"
   },
   {
@@ -2346,7 +2346,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Qualità = pianificazione DOCUMENTATA, non basta pensare: devono essere scritte. Il manuale dice: pianifica le tecniche di qualità all'inizio del progetto.",
     "engText": "According to the guidance for effective quality management. when should the quality register be updated with planned quality activities?"
   },
   {
@@ -2366,7 +2366,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Qualità = verifica esterna, poiché il manuale dice che la qualità riguarda la conformità alle specifiche di qualità definite. Dare fiducia che i prodotti soddisfino queste specifiche richiede spesso un controllo esterno.",
     "engText": "Which activity is MOST LIKELY to be carried out by people outside the project team. rather than within it?"
   },
   {
@@ -2386,7 +2386,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Qualità = aspettative DOCUMENTATE, il manuale dice: è necessario applicare la pratica della qualità per identificare e soddisfare le aspettative degli utenti, non basta soddisfarle se non sono state prima definite per iscritto.",
     "engText": "What ensures the user's quality expectations are identified and met?"
   },
   {
@@ -2407,7 +2407,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Garanzia del progetto = corretta gestione, non solo qualità. Il manuale dice: il comitato di progetto deve confermare che il progetto sia condotto correttamente.",
     "engText": "Which statement describes project assurance. rather than quality assurance?"
   },
   {
@@ -2427,7 +2427,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Qualità = aspettative DEFINITE, non basta pensare: devono essere SCritte nei prodotti, quindi Creazione delle descrizioni dei prodotti. Il manuale dice: ...",
     "engText": "In which step of the quality technique are qualitative measures identified?"
   },
   {
@@ -2453,7 +2453,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Qualità = aspettative scritte, non basta soddisfare se non sono documentate, il manuale dice: garantire i requisiti degli utenti.",
     "engText": "What is a purpose of the quality practice?"
   },
   {
@@ -2473,7 +2473,7 @@
     ],
     "lang": "ENG",
     "exp": "Il registro della qualità traccia lo stato di ogni attività di qualità: pianificata, in test, approvata. È il calendario delle ispezioni.",
-    "trk": "'Stato del test', 'quando ispezionare', 'pianificato per ispezione' → Registro qualità.",
+    "trk": "Il team manager deve registrare lo stato del test non ancora approvato nel Registro della qualità, poiché il manuale dice che questo registro traccia la qualità dei prodotti, quindi è lì che si registrano i test pianificati o in corso. Questo è diverso da altri registri che potrebbero tracciare solo l'avanzamento o i problemi, quindi è importante ricordare che la qualità è il focus del Registro della qualità.",
     "engText": "The team manager needs to record that a product needs to be tested but has not yet been approved. Where should this information be recorded?"
   },
   {
@@ -2493,7 +2493,7 @@
     ],
     "lang": "ENG",
     "exp": "Un nuovo requisito non pianificato è una questione. Qualsiasi cambiamento passa per la gestione delle questioni.",
-    "trk": "Nuovo requisito non pianificato = questione. Non si aggiornano i doc senza approvazione.",
+    "trk": "Nuovo requisito = nuova questione, non aggiorni senza approvazione, altrimenti non è più un progetto controllato. Il manuale dice: gestione delle questioni per garantire il controllo e l'approvazione.",
     "engText": "A new requirement is identified when producing a subordinate plan. How should this be managed?"
   },
   {
@@ -2513,7 +2513,7 @@
     ],
     "lang": "ENG",
     "exp": "Accettare i prodotti è il passo finale: l'utente prende formalmente ownership del prodotto consegnato.",
-    "trk": "Testare ≠ Accettare. Puoi testare e non accettare. L'accettazione è l'atto formale.",
+    "trk": "Accettazione ≠ Test: l'accettazione è l'atto formale di prendere ownership, come dice il manuale, mentre il test è solo una verifica.",
     "engText": "A system has been tested and the user needs to take ownership of the system. In which step of the quality management technique should this occur?"
   },
   {
@@ -2533,7 +2533,7 @@
     ],
     "lang": "ENG",
     "exp": "Il registro della qualità traccia lo stato di ogni attività di qualità: pianificata, in test, approvata. È il calendario delle ispezioni.",
-    "trk": "'Stato del test', 'quando ispezionare', 'pianificato per ispezione' → Registro qualità.",
+    "trk": "Il project manager deve verificare quando è prevista l'ispezione di un output, quindi consulta il Registro della qualità perché esso traccia gli standard di qualità e le ispezioni pianificate. Il manuale dice: \"...il Registro della qualità è utilizzato per registrare gli standard di qualità e le ispezioni pianificate\".",
     "engText": "The project manager needs to check when an output is planned to be inspected. Which management product should the project manager review?"
   },
   {
@@ -2553,7 +2553,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Qualità = aspettative DOCUMENTATE, il manuale dice: le specifiche di qualità definiscono gli standard da raggiungere, quindi devono essere scritte per essere verificabili.",
     "engText": "Which describes quality specifications?"
   },
   {
@@ -2573,7 +2573,7 @@
     ],
     "lang": "ENG",
     "exp": "Le descrizioni dei prodotti contengono specifiche qualitative e criteri di accettazione per ogni deliverable.",
-    "trk": "Descrizioni prodotti = dove vivono le specifiche e le misure qualitative.",
+    "trk": "Ricorda che le \"Descrizioni prodotti\" contengono specifiche e misure qualitative, quindi i requisiti ambientali vanno lì. Il manuale dice: la pianificazione della qualità deve considerare le esigenze del prodotto, inclusi i target ambientali.",
     "engText": ".A building is being constructed as part of the project. The building needs to meet environmental targets. Which information should be recorded as part of quality planning?"
   },
   {
@@ -2595,7 +2595,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Qualità = aspettative DOCUMENTATE. Il project manager deve raccogliere gli input degli utenti per definire le specifiche di qualità, altrimenti rischia di non soddisfare le loro aspettative.",
     "engText": "The project manager has prioritized the criteria that the project product must meet before the user will accept it. In which step of the quality management technique should this prioritization be used to define quality specifications?"
   },
   {
@@ -2617,7 +2617,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Requisito = bisogno scritto, altrimenti non è tale. Il manuale dice: un bisogno o aspettativa DOCUMENTATA, quindi non basta pensarla, dev'essere scritta.",
     "engText": "What is the definition of a requirement?"
   },
   {
@@ -2639,7 +2639,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Qualità = pianificazione DOCUMENTATA, non basta soddisfare aspettative: devono essere scritte nei piani di fase o di team per consentire una pianificazione più accurata. Il manuale dice: la gestione della qualità richiede una pianificazione precisa.",
     "engText": "The project management team needs to document quality control events. such as testing. According to the guidance for effective quality management. how should the events be documented?"
   },
   {
@@ -2661,7 +2661,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Qualità = aspettative DOCUMENTATE, non basta soddisfare: i requisiti devono essere scritti prima, altrimenti è come costruire una casa senza progetto.",
     "engText": "According to the guidance for effective quality management. when should the requirements for a product be captured?"
   },
   {
@@ -2682,7 +2682,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Approccio alla gestione della sostenibilità = indica come e quando utilizzare la prototipazione, altrimenti si rischia di non valutare correttamente la qualità del prodotto finale. Il manuale dice: \"l'approccio alla gestione della sostenibilità definisce come garantire che il prodotto sia sostenibile nel lungo termine\".",
     "engText": "Which should provide guidance on how and when prototyping is to be used?"
   },
   {
@@ -2705,7 +2705,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Qualità garantisce che i prodotti soddisfino le aspettative DOCUMENTATE degli utenti tramite test e specifiche.",
-    "trk": "Qualità = aspettative DOCUMENTATE. Non basta soddisfare: devono essere prima scritte.",
+    "trk": "Qualità = aspettative definite, il project manager esamina la descrizione del prodotto per raccogliere input degli utenti. Il manuale dice: è qui che si definiscono i requisiti dettagliati.",
     "engText": "The project manager reviews the project product description to identify the detailed requirements for each product. In which step of the quality management technique should the project manager do this review?"
   },
   {
@@ -2726,7 +2726,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento."
+    "trk": "Il manuale dice: gestione della sostenibilità include approcci per il prodotto, quindi i prototipi vanno lì. Non confondere con piani, che sono per il controllo e il baseline di riferimento."
   },
   {
     "id": 134,
@@ -2746,7 +2746,7 @@
     ],
     "lang": "ITA",
     "exp": "La descrizione del pacchetto di lavoro è il 'contratto' tra PM e team member: cosa fare, entro quando, con quali criteri.",
-    "trk": "Pacchetto di lavoro = strumento di controllo tra PM e TM. 'Controllare il lavoro di un membro' → WP."
+    "trk": "Il project manager consulta il \"Descrizione del pacchetto di lavoro\" per controllare il lavoro di un membro, poiché esso definisce gli obiettivi e le attività specifiche assegnate. Il manuale dice: è lo strumento di controllo tra PM e TM, quindi WP è la risposta giusta."
   },
   {
     "id": 135,
@@ -2766,7 +2766,7 @@
     ],
     "lang": "ITA",
     "exp": "La descrizione del prodotto del progetto cattura l'ambito complessivo e le aspettative di qualità ad alto livello.",
-    "trk": "Prodotto DEL PROGETTO (singolare, macro) ≠ Descrizioni DEI PRODOTTI (plurale, dettaglio)."
+    "trk": "Il manuale dice: \"descrivere i prodotti principali del progetto e lo scopo previsto, comprese le aspettative di qualità dell'utente\". Quindi, le aspettative di qualità dell'utente sono nella Descrizione del prodotto del progetto, non nel pacchetto di lavoro o nel piano."
   },
   {
     "id": 136,
@@ -2786,7 +2786,7 @@
     ],
     "lang": "ITA",
     "exp": "Definizione e analisi dei prodotti è il passo 1 della pianificazione: identificare cosa consegnare e i criteri di accettazione.",
-    "trk": "4 passi: Definire/Analizzare → Organizzare pacchetti → Stimare → Cronogramma."
+    "trk": "Il project manager deve capire cosa rende gli output accettabili nella \"Definizione e analisi dei prodotti\" perché è qui che si identificano i requisiti degli utenti, il manuale dice: è il passo in cui si definiscono i prodotti e le loro caratteristiche."
   },
   {
     "id": 137,
@@ -2806,7 +2806,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento."
+    "trk": "Il project manager si sta occupando di sostenibilità della consegna perché riguarda l'impatto ambientale del progetto, quindi controlla le emissioni di CO2 per allinearsi alla strategia aziendale. Il manuale dice: la sostenibilità della consegna si concentra sull'impatto ambientale e sociale del progetto."
   },
   {
     "id": 138,
@@ -2826,7 +2826,7 @@
     ],
     "lang": "ITA",
     "exp": "Se i prodotti del piano di fase non sono tracciabili al piano di progetto, si sta lavorando su qualcosa di non pianificato = scope creep.",
-    "trk": "Tracciabilità = controllo ambito. Ogni prodotto di fase deve avere un 'parent' nel piano di progetto."
+    "trk": "Il piano approvato abilita il controllo definendo l'ambito del progetto, evitando così lo scope creep. Il manuale dice: definizioni approvate dell'ambito del progetto sono fondamentali per il controllo."
   },
   {
     "id": 139,
@@ -2847,7 +2847,7 @@
     ],
     "lang": "ITA",
     "exp": "Il piano di fase è la base operativa per il controllo day-to-day del PM. È il piano più dettagliato usato per gestire.",
-    "trk": "Gerarchia: Piano Progetto (macro) → Piano Fase (dettaglio, base controllo) → Piano Team (operativo)."
+    "trk": "Il piano di fase deve allinearsi al piano di progetto, quindi se i prodotti non sono riconducibili, è segno di scope creep. Il manuale dice: la gerarchia dei piani è fondamentale per il controllo del progetto."
   },
   {
     "id": 140,
@@ -2867,7 +2867,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento."
+    "trk": "Piani = 3 prospettive (Business, Utenti, Fornitori) per garantire tutti gli interessi siano rappresentati, il manuale dice: è fondamentale considerare tutte le parti interessate."
   },
   {
     "id": 141,
@@ -2887,7 +2887,7 @@
     ],
     "lang": "ITA",
     "exp": "Il piano per l'eccezione viene creato quando si superano le tolleranze. Non è un aggiornamento ma un piano NUOVO.",
-    "trk": "Tolleranze superate → Exception Plan obbligatorio. Il board deve approvarlo."
+    "trk": "Il piano di team e il piano per l'eccezione non sono sempre creati, poiché il piano per l'eccezione è obbligatorio solo se le tolleranze vengono superate, mentre il piano di team è facoltativo. Il manuale dice che i piani sono adattabili alle esigenze del progetto."
   },
   {
     "id": 142,
@@ -2906,7 +2906,7 @@
     ],
     "lang": "ITA",
     "exp": "Organizzazione dei pacchetti è il passo 2: si struttura il lavoro in pacchetti assegnabili e si identificano le attività.",
-    "trk": "'Attività per consegnare' → Organizzare pacchetti (passo 2). 'Criteri accettazione' → Definizione (passo 1)."
+    "trk": "'Attività per consegnare' → Organizzare pacchetti (passo 2), perché il manuale dice che qui vengono identificate le attività per la consegna dei prodotti, non in altri passi come la Definizione."
   },
   {
     "id": 143,
@@ -2926,7 +2926,7 @@
     ],
     "lang": "ITA",
     "exp": "La descrizione del prodotto del progetto cattura l'ambito complessivo e le aspettative di qualità ad alto livello.",
-    "trk": "Prodotto DEL PROGETTO (singolare, macro) ≠ Descrizioni DEI PRODOTTI (plurale, dettaglio)."
+    "trk": "Il manuale dice: definisci l'ambito principale nel \"Descrizione del prodotto del progetto\". Ricorda: PROGETTO (macro) ≠ PRODOTTI (plurale, dettaglio), quindi cerca la descrizione del progetto nel suo complesso, non dei singoli prodotti."
   },
   {
     "id": 144,
@@ -2946,7 +2946,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento."
+    "trk": "Il manuale dice: monitorare l'avanzamento significa misurare i risultati rispetto ai piani, quindi ricorda \"Piani = Progressi\", ovvero controllare se il progetto sta procedendo secondo quanto pianificato."
   },
   {
     "id": 145,
@@ -2966,7 +2966,7 @@
     ],
     "lang": "ITA",
     "exp": "Il piano di fase è la base operativa per il controllo day-to-day del PM. È il piano più dettagliato usato per gestire.",
-    "trk": "Gerarchia: Piano Progetto (macro) → Piano Fase (dettaglio, base controllo) → Piano Team (operativo)."
+    "trk": "Il Piano di Fase è la risposta corretta perché rappresenta un piano dettagliato utilizzato come base per il controllo di gestione del progetto, come specificato nel manuale. La gerarchia dei piani è: Piano Progetto (macro) → Piano Fase (dettaglio, base controllo) → Piano Team (operativo), quindi il Piano di Fase è il livello di pianificazione più adatto per il controllo di gestione."
   },
   {
     "id": 146,
@@ -2985,7 +2985,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento.",
+    "trk": "Piani = 3P: Progetto (business), Prodotti (utenti), Processi (fornitori), il manuale dice che i piani devono integrare queste prospettive per rappresentare tutti gli interessi coinvolti.",
     "engText": "According to the 'plans' practice. why should plans integrate three different perspectives?"
   },
   {
@@ -3005,7 +3005,7 @@
     ],
     "lang": "ENG",
     "exp": "Il piano per l'eccezione viene creato quando si superano le tolleranze. Non è un aggiornamento ma un piano NUOVO.",
-    "trk": "Tolleranze superate → Exception Plan obbligatorio. Il board deve approvarlo.",
+    "trk": "Il Piano di Team e il Piano per l'eccezione non vengono sempre creati perché il primo dipende dalle esigenze del progetto e il secondo solo se le tolleranze vengono superate, come dice il manuale.",
     "engText": "Which 2 plans are NOT always created during a project?"
   },
   {
@@ -3025,7 +3025,7 @@
     ],
     "lang": "ENG",
     "exp": "Organizzazione dei pacchetti è il passo 2: si struttura il lavoro in pacchetti assegnabili e si identificano le attività.",
-    "trk": "'Attività per consegnare' → Organizzare pacchetti (passo 2). 'Criteri accettazione' → Definizione (passo 1).",
+    "trk": "'Attività per consegnare' → Organizzare pacchetti (passo 2), poiché qui vengono identificate le attività necessarie per la consegna dei prodotti. Il manuale dice: \"organizzazione dei pacchetti di lavoro\" è il passo dove si definiscono le attività concrete.",
     "engText": "In which step of the planning procedure should the activities to deliver products be identified?"
   },
   {
@@ -3045,7 +3045,7 @@
     ],
     "lang": "ENG",
     "exp": "La descrizione del prodotto del progetto cattura l'ambito complessivo e le aspettative di qualità ad alto livello.",
-    "trk": "Prodotto DEL PROGETTO (singolare, macro) ≠ Descrizioni DEI PRODOTTI (plurale, dettaglio).",
+    "trk": "Il manuale dice: descrizione del prodotto del progetto definisce ambito e qualità, quindi usa \"Prodotto\" singolare per l'intero progetto, non le \"Descrizioni\" dei singoli prodotti.",
     "engText": "Which should be used to identify the major scope and user quality expectations of the project?"
   },
   {
@@ -3065,7 +3065,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento.",
+    "trk": "Il manuale dice: monitorare l'avanzamento significa misurare i risultati rispetto ai piani, quindi Ricorda \"Piani = Riferimento\" per non confondere con altre opzioni, come il controllo o la gestione dei rischi.",
     "engText": "Which BEST describes how progress should be monitored?"
   },
   {
@@ -3085,7 +3085,7 @@
     ],
     "lang": "ENG",
     "exp": "Il piano di fase è la base operativa per il controllo day-to-day del PM. È il piano più dettagliato usato per gestire.",
-    "trk": "Gerarchia: Piano Progetto (macro) → Piano Fase (dettaglio, base controllo) → Piano Team (operativo).",
+    "trk": "Il Piano di Fase è la risposta corretta perché rappresenta il piano dettagliato utilizzato per il controllo di gestione del progetto, come base per le decisioni operative. Il manuale dice che il Piano di Fase è un sotto-piano del Piano Progetto, quindi ricorda: \"Piano Progetto → Piano Fase (dettaglio) → Piano Team\".",
     "engText": "Which is defined as a detailed plan used as the basis for project management control?"
   },
   {
@@ -3107,7 +3107,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento.",
+    "trk": "Piani = controllo preciso: definisci chi fa cosa e quando, così il project manager può controllare il progetto. Il manuale dice che i piani sono fondamentali per gestire il progetto, quindi ricorda: piano approvato = baseline di riferimento.",
     "engText": "What is the purpose of the plans practice?"
   },
   {
@@ -3127,7 +3127,7 @@
     ],
     "lang": "ENG",
     "exp": "Il piano per l'eccezione viene creato quando si superano le tolleranze. Non è un aggiornamento ma un piano NUOVO.",
-    "trk": "Tolleranze superate → Exception Plan obbligatorio. Il board deve approvarlo.",
+    "trk": "Tolleranze superate → Piano per l'eccezione, poiché il manuale dice che le modifiche oltre le tolleranze richiedono un'approvazione del board attraverso un piano di eccezione.",
     "engText": "The business strategy has changed. requiring the scope of the project to be increased beyond the tolerances that have been agreed by the business layer. Which plan should be produced to include this change?"
   },
   {
@@ -3147,7 +3147,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento.",
+    "trk": "Il piano di progetto per un progetto iterativo-incrementale prevede più fasi di consegna, poiché il manuale dice che ciò consente di affinare i criteri di accettazione man mano che i prodotti vengono consegnati, evitando la trappola di pianificare tutto in anticipo senza possibilità di adattamento.",
     "engText": "How should the project plan typically accommodate an iterative-incremental project?"
   },
   {
@@ -3167,7 +3167,7 @@
     ],
     "lang": "ENG",
     "exp": "Definizione e analisi dei prodotti è il passo 1 della pianificazione: identificare cosa consegnare e i criteri di accettazione.",
-    "trk": "4 passi: Definire/Analizzare → Organizzare pacchetti → Stimare → Cronogramma.",
+    "trk": "Il project manager deve acquisire le aspettative di qualità nell'analisi dei prodotti, perché qui si definiscono i requisiti del prodotto. Il manuale dice: \"Definizione e analisi dei prodotti\" è il passo dove si identificano le caratteristiche qualità dei prodotti.",
     "engText": "The project manager needs to capture the user's quality expectations. In which step of the planning technique should the expectations be captured?"
   },
   {
@@ -3187,7 +3187,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento.",
+    "trk": "Piani approvati = riferimento per controllo, monitorando avanzamento e impatto di rischi, come baseline di riferimento. Il manuale dice: i piani sono utilizzati per valutare l'impatto di questioni e rischi.",
     "engText": "How should approved plans enable control?"
   },
   {
@@ -3207,7 +3207,7 @@
     ],
     "lang": "ENG",
     "exp": "La descrizione del pacchetto di lavoro è il 'contratto' tra PM e team member: cosa fare, entro quando, con quali criteri.",
-    "trk": "Pacchetto di lavoro = strumento di controllo tra PM e TM. 'Controllare il lavoro di un membro' → WP.",
+    "trk": "Il team manager deve consultare la Descrizione del pacchetto di lavoro perché definisce i prodotti da consegnare, mentre il Pacchetto di lavoro è lo strumento di controllo tra PM e TM. Il manuale dice: il Pacchetto di lavoro autorizza il Team Manager a lavorare su un insieme specifico di prodotti.",
     "engText": "The team manager needs to check what products should be delivered by his team. Which management product should the team manager review?"
   },
   {
@@ -3227,7 +3227,7 @@
     ],
     "lang": "ENG",
     "exp": "Il piano di progetto è ad alto livello: mostra prodotti principali, milestone e quadro generale.",
-    "trk": "Piano Progetto = alto livello, prodotti principali. Piano Fase = dettagliato, controllo PM.",
+    "trk": "Piano di Progetto = alto livello, mostra i prodotti principali, mentre il Piano Fase si concentra sui dettagli. Il manuale dice che il Piano di Progetto è il piano ad alto livello che guida il progetto, quindi è la scelta corretta.",
     "engText": "What is defined as a high-level plan showing the major products of the project?"
   },
   {
@@ -3247,7 +3247,7 @@
     ],
     "lang": "ENG",
     "exp": "Il piano di fase è la base operativa per il controllo day-to-day del PM. È il piano più dettagliato usato per gestire.",
-    "trk": "Gerarchia: Piano Progetto (macro) → Piano Fase (dettaglio, base controllo) → Piano Team (operativo).",
+    "trk": "Il project manager dovrebbe gestire l'orizzonte di pianificazione preparando un piano di fase per la fase successiva basato su stime più accurate, poiché il manuale sottolinea l'importanza di pianificare per fasi successive con dettagli crescenti. Questo approccio evita la \"trappola del piano troppo dettagliato\" e consente un controllo efficace attraverso la gerarchia: Piano Progetto → Piano Fase → Piano Team.",
     "engText": "How should the project manager address the planning horizon?"
   },
   {
@@ -3268,7 +3268,7 @@
     ],
     "lang": "ENG",
     "exp": "La preparazione delle stime è il passo 3: si identificano risorse (persone, attrezzature, materiali) e si stimano tempi e costi.",
-    "trk": "Attrezzature, risorse, costi → Stime (passo 3).",
+    "trk": "Il project manager identifica le attrezzature necessarie durante la \"Preparazione delle stime\" poiché qui si definiscono le risorse necessarie, comprese le attrezzature, per realizzare il piano. Il manuale dice: ... quindi è qui che si pianificano i costi e le risorse, inclusi attrezzature e materiali.",
     "engText": "In which step of the planning technique should the project manager identify the equipment needed to deliver the plan?"
   },
   {
@@ -3290,7 +3290,7 @@
     ],
     "lang": "ENG",
     "exp": "La descrizione del prodotto del progetto cattura l'ambito complessivo e le aspettative di qualità ad alto livello.",
-    "trk": "Prodotto DEL PROGETTO (singolare, macro) ≠ Descrizioni DEI PRODOTTI (plurale, dettaglio).",
+    "trk": "Il project manager deve registrare cosa renderà gli utenti soddisfatti nel \"Descrizione del prodotto del progetto\", poiché definisce il prodotto finale. \nIl manuale dice: si tratta del requisito di qualità, quindi si utilizza il singolare \"Descrizione del prodotto del progetto\" e non il plurale \"Descrizioni dei prodotti\".",
     "engText": "The project manager needs to record what will make the users satisfied with the final product. Where should the project manager record this?"
   },
   {
@@ -3311,7 +3311,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento.",
+    "trk": "Il manuale dice: pianificazione basata sul prodotto significa identificare l'output del progetto. \nPensare \"P = Prodotti\" aiuta a ricordare che la pianificazione basata sul prodotto determina l'approccio al progetto identificando gli output.",
     "engText": "How does product-based planning help to determine the project approach?"
   },
   {
@@ -3332,7 +3332,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento.",
+    "trk": "Piano di team: solo per progetti grandi, \"Il manuale dice\" che deve esserci sufficiente complessità, altrimenti non necessario.",
     "engText": "Which plan should only be produced if the project is large and complex enough?"
   },
   {
@@ -3354,7 +3354,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento.",
+    "trk": "Il piano di team è utilizzato per organizzare e controllare il lavoro durante l'esecuzione di un pacchetto di lavoro, poiché il manuale dice che i piani di team sono utilizzati per gestire il lavoro a livello di team. \nRicorda: Piano di team = controllo a livello di team, non confondere con il piano di fase o di progetto.",
     "engText": "Which plan is used to organize and control the work when executing a work package?"
   },
   {
@@ -3377,7 +3377,7 @@
     ],
     "lang": "ENG",
     "exp": "La descrizione del pacchetto di lavoro è il 'contratto' tra PM e team member: cosa fare, entro quando, con quali criteri.",
-    "trk": "Pacchetto di lavoro = strumento di controllo tra PM e TM. 'Controllare il lavoro di un membro' → WP.",
+    "trk": "Il project manager utilizza la Descrizione del pacchetto di lavoro per controllare il lavoro di un membro del team poiché definisce chiaramente gli obiettivi e le attività da svolgere. Il manuale dice: è uno strumento di controllo tra PM e TM, quindi WP (Work Package) è il prodotto giusto per gestire il lavoro di un membro del team.",
     "engText": "The project manager is acting as the team manager and needs to control the work of a team member who reports to them. Which management product should the project manager use to control this work?"
   },
   {
@@ -3400,7 +3400,7 @@
     ],
     "lang": "ENG",
     "exp": "La descrizione del prodotto del progetto cattura l'ambito complessivo e le aspettative di qualità ad alto livello.",
-    "trk": "Prodotto DEL PROGETTO (singolare, macro) ≠ Descrizioni DEI PRODOTTI (plurale, dettaglio).",
+    "trk": "Il manuale dice: il prodotto del progetto descrive le aspettative di qualità degli utenti. Ricorda: Prodotto DEL PROGETTO (descrizione generale) ≠ Descrizioni DEI PRODOTTI (specifiche dettagliate).",
     "engText": "Which describes user's quality expectations?"
   },
   {
@@ -3422,7 +3422,7 @@
     ],
     "lang": "ENG",
     "exp": "La dipendenza interna è tra attività dello stesso progetto, controllabile dal PM.",
-    "trk": "Interna = dentro il progetto = controllabile. Esterna = fuori = non controllabile.",
+    "trk": "Interna = dentro il progetto = controllabile, al contrario di Esterna che riguarda fattori fuori dal controllo del team. Il manuale sottolinea l'importanza di distinguere tra dipendenze interne ed esterne per una pianificazione efficace.",
     "engText": "Identify the missing word(s) in the following sentence: [ ? ] dependency is one between two project activities. over which the project team has control."
   },
   {
@@ -3443,7 +3443,7 @@
     ],
     "lang": "ENG",
     "exp": "La dipendenza interna è tra attività dello stesso progetto, controllabile dal PM.",
-    "trk": "Interna = dentro il progetto = controllabile. Esterna = fuori = non controllabile.",
+    "trk": "Il manuale dice: una struttura di suddivisione del lavoro è utile quando ci sono più pacchetti di lavoro con risorse diverse. Ricorda: \"Misto\" significa più tipi di risorse, quindi più complesso da gestire, come un puzzle con pezzi interni ed esterni.",
     "engText": "When is a work breakdown structure MOST useful?"
   },
   {
@@ -3465,7 +3465,7 @@
     ],
     "lang": "ENG",
     "exp": "Definizione e analisi dei prodotti è il passo 1 della pianificazione: identificare cosa consegnare e i criteri di accettazione.",
-    "trk": "4 passi: Definire/Analizzare → Organizzare pacchetti → Stimare → Cronogramma.",
+    "trk": "Il project manager deve capire cosa rende gli output accettabili per gli utenti nella \"Definizione e analisi dei prodotti\" perché qui si definiscono i requisiti di qualità, il manuale dice: \"è fondamentale capire le esigenze degli utenti\".",
     "engText": "The project manager needs to understand what makes the outputs acceptable to the users. In which step of the 'planning' technique should this occur?"
   },
   {
@@ -3487,7 +3487,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica Piani definisce chi consegnerà i prodotti, quando e come. Il piano approvato è la baseline per il controllo.",
-    "trk": "Piani = controllo + chi + quando. Piano approvato = baseline di riferimento.",
+    "trk": "Il project manager si concentra sulla Sostenibilità della consegna quando pianifica di mantenere le emissioni di CO2 allineate alla strategia di business, poiché il manuale dice che la sostenibilità è un aspetto fondamentale della consegna del progetto. \nLa trappola tipica è confondere la sostenibilità con la sostenibilità ambientale, ma in PRINCE2 si riferisce alla capacità del progetto di supportare la strategia di business.",
     "engText": "What is being addressed when the project manager plans to keep the CO2 emissions of the project aligned with the business strategy?"
   },
   {
@@ -3509,7 +3509,7 @@
     ],
     "lang": "ENG",
     "exp": "Se i prodotti del piano di fase non sono tracciabili al piano di progetto, si sta lavorando su qualcosa di non pianificato = scope creep.",
-    "trk": "Tracciabilità = controllo ambito. Ogni prodotto di fase deve avere un 'parent' nel piano di progetto.",
+    "trk": "Piani approvati = controllo scope, definiscono cosa è dentro e fuori dal progetto. Il manuale dice: evitare lo scope creep, quindi ogni piano deve avere un ambito chiaro.",
     "engText": "Which statement BEST describes how approved plans enable control?"
   },
   {
@@ -3530,7 +3530,7 @@
     ],
     "lang": "ENG",
     "exp": "Il piano di fase è la base operativa per il controllo day-to-day del PM. È il piano più dettagliato usato per gestire.",
-    "trk": "Gerarchia: Piano Progetto (macro) → Piano Fase (dettaglio, base controllo) → Piano Team (operativo).",
+    "trk": "Il piano di fase deve essere allineato al piano di progetto, quindi se i prodotti non sono riconducibili, si rischia il \"scope creep\". Il manuale dice: è fondamentale il controllo dei prodotti per evitare deviazioni.",
     "engText": "Which feature of a stage plan suggests that a project is in danger of scope creep?"
   },
   {
@@ -3552,7 +3552,7 @@
     ],
     "lang": "ITA",
     "exp": "L'analisi qualitativa valuta come MINIMO probabilità e effetto di ogni rischio sugli obiettivi.",
-    "trk": "Qualitativo minimo = Probabilità × Effetto. Tutto il resto è raffinamento."
+    "trk": "Qualitativo minimo = P × E, dove P è la Probabilità e E è l'Effetto, il manuale dice che è fondamentale valutare questi due aspetti per ogni rischio."
   },
   {
     "id": 174,
@@ -3572,7 +3572,7 @@
     ],
     "lang": "ITA",
     "exp": "La tolleranza sul rischio è il range quantitativo accettabile di esiti per ogni obiettivo a rischio.",
-    "trk": "Tolleranza = soglia QUANTITATIVA (es. 10% max). Propensione = attitudine QUALITATIVA."
+    "trk": "Tolleranza sul rischio = limite accettabile di deviazione, ricorda che il manuale dice che si tratta di una \"gamma tollerabile\" per gli obiettivi a rischio. Non confondere con propensione, che riguarda l'atteggiamento verso il rischio."
   },
   {
     "id": 175,
@@ -3592,7 +3592,7 @@
     ],
     "lang": "ITA",
     "exp": "Il registro dei rischi contiene stato, probabilità, impatto, risposta, responsabile di ogni rischio.",
-    "trk": "Registro = dati operativi. Approccio = metodologia. 'Stato di un rischio specifico' → Registro."
+    "trk": "Il Project Manager deve consultare il Registro dei rischi per verificare lo stato di un rischio specifico, poiché il manuale dice che il Registro dei rischi contiene informazioni sui rischi identificati e sulle azioni intraprese per mitigarli. Ricorda: Registro = dati sui rischi, quindi è lì che si trova lo stato di attivazione della risposta a una minaccia."
   },
   {
     "id": 176,
@@ -3612,7 +3612,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica del rischio identifica e gestisce rischi (minacce E opportunità) agli obiettivi del progetto.",
-    "trk": "PRINCE2 v7: rischio = minacce E opportunità. Non solo negativi."
+    "trk": "Il project manager deve riportare il modo di gestire i rischi durante l'Identificazione, poiché è qui che si definiscono il contesto e gli obiettivi, fissando le basi per la gestione dei rischi. Il manuale dice: \"...definizione del contesto e degli obiettivi\" è fondamentale per comprendere come affrontare rischi e opportunità."
   },
   {
     "id": 177,
@@ -3633,7 +3633,7 @@
     ],
     "lang": "ITA",
     "exp": "Identificare è il primo passo: comprende definire il contesto E identificare minacce/opportunità specifiche.",
-    "trk": "5 passi: Identificare → Valutare → Pianificare → Implementare → Comunicare."
+    "trk": "Il manuale dice: gestione del rischio per proteggere gli obiettivi del progetto. Ricorda \"IVPI\" = Identificare, Valutare, Pianificare, Implementare, per gestire i rischi e raggiungere gli obiettivi."
   },
   {
     "id": 178,
@@ -3652,7 +3652,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica del rischio identifica e gestisce rischi (minacce E opportunità) agli obiettivi del progetto.",
-    "trk": "PRINCE2 v7: rischio = minacce E opportunità. Non solo negativi."
+    "trk": "Il trucco è: \"Perdere è peggio che guadagnare\", il manuale dice che il rischio include sia minacce che opportunità, quindi l'avversione alle perdite porta a valorizzare il mantenimento più dell'acquisizione."
   },
   {
     "id": 179,
@@ -3671,7 +3671,7 @@
     ],
     "lang": "ITA",
     "exp": "Identificare è il primo passo: comprende definire il contesto E identificare minacce/opportunità specifiche.",
-    "trk": "5 passi: Identificare → Valutare → Pianificare → Implementare → Comunicare."
+    "trk": "Il project manager deve definire la gestione del rischio nell'ambito dell'Identificare, poiché è il primo passo della tecnica di gestione del rischio, dove si riconoscono i potenziali rischi. Il manuale dice: l'Identificare è il passo in cui si individuano i rischi, quindi è logico che sia qui che si definisca la gestione del rischio."
   },
   {
     "id": 180,
@@ -3691,7 +3691,7 @@
     ],
     "lang": "ITA",
     "exp": "La minaccia è un evento incerto con impatto NEGATIVO sugli obiettivi. L'opportunità ha impatto POSITIVO.",
-    "trk": "Minaccia = negativo. Opportunità = positivo. Entrambi INCERTI. Se è certo → questione."
+    "trk": "Minaccia = impatto negativo incerto, come un nemico nascosto. Il manuale dice che le minacce hanno un impatto negativo sugli obiettivi, quindi è fondamentale riconoscerle per mitigarle."
   },
   {
     "id": 181,
@@ -3711,7 +3711,7 @@
     ],
     "lang": "ITA",
     "exp": "L'approccio quantitativo usa metodi statistici (Monte Carlo, analisi di sensitività) per misurare l'incertezza numericamente.",
-    "trk": "Qualitativo = giudizio (P×E). Quantitativo = statistici (numeri)."
+    "trk": "Quantitativo significa numeri, quindi utilizza metodi statistici per valutare l'incertezza, al contrario del qualitativo che si basa sul giudizio (Probabilità x Effetto). Il manuale dice: l'analisi quantitativa aiuta a comprendere l'esposizione complessiva al rischio."
   },
   {
     "id": 182,
@@ -3730,7 +3730,7 @@
     ],
     "lang": "ITA",
     "exp": "L'approccio alla gestione del rischio specifica come il progetto gestirà i rischi: metodologia, strumenti, processi.",
-    "trk": "Approccio = COME fare. Registro = DOVE si trovano i dati."
+    "trk": "Il manuale dice: l'Approccio alla gestione del rischio definisce come gestire i rischi, quindi è lì che va specificato se applicare la tecnica PRINCE2. Ricorda: Approccio = politica, Registro = archiviazione."
   },
   {
     "id": 183,
@@ -3749,7 +3749,7 @@
     ],
     "lang": "ITA",
     "exp": "La fonte del rischio si identifica documentando la causa. Struttura: Causa → Evento → Effetto.",
-    "trk": "C-E-E: Causa (fonte/origine) → Evento (cosa potrebbe accadere) → Effetto (conseguenza)."
+    "trk": "Il trucco mnemonico è C-E-E: quando identifichi la Causa (fonte/origine) di un rischio, documenta l'Evento (cosa potrebbe accadere) e l'Effetto (conseguenza), il manuale dice di focalizzarsi sulla causa per gestire il rischio."
   },
   {
     "id": 184,
@@ -3768,7 +3768,7 @@
     ],
     "lang": "ITA",
     "exp": "L'analisi qualitativa valuta come MINIMO probabilità e effetto di ogni rischio sugli obiettivi.",
-    "trk": "Qualitativo minimo = Probabilità × Effetto. Tutto il resto è raffinamento."
+    "trk": "Il trucco è: \"Rischio = Probabilità × Impatto, quindi controllare le incertezze aumenta la probabilità di successo del progetto, come dice il manuale: gestione del rischio per ridurre l'incertezza.\""
   },
   {
     "id": 185,
@@ -3787,7 +3787,7 @@
     ],
     "lang": "ENG",
     "exp": "La minaccia è un evento incerto con impatto NEGATIVO sugli obiettivi. L'opportunità ha impatto POSITIVO.",
-    "trk": "Minaccia = negativo. Opportunità = positivo. Entrambi INCERTI. Se è certo → questione.",
+    "trk": "Minaccia = evento negativo e incerto, altrimenti è una questione se è certo. Il manuale dice: gli eventi incerti con impatto negativo sono minacce.",
     "engText": "Which term is used to describe uncertain events that would have a negative impact on objectives?"
   },
   {
@@ -3807,7 +3807,7 @@
     ],
     "lang": "ENG",
     "exp": "La fonte del rischio si identifica documentando la causa. Struttura: Causa → Evento → Effetto.",
-    "trk": "C-E-E: Causa (fonte/origine) → Evento (cosa potrebbe accadere) → Effetto (conseguenza).",
+    "trk": "Il manuale dice: identificare la fonte del rischio significa capire la sua 'causa', quindi C-E-E diventa Causa-Evento-Effetto, dove la causa è la fonte del rischio. Ricorda: senza causa non c'è rischio, quindi identifica la causa quando documenti il rischio.",
     "engText": "When should the source of a risk be identified?"
   },
   {
@@ -3827,7 +3827,7 @@
     ],
     "lang": "ENG",
     "exp": "L'approccio quantitativo usa metodi statistici (Monte Carlo, analisi di sensitività) per misurare l'incertezza numericamente.",
-    "trk": "Qualitativo = giudizio (P×E). Quantitativo = statistici (numeri).",
+    "trk": "Ricorda: Quantitativo = numeri (statistici) per valutare l'incertezza, al contrario del qualitativo che si basa sul giudizio (Probabilità x Impatto). Il manuale dice: l'approccio quantitativo aiuta a comprendere l'effetto dell'incertezza sugli obiettivi.",
     "engText": "How should a quantitative approach to risk analysis be used to understand overall risk exposure?"
   },
   {
@@ -3847,7 +3847,7 @@
     ],
     "lang": "ENG",
     "exp": "L'approccio alla gestione del rischio specifica come il progetto gestirà i rischi: metodologia, strumenti, processi.",
-    "trk": "Approccio = COME fare. Registro = DOVE si trovano i dati.",
+    "trk": "Il manuale dice: l'Approccio alla gestione del rischio definisce come gestire i rischi, quindi è lì che si specifica se applicare la tecnica PRINCE2. Ricorda, Approccio = policy, Registro = documentazione.",
     "engText": "Which should specify whether the PRINCE2 risk management technique is to be applied?"
   },
   {
@@ -3868,7 +3868,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica del rischio identifica e gestisce rischi (minacce E opportunità) agli obiettivi del progetto.",
-    "trk": "PRINCE2 v7: rischio = minacce E opportunità. Non solo negativi.",
+    "trk": "Ricorda: PRINCE2 vuole controllare le incertezze per avere successo, non solo le minacce. Il manuale dice: il rischio include sia minacce che opportunità, quindi pensa a \"migliorare la capacità del progetto di avere successo\" come obiettivo principale.",
     "engText": "Which is a purpose of the risk practice?"
   },
   {
@@ -3888,7 +3888,7 @@
     ],
     "lang": "ENG",
     "exp": "L'approccio alla gestione del rischio specifica come il progetto gestirà i rischi: metodologia, strumenti, processi.",
-    "trk": "Approccio = COME fare. Registro = DOVE si trovano i dati.",
+    "trk": "Il trucco è: \"Approccio = Come gestire, Registro = Dove registrare, quindi l'Approccio alla gestione del rischio dice COME registrare le minacce, non il Registro stesso\".",
     "engText": "Which provides the project management team with guidance on how to record threats?"
   },
   {
@@ -3908,7 +3908,7 @@
     ],
     "lang": "ENG",
     "exp": "Il Risk Owner è responsabile di monitorare il rischio e garantire che la risposta venga attuata. Il Risk Action Owner esegue le azioni.",
-    "trk": "Risk Owner = supervisiona. Risk Action Owner = esegue. Come Executive vs PM.",
+    "trk": "Risk Owner = responsabile del rischio, mentre Risk Action Owner esegue le azioni, come un Project Manager che esegue le direttive dell'Executive, quindi Risk Owner \"supervisa\" il rischio.",
     "engText": "Which term describes who is responsible for responding to a risk satisfactorily?"
   },
   {
@@ -3928,7 +3928,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica del rischio identifica e gestisce rischi (minacce E opportunità) agli obiettivi del progetto.",
-    "trk": "PRINCE2 v7: rischio = minacce E opportunità. Non solo negativi.",
+    "trk": "Il manuale dice: \"rischio = minacce E opportunità\". L'avversione alle perdite porta a un processo decisionale meno efficace poiché si attribuisce valore alla conservazione, anziché al guadagno.",
     "engText": "How does loss aversion result in less effective decision-making when considering risks?"
   },
   {
@@ -3948,7 +3948,7 @@
     ],
     "lang": "ENG",
     "exp": "Identificare è il primo passo: comprende definire il contesto E identificare minacce/opportunità specifiche.",
-    "trk": "5 passi: Identificare → Valutare → Pianificare → Implementare → Comunicare.",
+    "trk": "Il project manager deve comprendere l'ambiente del progetto e definire come gestire il rischio nel progetto, quindi è logico che ciò avvenga nell'Identificare, il primo passo della gestione del rischio. Il manuale dice: Identificare è il passo in cui si riconoscono i potenziali rischi, quindi è qui che il project manager deve comprendere l'ambiente e definire la gestione del rischio.",
     "engText": "The project manager needs to understand the project environment and define how to manage the risk on the project. In which step of the risk management technique should this be defined?"
   },
   {
@@ -3968,7 +3968,7 @@
     ],
     "lang": "ENG",
     "exp": "Identificare è il primo passo: comprende definire il contesto E identificare minacce/opportunità specifiche.",
-    "trk": "5 passi: Identificare → Valutare → Pianificare → Implementare → Comunicare.",
+    "trk": "Il manuale dice: gestione del rischio per identificare minacce e OPPORTUNITÀ, quindi non solo problemi ma anche chance positive. Ricorda \"ORO\" (Opportunità e Rischio Opportunità) per non confondere con la sola gestione dei problemi.",
     "engText": "Why should the risk practice be performed?"
   },
   {
@@ -3988,7 +3988,7 @@
     ],
     "lang": "ENG",
     "exp": "L'approccio alla gestione del rischio specifica come il progetto gestirà i rischi: metodologia, strumenti, processi.",
-    "trk": "Approccio = COME fare. Registro = DOVE si trovano i dati.",
+    "trk": "Il manuale dice: adattare la procedura PRINCE2 significa gestire i rischi, quindi va documentato nell'Approccio alla gestione del rischio, dove si definisce COME affrontare i rischi.",
     "engText": "The PRINCE2 procedure needs to be tailored to ensure events that are likely to affect the objectives are managed. In which management product should this be documented?"
   },
   {
@@ -4008,7 +4008,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica del rischio identifica e gestisce rischi (minacce E opportunità) agli obiettivi del progetto.",
-    "trk": "PRINCE2 v7: rischio = minacce E opportunità. Non solo negativi.",
+    "trk": "Rischio = evento incerto con impatto sugli obiettivi, non solo negativo, ma anche positivo (opportunità). Il manuale dice: gestione del rischio include sia minacce che opportunità.",
     "engText": "Which term is defined as an uncertain event or set of events that. should it occur. will have an effect on the achievement of objectives?"
   },
   {
@@ -4028,7 +4028,7 @@
     ],
     "lang": "ENG",
     "exp": "La tolleranza sul rischio è il range quantitativo accettabile di esiti per ogni obiettivo a rischio.",
-    "trk": "Tolleranza = soglia QUANTITATIVA (es. 10% max). Propensione = attitudine QUALITATIVA.",
+    "trk": "Tolleranza = soglia QUANTITATIVA, posiziona i rischi nel profilo di rischio riassuntivo per valutare l'esposizione complessiva. Il manuale dice: è fondamentale conoscere la propensione al rischio per gestirlo efficacemente, quindi relazione alla linea di tolleranza sul rischio.",
     "engText": "How does effective risk management enable understanding of the overall risk exposure for a project?"
   },
   {
@@ -4048,7 +4048,7 @@
     ],
     "lang": "ENG",
     "exp": "Identificare è il primo passo: comprende definire il contesto E identificare minacce/opportunità specifiche.",
-    "trk": "5 passi: Identificare → Valutare → Pianificare → Implementare → Comunicare.",
+    "trk": "Il Project Manager deve esaminare il project brief nell'Identificare, poiché è qui che si definiscono il contesto e gli obiettivi, permettendo di assegnare responsabilità. Il manuale dice: Identificare è il primo passo della tecnica di gestione del rischio, quindi è logico che avvenga qui l'assegnazione delle responsabilità.",
     "engText": "The project manager needs to review the project brief to decide who will be responsible for each step in the risk management technique. In which step of the risk management technique should this occur?"
   },
   {
@@ -4072,7 +4072,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica del rischio identifica e gestisce rischi (minacce E opportunità) agli obiettivi del progetto.",
-    "trk": "PRINCE2 v7: rischio = minacce E opportunità. Non solo negativi.",
+    "trk": "Il manuale dice: il rischio include sia minacce che opportunità. La cultura del rischio può rendere il processo decisionale meno efficace se i singoli ignorano le minacce, concentrandosi solo sulle opportunità.",
     "engText": "How can the risk culture of an organisation make decision-making less effective?"
   },
   {
@@ -4093,7 +4093,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica del rischio identifica e gestisce rischi (minacce E opportunità) agli obiettivi del progetto.",
-    "trk": "PRINCE2 v7: rischio = minacce E opportunità. Non solo negativi.",
+    "trk": "Il manuale dice: accettazione del rischio. Ricorda \"Propensione al rischio\" come l'atteggiamento verso il rischio, non solo le minacce ma anche le opportunità.",
     "engText": "Which term is defined as the amount and type of risk that the business is willing to take in pursuit of its objectives?"
   },
   {
@@ -4114,7 +4114,7 @@
     ],
     "lang": "ENG",
     "exp": "Il registro dei rischi contiene stato, probabilità, impatto, risposta, responsabile di ogni rischio.",
-    "trk": "Registro = dati operativi. Approccio = metodologia. 'Stato di un rischio specifico' → Registro.",
+    "trk": "Il Registro dei rischi raccoglie minacce e opportunità, come detto nel manuale: \"Il manuale dice...\". Ricorda: Registro = lista dettagliata di rischi, non confondere con l'Approccio che è la metodologia.",
     "engText": "Which details the identified threats and opportunities related to the project?"
   },
   {
@@ -4135,7 +4135,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica del rischio identifica e gestisce rischi (minacce E opportunità) agli obiettivi del progetto.",
-    "trk": "PRINCE2 v7: rischio = minacce E opportunità. Non solo negativi.",
+    "trk": "Il manuale dice: la gestione del rischio include sia minacce che opportunità, quindi non solo aspetti negativi. Ricorda: \"Rischio = Minacce + Opportunità\" per evitare la trappola di considerare solo gli aspetti negativi.",
     "engText": "How is uncertainty identified. assessed and controlled?"
   },
   {
@@ -4157,7 +4157,7 @@
     ],
     "lang": "ENG",
     "exp": "Identificare è il primo passo: comprende definire il contesto E identificare minacce/opportunità specifiche.",
-    "trk": "5 passi: Identificare → Valutare → Pianificare → Implementare → Comunicare.",
+    "trk": "Il trucco è: \"Identificare\" è il passo dove considerare l'ambiente dell'organizzazione, poiché è qui che si riconoscono i rischi, il manuale dice: è il primo passo della gestione del rischio. Non confondere con \"Valutare\" che è il passo successivo dove si analizza l'impatto.",
     "engText": "In which step of the risk management procedure should the organization's environment be considered?"
   },
   {
@@ -4178,7 +4178,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica del rischio identifica e gestisce rischi (minacce E opportunità) agli obiettivi del progetto.",
-    "trk": "PRINCE2 v7: rischio = minacce E opportunità. Non solo negativi.",
+    "trk": "Il trucco mnemonico: \"Rischio = PxE\" (Probabilità x Effetto), ricorda che l'analisi qualitativa valuta almeno la probabilità e l'effetto di ogni rischio sugli obiettivi, considerando sia minacce che opportunità.",
     "engText": "What does qualitative analysis of a risk assess. as a minimum?"
   },
   {
@@ -4201,7 +4201,7 @@
     ],
     "lang": "ENG",
     "exp": "La tolleranza sul rischio è il range quantitativo accettabile di esiti per ogni obiettivo a rischio.",
-    "trk": "Tolleranza = soglia QUANTITATIVA (es. 10% max). Propensione = attitudine QUALITATIVA.",
+    "trk": "Tolleranza sul rischio: soglia misurabile per ogni obiettivo 'a rischio', ricorda che \"Tolleranza\" è quantitativa, mentre \"Propensione\" è qualitativa, il manuale sottolinea l'importanza di definire tolleranze per gestire i rischi in modo efficace.",
     "engText": "Which term is defined as the measurable threshold to represent the tolerable range of outcomes for each objective 'at risk'?"
   },
   {
@@ -4222,7 +4222,7 @@
     ],
     "lang": "ENG",
     "exp": "Il registro dei rischi contiene stato, probabilità, impatto, risposta, responsabile di ogni rischio.",
-    "trk": "Registro = dati operativi. Approccio = metodologia. 'Stato di un rischio specifico' → Registro.",
+    "trk": "Il project manager consulta il Registro dei rischi per verificare lo stato di un rischio specifico, poiché il manuale dice che esso contiene informazioni sui rischi identificati e sulle azioni intraprese. La trappola tipica è confondere il Registro dei rischi con altri documenti progettuali, ma solo il Registro dei rischi contiene i dati operativi sui rischi.",
     "engText": "The project manager needs to know whether the response to a threat to the project has been actioned. Which should the project manager review?"
   },
   {
@@ -4245,7 +4245,7 @@
     ],
     "lang": "ENG",
     "exp": "Identificare è il primo passo: comprende definire il contesto E identificare minacce/opportunità specifiche.",
-    "trk": "5 passi: Identificare → Valutare → Pianificare → Implementare → Comunicare.",
+    "trk": "Il project manager deve documentare la gestione del rischio durante il progetto nel passo \"Identificare\" perché definisce il contesto e gli obiettivi, ovvero il \"perché\" e il \"cosa\" del piano di gestione del rischio. Il manuale dice: è qui che si definiscono gli obiettivi della gestione del rischio.",
     "engText": "The project manager needs to document how risk management will be undertaken during the project. In which step of the 'risk management' technique should the project manager document this?"
   },
   {
@@ -4266,7 +4266,7 @@
     ],
     "lang": "ENG",
     "exp": "Identificare è il primo passo: comprende definire il contesto E identificare minacce/opportunità specifiche.",
-    "trk": "5 passi: Identificare → Valutare → Pianificare → Implementare → Comunicare.",
+    "trk": "Il motivo migliore per eseguire la pratica del rischio è identificare e gestire i rischi agli obiettivi del progetto, poiché \"Il manuale dice\" che la gestione del rischio è fondamentale per garantire il successo del progetto. Ricorda \"IRPIC\" (Identificare, Rischi, Pianificare, Implementare, Comunicare) per non cadere nella trappola di confondere la gestione del rischio con la gestione delle issue.",
     "engText": "What is the BEST reason to perform the risk practice?"
   },
   {
@@ -4289,7 +4289,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica delle questioni gestisce eventi pertinenti al progetto: problemi, preoccupazioni, cambiamenti e fuori specifica.",
-    "trk": "Questione = CERTA/già accaduta. Rischio = INCERTO/futuro. Distinzione fondamentale."
+    "trk": "Questione = evento già accaduto, richiede azione correttiva. Il manuale dice: \"un evento pertinente al progetto\", quindi è una questione se è già successo, altrimenti è un rischio se è solo possibile."
   },
   {
     "id": 210,
@@ -4309,7 +4309,7 @@
     ],
     "lang": "ITA",
     "exp": "La baseline si aggiorna SOLO dopo approvazione formale dell'autorità del cambiamento.",
-    "trk": "Ricevi → Registri → Valuti → Autorità decide → Se approvato → Aggiorna baseline."
+    "trk": "Aggiorna baseline quando il cambiamento è approvato dall'autorità, altrimenti la baseline resta stabile. Il manuale dice: un cambiamento approvato richiede un aggiornamento della baseline per mantenere l'allineamento con gli obiettivi del progetto."
   },
   {
     "id": 211,
@@ -4329,7 +4329,7 @@
     ],
     "lang": "ITA",
     "exp": "Il diario del progetto è la fonte primaria del PM per raccogliere info sullo stato delle questioni.",
-    "trk": "PM consulta il Diario → produce l'Highlight report per il board."
+    "trk": "Il Project Manager consulta il Diario del progetto per riportare lo stato delle questioni al comitato di progetto, poiché il Diario registra tutte le questioni del progetto, come evidenziato nel manuale."
   },
   {
     "id": 212,
@@ -4350,7 +4350,7 @@
     ],
     "lang": "ITA",
     "exp": "Il passo Decidere è dove l'autorità del cambiamento prende la decisione, inclusa la richiesta di exception plan.",
-    "trk": "Rilevare → Valutare → Decidere → Implementare. Exception plan → passo Decidere."
+    "trk": "Rilevare → Valutare → Decidere → Implementare: quando si chiedono maggiori informazioni, siamo nel passo \"Decidere\" perché il project manager deve attendere la decisione dell'autorità del cambiamento. Il manuale dice: la tecnica \"gestione delle questioni\" prevede la valutazione e la decisione su come affrontare le questioni sollevate."
   },
   {
     "id": 213,
@@ -4370,7 +4370,7 @@
     ],
     "lang": "ITA",
     "exp": "Il rapporto sulla questione contiene la valutazione DETTAGLIATA dell'impatto di UNA questione specifica.",
-    "trk": "Registro = lista di TUTTE le questioni. Rapporto = dettaglio di UNA. 'Valutazione impatto' → Rapporto."
+    "trk": "Il project manager registra la valutazione dell'impatto in un Rapporto sulla questione, perché questo documento fornisce un dettaglio approfondito su una specifica opportunità di business, mentre il Registro delle questioni è una lista di tutte le questioni."
   },
   {
     "id": 214,
@@ -4390,7 +4390,7 @@
     ],
     "lang": "ITA",
     "exp": "La baseline è la versione approvata dei prodotti di gestione. Serve come riferimento per confrontare concordato vs effettivo.",
-    "trk": "Baseline = punto di partenza per il confronto. 'Discrepanze stato concordato/effettivo' → baseline."
+    "trk": "Baseline = riferimento fisso, il manuale dice: \"stato concordato\" vs \"stato effettivo\" richiede un punto di partenza per il confronto, quindi Baseline."
   },
   {
     "id": 215,
@@ -4409,7 +4409,7 @@
     ],
     "lang": "ITA",
     "exp": "La pratica delle questioni gestisce eventi pertinenti al progetto: problemi, preoccupazioni, cambiamenti e fuori specifica.",
-    "trk": "Questione = CERTA/già accaduta. Rischio = INCERTO/futuro. Distinzione fondamentale."
+    "trk": "La gestione dei cambiamenti è cruciale perché impatta su aree organizzative specifiche, il manuale dice: \"le parti interessate devono comprendere\". Ricorda: Cambiamento = Impatto, non solo Rischi o Questioni."
   },
   {
     "id": 216,
@@ -4428,7 +4428,7 @@
     ],
     "lang": "ITA",
     "exp": "L'approccio descrive come identificare, valutare e controllare tutti i tipi di questioni.",
-    "trk": "'Problemi o preoccupazioni', 'come valutare' → Approccio gestione questioni."
+    "trk": "Ricorda 'problemi o preoccupazioni' → Approccio alla gestione delle questioni, poiché il manuale dice che qui vengono descritte le procedure per valutare e controllare le questioni, non nella gestione dei rischi o dei cambiamenti."
   },
   {
     "id": 217,
@@ -4448,7 +4448,7 @@
     ],
     "lang": "ITA",
     "exp": "Valutare analizza l'impatto della questione su ambito, costi, tempi e altri target di prestazione.",
-    "trk": "'Comprendere l'impatto', 'analizzare effetti' → sempre passo Valutare."
+    "trk": "Valuta e implementa: il Manuale dice che la pratica delle questioni serve a valutare le questioni e, se approvate, implementare modifiche alla baseline del progetto, quindi sempre \"Valutare e applicare\" le modifiche."
   },
   {
     "id": 218,
@@ -4468,7 +4468,7 @@
     ],
     "lang": "ITA",
     "exp": "Quando un fuori specifica viene accettato, la baseline va aggiornata per riflettere le specifiche modificate.",
-    "trk": "Fuori specifica ACCETTATO = aggiorna baseline. NON accettato = usa budget cambiamenti."
+    "trk": "Fuori specifica ACCETTATO = aggiorna baseline, altrimenti usa budget cambiamenti: il manuale dice di modificare la baseline per allineare il progetto alle nuove specifiche accettate."
   },
   {
     "id": 219,
@@ -4487,7 +4487,7 @@
     ],
     "lang": "ITA",
     "exp": "Il passo Decidere è dove l'autorità del cambiamento prende la decisione, inclusa la richiesta di exception plan.",
-    "trk": "Rilevare → Valutare → Decidere → Implementare. Exception plan → passo Decidere."
+    "trk": "Rilevare → Valutare → Decidere → Implementare: il piano per l'eccezione si richiede in \"Decidere\" perché è il passo in cui si valutano le opzioni e si decidono le azioni correttive, il manuale dice che è in questa fase che si definiscono i piani per affrontare le eccezioni."
   },
   {
     "id": 220,
@@ -4810,7 +4810,7 @@
     ],
     "lang": "ENG",
     "exp": "La pratica delle questioni gestisce eventi pertinenti al progetto: problemi, preoccupazioni, cambiamenti e fuori specifica.",
-    "trk": "Questione = CERTA/già accaduta. Rischio = INCERTO/futuro. Distinzione fondamentale.",
+    "trk": "Il termine \"Fuori specifica\" descrive un prodotto che non soddisfa le sue specifiche di qualità. Il manuale dice: un prodotto fuori specifica non rispetta gli standard di qualità richiesti.",
     "engText": "Which term is defined as a product that will not meet its quality specifications?"
   },
   {
@@ -6091,10 +6091,10 @@
     "trk": "Controllo fase = PM al timone. Assegna WP, monitora, corregge.",
     "combo": true,
     "stmts": [
-      "To focus attention on achieving work within the agreed tolleranze",
-      "To create follow on action recommendations for all open issues and risks",
-      "To understand how the quality required will be achieved",
-      "To ensure that the stage's products meet agreed quality expectations"
+      "Per focalizzare l'attenzione sul raggiungimento del lavoro entro le tolleranze concordate",
+      "Per creare raccomandazioni per azioni successive per tutte le questioni e i rischi aperti",
+      "Per capire come sarà raggiunta la qualità richiesta",
+      "Per assicurarsi che i prodotti della fase soddisfino le aspettative di qualità concordate"
     ],
     "engText": "Which TWO are objectives of the 'controlling a stage' process?"
   },
@@ -6138,10 +6138,10 @@
     "trk": "Gestione consegna = TM reporting + qualità.",
     "combo": true,
     "stmts": [
-      "To record information that may be useful later in this project. or to other projects",
-      "To manage expectations by reporting accurately to the project manager",
-      "To ensure that the team's work is authorized and agreed before work starts",
-      "To define the plans and costs for the work to deliver the project product"
+      "Per registrare informazioni che potrebbero essere utili in seguito in questo progetto o ad altri progetti",
+      "Per gestire le aspettative riferendo in modo accurato al project manager",
+      "Per assicurarsi che il lavoro del team sia autorizzato e concordato prima dell'inizio dei lavori",
+      "Per definire i piani e i costi per consegnare il prodotto del progetto"
     ],
     "engText": "Which TWO are objectives of the 'managing product delivery' process?"
   },
@@ -6477,7 +6477,7 @@
     ],
     "lang": "ENG",
     "exp": "L'avvio è il filtro rapido: valuta se vale la pena, nomina Executive e PM, pianifica l'Inizio.",
-    "trk": "Avvio = 'Vale la pena?' Nomina + Pianifica Inizio.",
+    "trk": "Avvio = 'Vale la pena?' (Validazione del business case) + Nomina team, pianifica inizio: il manuale dice che l'obiettivo è garantire che il progetto sia giustificato e pianificato, quindi 1 e 4 (Validazione del business case e pianificazione) sono i due obiettivi chiave.",
     "combo": true,
     "stmts": [
       "To define the scope of the project to enable it to be initiated",
@@ -8106,7 +8106,7 @@
     ],
     "lang": "ENG",
     "exp": "Il contesto Commerciale riguarda i rapporti contrattuali con fornitori esterni e come influenzano la governance del progetto.",
-    "trk": "Fornitori/contratti/appalto = sempre Commerciale",
+    "trk": "Fornitori esterni = Commerciale, perché richiede contratti e appalti, il manuale dice che il contesto Commerciale si concentra sulla gestione dei fornitori.",
     "engText": "Which common project context relates to the need to engage with external suppliers to deliver part of the project?"
   }
 ]
