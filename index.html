@@ -415,6 +415,9 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
         onkeydown="if(event.key==='Enter')authSubmit()">
     </div>
     <button class="auth-btn" id="authSubmitBtn" onclick="authSubmit()">Accedi</button>
+    <div id="authRecoverLink" style="text-align:center;margin-top:12px">
+      <a onclick="doResetPassword()" style="font-size:12px;color:var(--tx3);cursor:pointer;text-decoration:underline">Password dimenticata?</a>
+    </div>
     <div class="auth-toggle" id="authToggleText">
       Non hai un account? <a onclick="toggleAuthMode()">Registrati</a>
     </div>
@@ -559,7 +562,6 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
         <input type="file" id="impF" accept=".json" style="display:none" onchange="importFile(this)">
       </div>
       <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:4px" onclick="openChangePwModal()">🔑 Cambia password</button>
-      <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:4px" onclick="doResetPassword()">📧 Recupera password via email</button>
       <button class="bnv" style="width:100%;font-size:10px;padding:6px;color:var(--rd)" onclick="resetAll()">🔄 Reset risposte</button>
       <div id="gistStatusBar" style="display:none"></div>
     </div>
@@ -1599,6 +1601,7 @@ function toggleAuthMode() {
   document.getElementById('authErr').classList.remove('vis');
   document.getElementById('authOk').classList.remove('vis');
   document.getElementById('authPass').autocomplete = isLogin ? 'current-password' : 'new-password';
+  document.getElementById('authRecoverLink').style.display = isLogin ? 'block' : 'none';
 }
 
 async function authSubmit() {
@@ -1851,12 +1854,31 @@ async function doChangePassword() {
 
 /* ===== RECUPERA PASSWORD ===== */
 async function doResetPassword() {
-  if (!_currentUser) return;
-  var email = _currentUser.email;
-  if (!confirm('Inviare email di recupero password a:\n' + email + '?')) return;
+  var email, errEl, okEl;
+  if (_currentUser) {
+    email = _currentUser.email;
+    errEl = null; okEl = null;
+  } else {
+    email = (document.getElementById('authEmail').value || '').trim();
+    errEl = document.getElementById('authErr');
+    okEl  = document.getElementById('authOk');
+    if (errEl) errEl.classList.remove('vis');
+    if (okEl)  okEl.classList.remove('vis');
+    if (!email) {
+      if (errEl) { errEl.textContent = 'Inserisci la tua email prima di richiedere il recupero.'; errEl.classList.add('vis'); }
+      return;
+    }
+  }
   var res = await _sb.auth.resetPasswordForEmail(email);
-  if (res.error) showToast('❌ ' + res.error.message, 'err');
-  else showToast('✅ Email inviata a ' + email, 'ok');
+  if (res.error) {
+    if (okEl) { okEl.classList.remove('vis'); }
+    if (errEl) { errEl.textContent = '❌ ' + res.error.message; errEl.classList.add('vis'); }
+    else showToast('❌ ' + res.error.message, 'err');
+  } else {
+    if (errEl) { errEl.classList.remove('vis'); }
+    if (okEl) { okEl.textContent = '✅ Email di recupero inviata a ' + email; okEl.classList.add('vis'); }
+    else showToast('✅ Email inviata a ' + email, 'ok');
+  }
 }
 
 loadState();
