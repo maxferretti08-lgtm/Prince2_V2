@@ -52,7 +52,7 @@ a{color:var(--ac2);text-decoration:none}
 .hdr-clr{background:none;border:1px solid var(--bd);color:var(--tx3);font-size:11px;font-weight:600;padding:0 8px;border-radius:6px;cursor:pointer;white-space:nowrap;transition:all .12s;height:32px;line-height:32px;flex-shrink:0;box-sizing:border-box}
 .hdr-clr:hover{color:var(--tx);background:var(--sf3)}
 .hdr-sqm{display:flex;gap:3px;flex-shrink:0;height:32px}
-.hdr-sqm .sqm-btn{height:32px;padding:0 8px;line-height:32px;box-sizing:border-box}
+.hdr-sqm .sqm-btn{height:32px;padding:0 8px;line-height:32px;box-sizing:border-box;white-space:nowrap;overflow:hidden}
 /* Nav bottom (same layout as nav-top, below the question card) */
 .nav-bot{display:flex;align-items:center;gap:8px;margin-top:8px}.nav-bot .bt{min-width:80px}
 /* Button active states */
@@ -267,7 +267,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   .hdr-search{font-size:16px;height:30px;line-height:30px;padding:0 8px}
   .hdr-clr{font-size:10px;height:30px;line-height:30px;padding:0 6px}
   .hdr-sqm{height:30px}
-  .hdr-sqm .sqm-btn{height:30px;line-height:30px;font-size:9px;padding:0 5px}
+  .hdr-sqm .sqm-btn{height:30px;line-height:30px;font-size:9px;padding:0 5px;white-space:nowrap;overflow:hidden}
 
   /* Nav-top sticky su mobile (header ~80px) */
   .nav-top{position:sticky;top:80px;z-index:40;background:var(--bg);padding:8px 0;margin:0}
@@ -486,6 +486,37 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   </div>
 </div>
 
+<!-- Cambia password modal -->
+<div class="modal-bg" id="changePwModal">
+  <div class="modal">
+    <h2>🔑 Cambia password</h2>
+    <p>Inserisci la nuova password per il tuo account.</p>
+    <div id="changePwErr" class="auth-msg err"></div>
+    <div id="changePwOk" class="auth-msg ok"></div>
+    <div class="auth-field">
+      <label>Nuova password</label>
+      <input type="password" id="changePwInp" placeholder="Nuova password (min 6 caratteri)" class="sinp" style="width:100%" onkeydown="if(event.key==='Enter')doChangePassword()">
+    </div>
+    <div class="modal-row">
+      <button class="bt brev" style="flex:2" onclick="doChangePassword()">Cambia password</button>
+      <button class="bt bnv" style="flex:1" onclick="closeModal('changePwModal')">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<!-- Importa progressi locali modal -->
+<div class="modal-bg" id="importLocalModal">
+  <div class="modal">
+    <h2>📦 Progressi trovati</h2>
+    <p>Hai progressi salvati localmente. Vuoi importarli nel cloud (Supabase)?</p>
+    <div id="importLocalInfo" style="background:var(--sf2);border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:13px"></div>
+    <div class="modal-row">
+      <button class="bt brev" style="flex:2" onclick="doImportLocal()">✅ Importa sul cloud</button>
+      <button class="bt bnv" style="flex:1" onclick="closeModal('importLocalModal')">Ignora</button>
+    </div>
+  </div>
+</div>
+
 <aside class="sidebar" id="sb">
   <div class="shd"><span class="shd-logo">📚</span><h2>Argomenti</h2></div>
   <!-- Utente loggato -->
@@ -521,24 +552,16 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   <details class="sb-coll" id="impostazioniColl">
     <summary>⚙️ Impostazioni</summary>
     <div class="sb-coll-body">
-      <button class="bnv" style="width:100%;font-size:11px;padding:7px;margin-bottom:6px" onclick="showSourceMap()">🗺️ Mappa sorgenti</button>
-      <div id="gistStatusBar" style="display:none;text-align:center;margin-bottom:6px;font-size:11px"></div>
-      <div style="display:flex;gap:4px;margin-bottom:4px">
-        <button class="bnv" style="flex:1;font-size:10px;padding:6px;color:var(--ac)" onclick="gistPush()">☁️↑ Push</button>
-        <button class="bnv" style="flex:1;font-size:10px;padding:6px;color:var(--pu)" onclick="gistPull()">☁️↓ Pull</button>
-      </div>
-      <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:4px" onclick="openGistModal()">⚙️ Configura Gist</button>
+      <button class="bnv" style="width:100%;font-size:11px;padding:7px;margin-bottom:4px" onclick="showSourceMap()">🗺️ Mappa sorgenti</button>
       <div style="display:flex;gap:4px;margin-bottom:4px">
         <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="exportFile()">⬇ Esporta</button>
         <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="document.getElementById('impF').click()">⬆ Importa</button>
         <input type="file" id="impF" accept=".json" style="display:none" onchange="importFile(this)">
       </div>
-      <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:4px" onclick="syncLink()">🔗 Link sync</button>
-      <div id="syncBox" style="display:none;margin-bottom:4px">
-        <input type="text" id="syncUrl" class="sinp" readonly style="font-size:10px;margin-bottom:3px">
-        <button class="bnv" style="width:100%;font-size:10px;padding:5px" onclick="copySync()">📋 Copia link</button>
-      </div>
+      <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:4px" onclick="openChangePwModal()">🔑 Cambia password</button>
+      <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:4px" onclick="doResetPassword()">📧 Recupera password via email</button>
       <button class="bnv" style="width:100%;font-size:10px;padding:6px;color:var(--rd)" onclick="resetAll()">🔄 Reset risposte</button>
+      <div id="gistStatusBar" style="display:none"></div>
     </div>
   </details>
 </aside>
@@ -580,8 +603,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   <button onclick="toggleSB()"><span class="ico">☰</span>Menu</button>
   <button onclick="filterQs();renderQ();scrollTo(0,0)" id="mobDomande"><span class="ico">📖</span>Domande</button>
   <button onclick="openExamModal()"><span class="ico">🎯</span>Esame</button>
-  <button onclick="gistPush()"><span class="ico">☁️↑</span>Salva</button>
-  <button onclick="gistPull()"><span class="ico">☁️↓</span>Aggiorna</button>
+  <button onclick="showStats()"><span class="ico">📊</span>Stats</button>
 </nav>
 </div>
 
@@ -1647,19 +1669,19 @@ function updateSbSyncStatus(state) {
 }
 
 async function sbLoadProgress() {
-  if (!_currentUser) return;
+  if (!_currentUser) return false;
   try {
     var res = await _sb.from('user_progress')
       .select('data')
       .eq('user_id', _currentUser.id)
       .single();
     if (res.error) {
-      if (res.error.code === 'PGRST116') return; // nessuna riga — primo accesso
+      if (res.error.code === 'PGRST116') return false; // nessuna riga — primo accesso
       console.warn('sbLoad:', res.error.message);
-      return;
+      return false;
     }
     var d = res.data && res.data.data;
-    if (!d || typeof d !== 'object') return;
+    if (!d || typeof d !== 'object') return false;
     if (Array.isArray(d.fl)) S.fl = new Set(d.fl.map(function(x){ return parseInt(x, 10); }));
     if (Array.isArray(d.sn)) S.sn = new Set(d.sn.map(function(x){ return parseInt(x, 10); }));
     if (d.an && typeof d.an === 'object') S.an = d.an;
@@ -1669,7 +1691,8 @@ async function sbLoadProgress() {
     if (d.lq !== undefined) S.lq = d.lq;
     // Sincronizza anche localStorage
     try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq})); } catch(e) {}
-  } catch(e) { console.warn('sbLoad exception:', e); }
+    return true;
+  } catch(e) { console.warn('sbLoad exception:', e); return false; }
 }
 
 async function sbSaveProgress() {
@@ -1725,14 +1748,35 @@ async function initApp() {
   if (!_questionsLoaded || !_currentUser || _appInitialized) return;
   _appInitialized = true;
 
-  // Carica progressi da Supabase (sovrascrive localStorage)
-  await sbLoadProgress();
+  // Cattura i dati localStorage PRIMA che Supabase li sovrascriva
+  var lsRaw = localStorage.getItem('p2s7');
+  var lsParsed = null;
+  var lsHasData = false;
+  if (lsRaw) {
+    try {
+      lsParsed = JSON.parse(lsRaw);
+      lsHasData = (lsParsed.sn && lsParsed.sn.length > 0) || Object.keys(lsParsed.an || {}).length > 0;
+    } catch(e) {}
+  }
+
+  // Carica progressi da Supabase (sovrascrive lo stato locale)
+  var sbHasData = await sbLoadProgress();
 
   syncImport();
   buildSidebar();
   filterQs();
   updateProgress();
   updateGistStatusBar();
+
+  // Primo accesso Supabase: se ci sono dati locali, offri importazione
+  if (!sbHasData && lsHasData) {
+    showImportLocalModal(lsParsed);
+    renderQ();
+    if (_autoSyncInterval) clearInterval(_autoSyncInterval);
+    autoSyncPull();
+    _autoSyncInterval = setInterval(autoSyncPull, 20000);
+    return;
+  }
 
   if (hasSavedProgress()) {
     checkResume();
@@ -1745,6 +1789,74 @@ async function initApp() {
   if (_autoSyncInterval) clearInterval(_autoSyncInterval);
   autoSyncPull();
   _autoSyncInterval = setInterval(autoSyncPull, 20000);
+}
+
+/* ===== IMPORTA PROGRESSI LOCALI ===== */
+function showImportLocalModal(lsData) {
+  var an = Object.keys(lsData.an || {}).length;
+  var sn = (lsData.sn || []).length;
+  var fl = (lsData.fl || []).length;
+  document.getElementById('importLocalInfo').innerHTML =
+    '<div style="display:flex;gap:20px;flex-wrap:wrap">' +
+    '<div class="rs-stat"><div class="n">' + sn + '</div><div class="l">Viste</div></div>' +
+    '<div class="rs-stat"><div class="n">' + an + '</div><div class="l">Risposte</div></div>' +
+    '<div class="rs-stat"><div class="n" style="color:var(--yl)">' + fl + '</div><div class="l">Segnalate</div></div>' +
+    '</div>';
+  window._lsImportData = lsData;
+  openModal('importLocalModal');
+}
+function doImportLocal() {
+  if (!window._lsImportData) { closeModal('importLocalModal'); return; }
+  var d = window._lsImportData;
+  if (Array.isArray(d.fl)) d.fl.forEach(function(x){ S.fl.add(parseInt(x, 10)); });
+  if (Array.isArray(d.sn)) d.sn.forEach(function(x){ S.sn.add(parseInt(x, 10)); });
+  if (d.an) for (var k in d.an) { S.an[k] = d.an[k]; }
+  saveState();
+  buildSidebar(); filterQs(); updateProgress();
+  closeModal('importLocalModal');
+  showToast('✅ Progressi importati sul cloud!', 'ok');
+  renderQ();
+  window._lsImportData = null;
+}
+
+/* ===== CAMBIA PASSWORD ===== */
+function openChangePwModal() {
+  var errEl = document.getElementById('changePwErr');
+  var okEl  = document.getElementById('changePwOk');
+  if (errEl) errEl.classList.remove('vis');
+  if (okEl)  okEl.classList.remove('vis');
+  var inp = document.getElementById('changePwInp');
+  if (inp) inp.value = '';
+  openModal('changePwModal');
+}
+async function doChangePassword() {
+  var pw    = document.getElementById('changePwInp').value;
+  var errEl = document.getElementById('changePwErr');
+  var okEl  = document.getElementById('changePwOk');
+  errEl.classList.remove('vis'); okEl.classList.remove('vis');
+  if (!pw || pw.length < 6) {
+    errEl.textContent = 'La password deve essere di almeno 6 caratteri.';
+    errEl.classList.add('vis'); return;
+  }
+  var res = await _sb.auth.updateUser({ password: pw });
+  if (res.error) {
+    errEl.textContent = '❌ ' + res.error.message;
+    errEl.classList.add('vis');
+  } else {
+    okEl.textContent = '✅ Password cambiata con successo!';
+    okEl.classList.add('vis');
+    document.getElementById('changePwInp').value = '';
+  }
+}
+
+/* ===== RECUPERA PASSWORD ===== */
+async function doResetPassword() {
+  if (!_currentUser) return;
+  var email = _currentUser.email;
+  if (!confirm('Inviare email di recupero password a:\n' + email + '?')) return;
+  var res = await _sb.auth.resetPasswordForEmail(email);
+  if (res.error) showToast('❌ ' + res.error.message, 'err');
+  else showToast('✅ Email inviata a ' + email, 'ok');
 }
 
 loadState();
