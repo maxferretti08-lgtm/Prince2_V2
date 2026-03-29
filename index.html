@@ -263,6 +263,8 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 .toast.err{border-color:var(--rd);color:var(--rd)}
 .toast.info{border-color:var(--ac);color:var(--ac)}
 #toastEl{display:block}
+.toast.persist{pointer-events:auto}
+.toast-btn{background:var(--ac);color:#0d1117;border:none;border-radius:6px;padding:3px 10px;font-size:12px;font-weight:700;cursor:pointer;margin-left:8px;vertical-align:middle;line-height:1.4}
 
 /* Responsive */
 @media(max-width:768px){
@@ -672,7 +674,7 @@ var SRC_PATTERNS = [
   {col:'SIM2-ENG',re:/SIM[_-]+2[_-]+ENG|SIM[_-]+ENG[_-]+2/i}
 ];
 
-var S = {ca:'00',cf:'all',ci:0,lq:null,fq:[],fl:new Set(),sn:new Set(),an:{},sq:'',sqMode:'all',em:false,eq:[],ea:{},es:null,et:null,examDiff:'easy'};
+var S = {ca:'00',cf:'all',ci:0,lq:null,fq:[],fl:new Set(),sn:new Set(),an:{},sq:'',sqMode:'all',em:false,eq:[],ea:{},es:null,et:null,examDiff:'easy',savedPos:null};
 
 /* ===== PERSISTENCE ===== */
 function loadState() {
@@ -684,11 +686,12 @@ function loadState() {
       S.sn = new Set((p.sn||[]).map(function(x){return parseInt(x,10);}));
       S.an = p.an||{}; S.ci = p.ci||0; S.ca = p.ca||'00'; S.cf = p.cf||'all';
       S.lq = p.lq||null;
+      if (p.savedPos) S.savedPos = p.savedPos;
     }
   } catch(e) {}
 }
 function saveState() {
-  try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq})); } catch(e) {}
+  try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq,savedPos:S.savedPos})); } catch(e) {}
   sbSaveDebounced();
 }
 function hasSavedProgress() {
@@ -728,6 +731,59 @@ function showToast(msg, type) {
   el.classList.add('show');
   clearTimeout(_toastTimer);
   _toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 3200);
+}
+function hideToast() {
+  clearTimeout(_toastTimer);
+  var el = document.getElementById('toastEl');
+  if (el) el.classList.remove('show');
+}
+function showToastHTML(html, type, persistent) {
+  var el = document.getElementById('toastEl');
+  if (!el) return;
+  el.innerHTML = html;
+  el.className = 'toast' + (type ? ' ' + type : '') + (persistent ? ' persist' : '');
+  void el.offsetWidth;
+  el.classList.add('show');
+  clearTimeout(_toastTimer);
+  if (!persistent) _toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 3200);
+}
+
+/* ===== SALVA POSIZIONE ===== */
+async function savePosition() {
+  if (!_currentUser) { showToast('❌ Effettua il login per salvare la posizione', 'err'); return; }
+  var q = S.fq[S.ci];
+  if (!q) return;
+  S.savedPos = { qid: q.id, ci: S.ci, ca: S.ca, cf: S.cf };
+  saveState();
+  await sbSaveProgress();
+  showToast('💾 Posizione salvata! Domanda #' + q.id, 'ok');
+}
+function jumpToSavedPosition() {
+  hideToast();
+  if (!S.savedPos) return;
+  S.ca = S.savedPos.ca || '00';
+  S.cf = S.savedPos.cf || 'all';
+  filterQs();
+  var idx = -1;
+  for (var i = 0; i < S.fq.length; i++) { if (S.fq[i].id === S.savedPos.qid) { idx = i; break; } }
+  S.ci = idx >= 0 ? idx : (S.savedPos.ci || 0);
+  saveState();
+  buildSidebar();
+  filterQs();
+  renderQ();
+  scrollTo(0, 0);
+}
+function checkSavedPosition() {
+  if (!S.savedPos || !_currentUser) return;
+  var q = Q.find(function(x){ return x.id === S.savedPos.qid; });
+  if (!q) return;
+  var curQ = S.fq[S.ci];
+  if (curQ && curQ.id === S.savedPos.qid) return;
+  showToastHTML(
+    '👋 Bentornato! Riprendi dalla domanda <strong>#' + S.savedPos.qid + '</strong>?' +
+    ' <button class="toast-btn" onclick="jumpToSavedPosition()">Riprendi</button>',
+    'info', true
+  );
 }
 
 /* ===== RESUME SCREEN ===== */
@@ -771,6 +827,7 @@ function doResume() {
   }
   renderQ();
   scrollTo(0, 0);
+  setTimeout(checkSavedPosition, 800);
 }
 function doFresh() {
   closeModal('resumeModal');
@@ -779,6 +836,7 @@ function doFresh() {
   document.querySelectorAll('.fb').forEach(function(fb){ fb.classList.remove('on'); });
   document.querySelector('.fb').classList.add('on'); // "Tutte" è il primo
   buildSidebar(); filterQs(); renderQ(); scrollTo(0,0);
+  setTimeout(checkSavedPosition, 800);
 }
 
 /* ===== FILTERING ===== */
@@ -913,6 +971,7 @@ function renderQ() {
   h += '<div class="qact">';
   h += '<button class="bt brev' + (aw?' act':'') + '" onclick="toggleRev()" id="brv">' + (aw ? 'Nascondi' : 'Mostra risposta') + '</button>';
   h += '<button class="bt bfl ' + (fg?'fg':'') + '" data-qid="' + q.id + '" onclick="toggleFlag(this)">' + (fg ? '⚠️ Segnalata' : '⚠️ Segna') + '</button>';
+  h += '<button class="bt bsv" onclick="savePosition()" title="Salva posizione corrente per riprendere al prossimo accesso">💾 Salva</button>';
   h += '<button class="brst" data-qid="' + q.id + '" onclick="resetOne(this)" title="Reset questa domanda">↺</button>';
   h += '</div></div>';
   h += '<div class="nav-bot"><button class="bt bnv" onclick="navQ(-1)">← Prec</button><span class="nav-pos">' + (S.ci+1) + ' / ' + S.fq.length + '</span><button class="bt bnv" onclick="navQ(1)">Succ →</button></div>';
@@ -1773,8 +1832,9 @@ async function sbLoadProgress() {
     if (d.ca !== undefined) S.ca = d.ca;
     if (d.cf !== undefined) S.cf = d.cf;
     if (d.lq !== undefined) S.lq = d.lq;
+    if (d.savedPos) S.savedPos = d.savedPos;
     // Sincronizza anche localStorage
-    try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq})); } catch(e) {}
+    try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq,savedPos:S.savedPos})); } catch(e) {}
     return true;
   } catch(e) { console.warn('sbLoad exception:', e); return false; }
 }
@@ -1788,6 +1848,7 @@ async function sbSaveProgress() {
       sn:  [...S.sn].map(function(x){ return parseInt(x, 10); }),
       an:  JSON.parse(JSON.stringify(S.an)),
       ci: S.ci, ca: S.ca, cf: S.cf, lq: S.lq,
+      savedPos: S.savedPos,
       ts: new Date().toISOString(), v: 2
     };
     var r = await _sb.from('user_progress').upsert(
@@ -1868,6 +1929,7 @@ async function initApp() {
     S.cf = 'all'; S.ca = '00'; S.ci = 0; saveState();
     buildSidebar(); filterQs();
     renderQ();
+    setTimeout(checkSavedPosition, 800);
   }
 
   if (_autoSyncInterval) clearInterval(_autoSyncInterval);
