@@ -92,6 +92,7 @@ a{color:var(--ac2);text-decoration:none}
 .bfl{background:var(--sf3);color:var(--yl);border:1px solid var(--bd)}.bfl.fg{background:var(--ylb);border-color:var(--yl)}
 .bnv{background:var(--sf3);color:var(--tx);border:1px solid var(--bd)}.bnv:hover{background:var(--sf2);border-color:var(--tx3)}
 .brst{background:var(--sf3);color:var(--rd);border:1px solid var(--bd);font-size:11px;padding:5px 9px;border-radius:5px}.brst:hover{background:var(--rdb)}
+.bsv{background:var(--acg);color:var(--ac);border:1px solid var(--ac)}.bsv:hover{background:var(--ac);color:#fff}
 .btn-sm{padding:5px 10px;font-size:11px;font-weight:600;border-radius:5px;transition:all .12s}
 .spc{flex:1}
 
@@ -292,7 +293,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   .nav-top .bt{flex:1;min-height:50px;font-size:17px;font-weight:700}
   .nav-pos{font-size:14px;font-weight:700;color:var(--tx)}
   /* Nascondi frecce duplicate in basso su mobile */
-  .qact .qnb{display:none}
+  .nav-bot{display:none}
 
   /* Content */
   .cnt{padding:12px;padding-bottom:80px}
@@ -317,6 +318,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   .qact{flex-wrap:wrap;gap:7px}
   .qact .brev{flex:2;min-width:120px}
   .qact .bfl{flex:1;min-width:100px}
+  .qact .bsv{flex:1;min-width:100px;order:4}
   .qact .brst{order:5}
   .qact .spc{display:none}
   .qact .bt.bnv{flex:1;order:6;text-align:center}
@@ -759,8 +761,12 @@ async function savePosition() {
   if (!q) return;
   S.savedPos = { qid: q.id, ci: S.ci, ca: S.ca, cf: S.cf };
   saveState();
-  await sbSaveProgress();
-  showToast('💾 Posizione salvata! Domanda #' + q.id, 'ok');
+  var ok = await sbSaveProgress();
+  if (ok) {
+    showToast('💾 Posizione salvata! Domanda #' + q.id, 'ok');
+  } else {
+    showToast('⚠️ Salvato in locale, errore sync cloud (domanda #' + q.id + ')', 'err');
+  }
 }
 function jumpToSavedPosition() {
   hideToast();
@@ -781,8 +787,6 @@ function checkSavedPosition() {
   if (!S.savedPos || !_currentUser) return;
   var q = Q.find(function(x){ return x.id === S.savedPos.qid; });
   if (!q) return;
-  var curQ = S.fq[S.ci];
-  if (curQ && curQ.id === S.savedPos.qid) return;
   showToastHTML(
     '👋 Bentornato! Riprendi dalla domanda <strong>#' + S.savedPos.qid + '</strong>?' +
     ' <button class="toast-btn" onclick="jumpToSavedPosition()">Riprendi</button>',
@@ -1334,35 +1338,55 @@ function showSourceMap() {
 }
 
 /* ===== AUTO-PUSH silenzioso dopo ogni risposta/segnalazione ===== */
+var _gistPushTimer = null;
+var _gistPushCtrl = null;
 function gistAutoPush() {
   var token = localStorage.getItem('ghToken'), gistId = localStorage.getItem('ghGistId');
   if (!token || !gistId) return;
-  var flArr = [...S.fl].map(function(x){return parseInt(x,10);});
-  var snArr = [...S.sn].map(function(x){return parseInt(x,10);});
-  var d = {fl:flArr, sn:snArr, an:JSON.parse(JSON.stringify(S.an)), ts:new Date().toISOString(), v:2};
-  fetch('https://api.github.com/gists/'+gistId, {
-    method:'PATCH',
-    headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
-    body:JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:JSON.stringify(d,null,2)}}})
-  }).catch(function(){});
+  // Debounce: annulla la fetch precedente (se ancora in attesa) e ripianifica
+  clearTimeout(_gistPushTimer);
+  if (_gistPushCtrl) { try { _gistPushCtrl.abort(); } catch(e) {} _gistPushCtrl = null; }
+  _gistPushTimer = setTimeout(function() {
+    var flArr = [...S.fl].map(function(x){return parseInt(x,10);});
+    var snArr = [...S.sn].map(function(x){return parseInt(x,10);});
+    var d = {fl:flArr, sn:snArr, an:JSON.parse(JSON.stringify(S.an)), ts:new Date().toISOString(), v:2};
+    _gistPushCtrl = new AbortController();
+    var ctrl = _gistPushCtrl;
+    var tId = setTimeout(function() { try { ctrl.abort(); } catch(e) {} }, 10000);
+    fetch('https://api.github.com/gists/'+gistId, {
+      method:'PATCH',
+      headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
+      body:JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:JSON.stringify(d,null,2)}}}),
+      signal: ctrl.signal
+    }).then(function() { clearTimeout(tId); _gistPushCtrl = null; }).catch(function() { clearTimeout(tId); _gistPushCtrl = null; });
+  }, 1500); // aspetta 1.5s prima di inviare (raggruppa risposte rapide consecutive)
 }
 
 /* ===== AUTO-SYNC (pull al caricamento + push quando la pagina viene nascosta) ===== */
 async function autoSyncPull() {
+  if (_autoSyncRunning) return; // evita esecuzioni concorrenti
   var token = localStorage.getItem('ghToken');
   var gistId = localStorage.getItem('ghGistId');
-  if (!token || !gistId) return; // Nessuna configurazione, salta
+  if (!token || !gistId) return;
+  _autoSyncRunning = true;
+  var ctrl = new AbortController();
+  var tId = setTimeout(function() { ctrl.abort(); }, 10000);
   try {
     var resp = await fetch('https://api.github.com/gists/' + gistId, {
-      headers: {'Authorization':'token ' + token, 'Accept':'application/vnd.github.v3+json'}
+      headers: {'Authorization':'token ' + token, 'Accept':'application/vnd.github.v3+json'},
+      signal: ctrl.signal
     });
+    clearTimeout(tId);
     if (!resp.ok) return;
     var result = await resp.json();
     var fileInfo = result.files && result.files['prince2_progress.json'];
     if (!fileInfo) return;
     var content = fileInfo.content;
     if (!content && fileInfo.truncated && fileInfo.raw_url) {
-      var rawResp = await fetch(fileInfo.raw_url, {headers:{'Authorization':'token '+token}});
+      var ctrl2 = new AbortController();
+      var tId2 = setTimeout(function() { ctrl2.abort(); }, 10000);
+      var rawResp = await fetch(fileInfo.raw_url, {headers:{'Authorization':'token '+token}, signal: ctrl2.signal});
+      clearTimeout(tId2);
       content = await rawResp.text();
     }
     if (!content) return;
@@ -1386,8 +1410,23 @@ async function autoSyncPull() {
       showToast('☁️ Sync: +' + added + ' novità ricevute' + (ts ? ' (' + ts + ')' : ''), 'ok');
       updateGistStatusBar();
     }
-  } catch(e) { /* auto-sync silenzioso */ }
+  } catch(e) { clearTimeout(tId); /* auto-sync silenzioso */ }
+  finally { _autoSyncRunning = false; }
 }
+// Mostra toast posizione salvata quando l'utente torna nell'app (es. da background su mobile)
+var _lastVisibilityHidden = 0;
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'visible') {
+    var hiddenFor = Date.now() - _lastVisibilityHidden;
+    // Solo se l'app era in background da almeno 30 secondi (evita flash su cambio scheda rapido)
+    if (_lastVisibilityHidden > 0 && hiddenFor > 30000 && _appInitialized) {
+      setTimeout(checkSavedPosition, 600);
+    }
+    return;
+  }
+  _lastVisibilityHidden = Date.now();
+});
+
 // Auto-push silenzioso quando l'utente nasconde la pagina (cambia app, scheda, chiude)
 document.addEventListener('visibilitychange', function() {
   if (document.visibilityState !== 'hidden') return;
@@ -1554,11 +1593,15 @@ async function gistPush() {
     var gistId = localStorage.getItem('ghGistId');
     var method = gistId ? 'PATCH' : 'POST';
     var url = gistId ? 'https://api.github.com/gists/'+gistId : 'https://api.github.com/gists';
+    var pushCtrl = new AbortController();
+    var pushTId = setTimeout(function() { pushCtrl.abort(); }, 15000);
     var resp = await fetch(url, {
       method: method,
       headers: {'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
-      body: JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:payload}}})
+      body: JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:payload}}}),
+      signal: pushCtrl.signal
     });
+    clearTimeout(pushTId);
     if (!resp.ok) {
       var errJson = await resp.json().catch(function(){return {};});
       var errMsg = 'HTTP ' + resp.status + ': ' + (errJson.message||'errore');
@@ -1596,9 +1639,13 @@ async function gistPull() {
   var bar = document.getElementById('gistStatusBar');
   bar.style.display = 'block'; bar.innerHTML = '<span class="sync-status sync-pending">⏳ Ricezione...</span>';
   try {
+    var pullCtrl = new AbortController();
+    var pullTId = setTimeout(function() { pullCtrl.abort(); }, 15000);
     var resp = await fetch('https://api.github.com/gists/'+gistId, {
-      headers: {'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}
+      headers: {'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'},
+      signal: pullCtrl.signal
     });
+    clearTimeout(pullTId);
     if (!resp.ok) { var em = 'HTTP ' + resp.status + ' — Gist ID errato?'; bar.innerHTML = '<span class="sync-status sync-err">❌ ' + em + '</span>'; showToast('❌ Pull — ' + em, 'err'); return; }
     var result = await resp.json();
 
@@ -1609,7 +1656,10 @@ async function gistPull() {
     // Gestisce il contenuto truncated (GitHub tronca file > ~1MB, recupera dal raw_url)
     var content = fileInfo.content;
     if (!content && fileInfo.truncated && fileInfo.raw_url) {
-      var rawResp = await fetch(fileInfo.raw_url, {headers:{'Authorization':'token '+token}});
+      var rawCtrl = new AbortController();
+      var rawTId = setTimeout(function() { rawCtrl.abort(); }, 15000);
+      var rawResp = await fetch(fileInfo.raw_url, {headers:{'Authorization':'token '+token}, signal: rawCtrl.signal});
+      clearTimeout(rawTId);
       content = await rawResp.text();
     }
     if (!content) { bar.innerHTML = '<span class="sync-status sync-err">❌ Contenuto vuoto nel Gist</span>'; return; }
@@ -1734,6 +1784,17 @@ var _sb = window.supabase.createClient(
 var _authMode = 'login';
 var _sbSaveTimer = null;
 var _currentUser = null;
+var _sbSaving = false;      // guard: evita salvataggi Supabase concorrenti
+var _sbSaveQueued = false;  // flag: rischedula dopo il salvataggio in corso
+var _autoSyncRunning = false; // guard: evita autoSyncPull concorrenti
+
+/* Utility: aggiunge un timeout a qualsiasi Promise */
+function withTimeout(promise, ms) {
+  var timer = new Promise(function(_, reject) {
+    setTimeout(function() { reject(new Error('timeout')); }, ms);
+  });
+  return Promise.race([promise, timer]);
+}
 
 function toggleAuthMode() {
   _authMode = _authMode === 'login' ? 'register' : 'login';
@@ -1818,10 +1879,10 @@ function updateSbSyncStatus(state) {
 async function sbLoadProgress() {
   if (!_currentUser) return false;
   try {
-    var res = await _sb.from('user_progress')
-      .select('data')
-      .eq('user_id', _currentUser.id)
-      .single();
+    var res = await withTimeout(
+      _sb.from('user_progress').select('data').eq('user_id', _currentUser.id).single(),
+      8000
+    );
     if (res.error) {
       if (res.error.code === 'PGRST116') return false; // nessuna riga — primo accesso
       console.warn('sbLoad:', res.error.message);
@@ -1844,7 +1905,10 @@ async function sbLoadProgress() {
 }
 
 async function sbSaveProgress() {
-  if (!_currentUser) return;
+  if (!_currentUser) return false;
+  if (_sbSaving) { _sbSaveQueued = true; return false; } // già in corso: rimanda
+  _sbSaving = true;
+  _sbSaveQueued = false;
   updateSbSyncStatus('saving');
   try {
     var d = {
@@ -1855,13 +1919,20 @@ async function sbSaveProgress() {
       savedPos: S.savedPos,
       ts: new Date().toISOString(), v: 2
     };
-    var r = await _sb.from('user_progress').upsert(
-      { user_id: _currentUser.id, data: d, updated_at: new Date().toISOString() },
-      { onConflict: 'user_id' }
+    var r = await withTimeout(
+      _sb.from('user_progress').upsert(
+        { user_id: _currentUser.id, data: d, updated_at: new Date().toISOString() },
+        { onConflict: 'user_id' }
+      ),
+      8000
     );
-    if (r.error) { console.warn('sbSave:', r.error.message); updateSbSyncStatus('err'); }
-    else updateSbSyncStatus('ok');
-  } catch(e) { console.warn('sbSave exception:', e); updateSbSyncStatus('err'); }
+    if (r.error) { console.warn('sbSave:', r.error.message); updateSbSyncStatus('err'); return false; }
+    else { updateSbSyncStatus('ok'); return true; }
+  } catch(e) { console.warn('sbSave exception:', e.message); updateSbSyncStatus('err'); return false; }
+  finally {
+    _sbSaving = false;
+    if (_sbSaveQueued) sbSaveDebounced(); // rilancia se c'erano modifiche durante il save
+  }
 }
 
 function sbSaveDebounced() {
