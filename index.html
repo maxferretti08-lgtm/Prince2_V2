@@ -165,8 +165,9 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 .slb{font-size:11px;color:var(--tx3);margin-top:3px;font-weight:600}
 
 /* Index table */
+.itb-wrap{overflow:auto;max-height:calc(100vh - var(--hdr-h) - 60px);border:1px solid var(--bd);border-radius:var(--r)}
 .itb{width:100%;border-collapse:collapse;font-size:12px}
-.itb th{text-align:left;padding:8px 10px;background:var(--sf2);color:var(--tx3);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px;position:sticky;top:var(--hdr-h);border-bottom:1px solid var(--bd)}
+.itb th{text-align:left;padding:8px 10px;background:var(--sf2);color:var(--tx3);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px;position:sticky;top:0;z-index:2;border-bottom:1px solid var(--bd)}
 .itb td{padding:8px 10px;border-bottom:1px solid var(--bd)}
 .itb tr:hover td{background:var(--sf2)}
 .itb tr{cursor:pointer}
@@ -558,6 +559,9 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
       <button onclick="authLogout()" style="font-size:10px;padding:3px 8px;border-radius:4px;background:var(--rdb);color:var(--rd);border:1px solid var(--rd);cursor:pointer;white-space:nowrap;font-family:inherit">Esci</button>
     </div>
     <div id="sbSyncStatus" style="margin-top:3px"></div>
+    <div style="margin-top:5px">
+      <button onclick="savePosition()" style="width:100%;font-size:10px;padding:5px 8px;border-radius:5px;background:var(--acg);color:var(--ac);border:1px solid var(--ac);cursor:pointer;font-family:inherit;font-weight:600">💾 Salva posizione</button>
+    </div>
   </div>
   <div class="sbx" style="display:flex;gap:4px;padding:8px 10px 4px">
     <button class="bt bnv" style="flex:1;font-size:11px;padding:6px 8px" onclick="showIndex()">📋 Indice</button>
@@ -1053,7 +1057,7 @@ function showIndex() {
     r += '<tr onclick="goQ(' + i + ')"><td>' + q.id + '</td><td style="max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + q.area.substring(5) + '</td><td style="max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(q.text) + '</td><td>' + cb + '</td><td>' + f + '</td><td>' + st + '</td></tr>';
   }
   c.innerHTML = '<div class="sec-title">📋 Indice <small>(' + qs.length + ' domande)</small></div>' +
-    '<div style="overflow-x:auto"><table class="itb"><thead><tr><th>#</th><th>Area</th><th>Domanda</th><th></th><th></th><th></th></tr></thead><tbody>' + r + '</tbody></table></div>';
+    '<div class="itb-wrap"><table class="itb"><thead><tr><th>#</th><th>Area</th><th>Domanda</th><th></th><th></th><th></th></tr></thead><tbody>' + r + '</tbody></table></div>';
 }
 function goQ(i) { S.ci = i; saveState(); renderQ(); scrollTo(0,0); }
 
