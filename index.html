@@ -18,7 +18,8 @@
   --bl:#388bfd;--blb:rgba(56,139,253,.12);
   --pu:#bc8cff;--pub:rgba(188,140,255,.12);
   --r:10px;--sw:256px;
-  --sh:0 8px 24px rgba(0,0,0,.4)
+  --sh:0 8px 24px rgba(0,0,0,.4);
+  --hdr-h:72px
 }
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation}
@@ -165,17 +166,18 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 
 /* Index table */
 .itb{width:100%;border-collapse:collapse;font-size:12px}
-.itb th{text-align:left;padding:8px 10px;background:var(--sf2);color:var(--tx3);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px;position:sticky;top:52px;border-bottom:1px solid var(--bd)}
+.itb th{text-align:left;padding:8px 10px;background:var(--sf2);color:var(--tx3);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px;position:sticky;top:var(--hdr-h);border-bottom:1px solid var(--bd)}
 .itb td{padding:8px 10px;border-bottom:1px solid var(--bd)}
 .itb tr:hover td{background:var(--sf2)}
 .itb tr{cursor:pointer}
 
 /* Exam bar */
-.exb{position:sticky;top:52px;z-index:40;background:rgba(13,17,23,.97);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);padding:8px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--bd)}
+.exb{position:sticky;top:var(--hdr-h);z-index:40;background:rgba(13,17,23,.97);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);padding:8px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--bd)}
 /* Exam dots */
 .exam-dots-wrap{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;padding:8px 16px 16px}
 .exam-dot{width:26px;height:26px;border-radius:5px;font-size:9px;font-weight:600;background:var(--sf2);color:var(--tx2);border:1px solid var(--bd);cursor:pointer;transition:all .1s;display:inline-flex;align-items:center;justify-content:center}
 .exam-dot.answered{background:var(--ac);color:#fff;border-color:var(--ac)}
+.exam-dot.answered.wrong-dot{background:var(--rd);border-color:var(--rd)}
 .exam-dot.current{border:2px solid var(--ac2)}
 .etm{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700}
 .etm.warn{color:var(--rd)}
@@ -185,6 +187,18 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 .eres{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:24px;margin:16px 0;box-shadow:var(--sh)}
 .eres h2{font-size:22px;font-weight:700;margin-bottom:16px}
 .epas{color:var(--gn)}.efai{color:var(--rd)}
+
+/* Exam feedback */
+.exam-feedback{margin-top:14px;padding:12px 14px;border-radius:8px;font-size:13px;line-height:1.6}
+.exam-fb-ok{background:var(--gnb);border:1px solid var(--gn);color:var(--gn)}
+.exam-fb-ok .fb-head{font-weight:700;font-size:14px;margin-bottom:4px}
+.exam-fb-no{background:var(--rdb);border:1px solid var(--rd);color:var(--tx)}
+.exam-fb-no .fb-head{font-weight:700;font-size:14px;color:var(--rd);margin-bottom:4px}
+.exam-fb-no .fb-correct{color:var(--gn);font-weight:600;margin-bottom:8px}
+/* Area toggle buttons in exam modal */
+.area-toggle-btn{font-size:11px;padding:5px 9px;border-radius:6px;background:var(--sf3);border:2px solid var(--bd);color:var(--tx2);font-weight:600;transition:all .15s;cursor:pointer;line-height:1.4}
+.area-toggle-btn:hover{color:var(--tx);background:var(--sf2)}
+.area-toggle-btn.on{border-color:var(--ac);background:var(--acg);color:var(--ac)}
 
 /* Loading */
 .loading{text-align:center;padding:80px 20px;color:var(--tx2)}
@@ -252,6 +266,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 
 /* Responsive */
 @media(max-width:768px){
+  :root{--hdr-h:66px}
   /* Sidebar */
   .sidebar{transform:translateX(-100%);width:min(290px,85vw)}
   .sidebar.op{transform:translateX(0)}
@@ -269,8 +284,8 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   .hdr-sqm{height:30px}
   .hdr-sqm .sqm-btn{height:30px;line-height:30px;font-size:9px;padding:0 5px;white-space:nowrap;overflow:hidden}
 
-  /* Nav-top sticky su mobile (header ~80px) */
-  .nav-top{position:sticky;top:80px;z-index:40;background:var(--bg);padding:8px 0;margin:0}
+  /* Nav-top sticky su mobile (appena sotto l'header) */
+  .nav-top{position:sticky;top:var(--hdr-h);z-index:40;background:var(--bg);padding:8px 0;margin:0}
   .nav-top .bt{flex:1;min-height:50px;font-size:17px;font-weight:700}
   .nav-pos{font-size:14px;font-weight:700;color:var(--tx)}
   /* Nascondi frecce duplicate in basso su mobile */
@@ -315,6 +330,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   .exam-dots-wrap{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;padding:10px 12px 14px}
   .exam-dot{width:30px;height:30px;border-radius:6px;font-size:10px;font-weight:700;border:2px solid var(--bd);background:var(--sf2);color:var(--tx2);cursor:pointer;transition:all .1s;display:inline-flex;align-items:center;justify-content:center}
   .exam-dot.answered{background:var(--ac);color:#fff;border-color:var(--ac)}
+  .exam-dot.answered.wrong-dot{background:var(--rd);border-color:var(--rd)}
   .exam-dot.current{border-color:var(--ac2);outline:2px solid var(--ac2)}
 
   /* Modal */
@@ -444,13 +460,23 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 <div class="modal-bg" id="examModal">
   <div class="modal">
     <h2>🎯 Simulazione Esame</h2>
-    <p>60 domande bilanciate per area · 60 minuti · Soglia 65%</p>
-    <div style="font-size:12px;color:var(--tx2);margin-bottom:12px">Seleziona difficoltà:</div>
-    <div class="diff-btns">
+    <p style="margin-bottom:12px">Configura la simulazione · Soglia superamento 65%</p>
+    <div style="font-size:12px;color:var(--tx2);margin-bottom:8px;font-weight:600">Difficoltà:</div>
+    <div class="diff-btns" style="margin-bottom:14px">
       <button class="diff-btn easy on" data-diff="easy" onclick="selectDiff(this)">😊 Facile<br><small style="font-weight:400;font-size:10px">Già risposte correttamente</small></button>
       <button class="diff-btn" data-diff="medium" onclick="selectDiff(this)">🎯 Medio<br><small style="font-weight:400;font-size:10px">Selezione casuale</small></button>
       <button class="diff-btn hard" data-diff="hard" onclick="selectDiff(this)">🔥 Difficile<br><small style="font-weight:400;font-size:10px">Errori + non viste</small></button>
     </div>
+    <div style="font-size:12px;color:var(--tx2);margin-bottom:8px;font-weight:600">Numero domande:</div>
+    <div class="diff-btns" style="margin-bottom:14px">
+      <button class="diff-btn count-btn" data-count="20" onclick="selectCount(this)">20<br><small style="font-weight:400;font-size:10px">20 minuti</small></button>
+      <button class="diff-btn count-btn" data-count="40" onclick="selectCount(this)">40<br><small style="font-weight:400;font-size:10px">40 minuti</small></button>
+      <button class="diff-btn count-btn on" data-count="60" onclick="selectCount(this)">60<br><small style="font-weight:400;font-size:10px">Esame ufficiale</small></button>
+    </div>
+    <details style="margin-bottom:14px">
+      <summary style="font-size:12px;color:var(--tx2);cursor:pointer;list-style:none;font-weight:600;padding:4px 0;-webkit-user-select:none;user-select:none">▸ Aree tematiche (tutte)</summary>
+      <div id="examAreaBtns" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px"></div>
+    </details>
     <div class="modal-row">
       <button class="bt brev" style="flex:2" onclick="confirmExam()">Inizia simulazione</button>
       <button class="bt bnv" style="flex:1" onclick="closeModal('examModal')">Annulla</button>
@@ -833,7 +859,7 @@ function renderQ() {
   S.sn.add(q.id); S.lq = q.id; saveState();
 
   var L = ['A','B','C','D'];
-  var h = '<div class="nav-top"><button class="bt bnv" onclick="navQ(-1)"' + (S.ci===0?' disabled':'') + '>← Prec</button><span class="nav-pos">' + (S.ci+1) + ' / ' + S.fq.length + '</span><button class="bt bnv" onclick="navQ(1)"' + (S.ci>=S.fq.length-1?' disabled':'') + '>Succ →</button></div>';
+  var h = '<div class="nav-top"><button class="bt bnv" onclick="navQ(-1)">← Prec</button><span class="nav-pos">' + (S.ci+1) + ' / ' + S.fq.length + '</span><button class="bt bnv" onclick="navQ(1)">Succ →</button></div>';
   h += '<div class="qc">';
 
   var lb = q.lang === 'ENG' ? '<span class="lbg">ENG→ITA</span>' : '';
@@ -889,7 +915,7 @@ function renderQ() {
   h += '<button class="bt bfl ' + (fg?'fg':'') + '" data-qid="' + q.id + '" onclick="toggleFlag(this)">' + (fg ? '⚠️ Segnalata' : '⚠️ Segna') + '</button>';
   h += '<button class="brst" data-qid="' + q.id + '" onclick="resetOne(this)" title="Reset questa domanda">↺</button>';
   h += '</div></div>';
-  h += '<div class="nav-bot"><button class="bt bnv" onclick="navQ(-1)"' + (S.ci===0?' disabled':'') + '>← Prec</button><span class="nav-pos">' + (S.ci+1) + ' / ' + S.fq.length + '</span><button class="bt bnv" onclick="navQ(1)"' + (S.ci>=S.fq.length-1?' disabled':'') + '>Succ →</button></div>';
+  h += '<div class="nav-bot"><button class="bt bnv" onclick="navQ(-1)">← Prec</button><span class="nav-pos">' + (S.ci+1) + ' / ' + S.fq.length + '</span><button class="bt bnv" onclick="navQ(1)">Succ →</button></div>';
 
   c.innerHTML = h;
   if (aw) document.getElementById('rv').classList.add('vis');
@@ -917,7 +943,7 @@ function toggleFlag(el) {
   if (isFlagged) el.classList.add('fg'); else el.classList.remove('fg');
   gistAutoPush();
 }
-function navQ(d) { S.ci = Math.max(0, Math.min(S.fq.length-1, S.ci+d)); saveState(); renderQ(); scrollTo(0,0); }
+function navQ(d) { S.ci = (S.ci + d + S.fq.length) % S.fq.length; saveState(); renderQ(); scrollTo(0,0); }
 function resetOne(el) { var id = parseInt(el.dataset.qid); if (S.an[id]) delete S.an[id]; saveState(); renderQ(); }
 function resetAll() { if (!confirm("Reset TUTTE le risposte?\nLe segnalazioni verranno mantenute.")) return; S.an = {}; S.sn = new Set(); S.cf = 'all'; S.ca = '00'; S.ci = 0; saveState(); buildSidebar(); document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('on')}); document.querySelector('.fb').classList.add('on'); filterQs(); updateProgress(); renderQ(); }
 
@@ -974,8 +1000,19 @@ function goQ(i) { S.ci = i; saveState(); renderQ(); scrollTo(0,0); }
 
 /* ===== EXAM MODE ===== */
 var examDiffSelected = 'easy';
+var examQCount = 60;
+var examAreas = [];  // empty = tutte le aree
 
 function openExamModal() {
+  var areaDiv = document.getElementById('examAreaBtns');
+  if (areaDiv && !areaDiv.firstChild) {
+    var html = '<button class="area-toggle-btn on" data-code="00" onclick="toggleExamArea(this)">Tutte le aree</button>';
+    for (var i = 1; i < AREAS.length; i++) {
+      var a = AREAS[i];
+      html += '<button class="area-toggle-btn" data-code="' + a.c + '" onclick="toggleExamArea(this)" style="border-left:3px solid ' + a.cl + '">' + a.n + '</button>';
+    }
+    areaDiv.innerHTML = html;
+  }
   openModal('examModal');
 }
 function selectDiff(el) {
@@ -983,28 +1020,53 @@ function selectDiff(el) {
   el.classList.add('on');
   examDiffSelected = el.dataset.diff;
 }
+function selectCount(el) {
+  document.querySelectorAll('.count-btn').forEach(function(b){ b.classList.remove('on'); });
+  el.classList.add('on');
+  examQCount = parseInt(el.dataset.count, 10);
+}
+function toggleExamArea(el) {
+  var code = el.dataset.code;
+  if (code === '00') {
+    examAreas = [];
+    document.querySelectorAll('.area-toggle-btn').forEach(function(b){ b.classList.remove('on'); });
+    el.classList.add('on');
+  } else {
+    var allBtn = document.querySelector('.area-toggle-btn[data-code="00"]');
+    if (allBtn) allBtn.classList.remove('on');
+    var idx = examAreas.indexOf(code);
+    if (idx >= 0) { examAreas.splice(idx, 1); el.classList.remove('on'); }
+    else { examAreas.push(code); el.classList.add('on'); }
+    if (examAreas.length === 0) {
+      examAreas = [];
+      if (allBtn) allBtn.classList.add('on');
+    }
+  }
+}
 function confirmExam() {
   closeModal('examModal');
   startExam(examDiffSelected);
 }
 
 function pickExamQuestions(diff) {
-  // Build proportional per-area selection (60 total)
-  var areas = AREAS.filter(function(a){ return a.c !== '00'; });
-  var total = Q.length;
+  var targetCount = examQCount;
+  // Filter question pool by selected areas
+  var qPool = examAreas.length === 0 ? Q : Q.filter(function(x){ return examAreas.indexOf(gc(x.area)) >= 0; });
+  var areas = AREAS.filter(function(a){
+    return a.c !== '00' && (examAreas.length === 0 || examAreas.indexOf(a.c) >= 0);
+  });
+  var total = qPool.length;
   var selected = [];
 
   // Sort pool by difficulty preference
   function getPool(aCode) {
-    var aq = Q.filter(function(x){ return gc(x.area) === aCode; });
+    var aq = qPool.filter(function(x){ return gc(x.area) === aCode; });
     if (diff === 'easy') {
-      // prefer already answered correctly, then unseen, then wrong
       var correct = aq.filter(function(x){ return S.an[x.id] === x.ans; });
       var unseen  = aq.filter(function(x){ return !S.sn.has(x.id); });
       var wrong   = aq.filter(function(x){ return S.an[x.id] && S.an[x.id] !== x.ans; });
       return correct.concat(unseen).concat(wrong);
     } else if (diff === 'hard') {
-      // prefer wrong, then unseen, then correct
       var wrong   = aq.filter(function(x){ return S.an[x.id] && S.an[x.id] !== x.ans; });
       var unseen  = aq.filter(function(x){ return !S.sn.has(x.id); });
       var correct = aq.filter(function(x){ return S.an[x.id] === x.ans; });
@@ -1016,26 +1078,21 @@ function pickExamQuestions(diff) {
 
   for (var i = 0; i < areas.length; i++) {
     var a = areas[i];
-    var aCount = Q.filter(function(x){ return gc(x.area) === a.c; }).length;
-    var n = Math.max(1, Math.round(aCount / total * 60));
+    var aCount = qPool.filter(function(x){ return gc(x.area) === a.c; }).length;
+    var n = Math.max(1, Math.round(aCount / total * targetCount));
     var pool = getPool(a.c);
-    // shuffle within same priority group for easy/hard
-    if (diff !== 'medium') {
-      // already ordered by priority; shuffle each segment to avoid always same Q
-    }
     for (var j = 0; j < Math.min(n, pool.length); j++) {
       if (selected.indexOf(pool[j]) < 0) selected.push(pool[j]);
     }
   }
 
-  // Fill up to 60 if under
-  var allShuffled = Q.slice().sort(function(){ return Math.random() - .5; });
-  for (var k = 0; selected.length < 60 && k < allShuffled.length; k++) {
+  // Fill up to targetCount if under
+  var allShuffled = qPool.slice().sort(function(){ return Math.random() - .5; });
+  for (var k = 0; selected.length < targetCount && k < allShuffled.length; k++) {
     if (selected.indexOf(allShuffled[k]) < 0) selected.push(allShuffled[k]);
   }
 
-  // Trim to 60 and shuffle
-  return selected.slice(0, 60).sort(function(){ return Math.random() - .5; });
+  return selected.slice(0, targetCount).sort(function(){ return Math.random() - .5; });
 }
 
 function startExam(diff) {
@@ -1044,18 +1101,25 @@ function startExam(diff) {
   document.getElementById('exbar').style.display = 'flex';
   var diffLabel = diff === 'easy' ? '😊 Facile' : diff === 'hard' ? '🔥 Difficile' : '🎯 Medio';
   document.getElementById('ediff').textContent = diffLabel;
+  document.getElementById('escore').textContent = '0/' + S.eq.length;
+  var tm = document.getElementById('etimer');
+  tm.textContent = String(S.eq.length).padStart(2,'0') + ':00';
+  tm.className = 'etm ok';
   startTimer(); renderExamQ(); if (innerWidth < 769) { if (document.getElementById('sb').classList.contains('op')) toggleSB(); }
 }
 
 function startTimer() {
   clearInterval(S.et);
+  var totalSec = S.eq.length * 60;
+  var warnSec = Math.max(60, Math.floor(totalSec / 6));
+  var normSec = Math.floor(totalSec / 2);
   S.et = setInterval(function(){
-    var el = Math.floor((Date.now() - S.es) / 1000), rm = Math.max(0, 3600 - el);
+    var el = Math.floor((Date.now() - S.es) / 1000), rm = Math.max(0, totalSec - el);
     var m = Math.floor(rm/60), s = rm % 60;
     var tmEl = document.getElementById('etimer');
     tmEl.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-    tmEl.className = 'etm ' + (rm < 600 ? 'warn' : rm < 1800 ? 'norm' : 'ok');
-    document.getElementById('escore').textContent = Object.keys(S.ea).length + '/60';
+    tmEl.className = 'etm ' + (rm < warnSec ? 'warn' : rm < normSec ? 'norm' : 'ok');
+    document.getElementById('escore').textContent = Object.keys(S.ea).length + '/' + S.eq.length;
     if (rm <= 0) endExam();
   }, 1000);
 }
@@ -1069,27 +1133,44 @@ function renderExamQ() {
     st = '<div class="qst">'; for (var i = 0; i < q.stmts.length; i++) st += '<p><strong>' + (i+1) + '.</strong> ' + esc(q.stmts[i]) + '</p>'; st += '</div>';
   }
   var op = '';
-  for (var i = 0; i < q.opts.length; i++) { var cl = 'opt' + (aw === L[i] ? ' sel' : ''); op += '<div class="' + cl + '" data-qid="' + q.id + '" data-let="' + L[i] + '" onclick="examPick(this)"><span class="olt">' + L[i] + '</span><span class="otx">' + esc(q.opts[i]) + '</span></div>'; }
+  for (var i = 0; i < q.opts.length; i++) {
+    var cl = 'opt';
+    if (aw) { if (L[i] === q.ans) cl += ' ok'; else if (L[i] === aw) cl += ' no'; }
+    var onclick = aw ? '' : ' onclick="examPick(this)"';
+    op += '<div class="' + cl + '" data-qid="' + q.id + '" data-let="' + L[i] + '"' + onclick + '><span class="olt">' + L[i] + '</span><span class="otx">' + esc(q.opts[i]) + '</span></div>';
+  }
+  if (aw) {
+    var isOk = aw === q.ans;
+    op += '<div class="exam-feedback ' + (isOk ? 'exam-fb-ok' : 'exam-fb-no') + '">';
+    op += '<div class="fb-head">' + (isOk ? '✅ Corretto!' : '❌ Sbagliato') + '</div>';
+    if (!isOk) op += '<div class="fb-correct">✅ Risposta corretta: ' + q.ans + ') ' + esc(q.ansT) + '</div>';
+    if (q.exp) op += '<div class="qexp" style="margin-top:8px;margin-bottom:0;color:var(--tx2)">' + esc(q.exp) + '</div>';
+    if (q.trk) op += '<div class="qtrk" style="margin-top:6px">💡 ' + esc(q.trk) + '</div>';
+    op += '</div>';
+  }
   var dots = '<div class="exam-dots-wrap">';
   for (var i = 0; i < S.eq.length; i++) {
     var ea = S.ea[S.eq[i].id], cur = i === S.ci;
-    var dc = 'exam-dot' + (ea ? ' answered' : '') + (cur ? ' current' : '');
+    var isCorrect = ea && ea === S.eq[i].ans;
+    var dc = 'exam-dot' + (ea ? (isCorrect ? ' answered' : ' answered wrong-dot') : '') + (cur ? ' current' : '');
     dots += '<button class="' + dc + '" onclick="S.ci=' + i + ';renderExamQ()">' + (i+1) + '</button>';
   }
   dots += '</div>';
+  var lastQ = S.ci >= S.eq.length - 1;
   c.innerHTML = '<div class="qc">' +
-    '<div class="qhd"><span class="qnm">Domanda ' + (S.ci+1) + '/60 — #' + q.id + '</span><span class="qar">' + q.area + '</span></div>' +
+    '<div class="qhd"><span class="qnm">Domanda ' + (S.ci+1) + '/' + S.eq.length + ' — #' + q.id + '</span><span class="qar">' + q.area + '</span></div>' +
     '<div class="qbd"><div class="qtx">' + esc(q.text) + '</div>' + st + '<div class="qop">' + op + '</div></div>' +
     '<div class="qact"><span class="spc"></span>' +
     '<button class="bt bnv" onclick="examNav(-1)"' + (S.ci===0?' disabled':'') + '>←</button>' +
-    '<button class="bt bnv" onclick="examNav(1)"' + (S.ci>=59?' disabled':'') + '>→</button>' +
+    (aw && !lastQ ? '<button class="bt brev" onclick="examNav(1)">Prossima →</button>' : '') +
+    '<button class="bt bnv" onclick="examNav(1)"' + (lastQ?' disabled':'') + '>→</button>' +
     '</div></div>' + dots;
 }
 function examPick(el) { S.ea[parseInt(el.dataset.qid)] = el.dataset.let; renderExamQ(); }
-function examNav(d) { S.ci = Math.max(0, Math.min(59, S.ci + d)); renderExamQ(); scrollTo(0,0); }
+function examNav(d) { S.ci = Math.max(0, Math.min(S.eq.length - 1, S.ci + d)); renderExamQ(); scrollTo(0,0); }
 function endExam() {
   clearInterval(S.et); S.em = false; document.getElementById('exbar').style.display = 'none';
-  var t = 60, co = 0;
+  var t = S.eq.length, co = 0;
   for (var i = 0; i < S.eq.length; i++) if (S.ea[S.eq[i].id] === S.eq[i].ans) co++;
   var aw = Object.keys(S.ea).length, p = Math.round(co/t*100), ps = p >= 65;
   var el = Math.floor((Date.now() - S.es) / 1000), m = Math.floor(el/60), s = el % 60;
