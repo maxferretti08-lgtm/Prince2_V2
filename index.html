@@ -1966,9 +1966,12 @@ function sbSaveDebounced() {
 _sb.auth.onAuthStateChange(async function(event, session) {
   if (session && session.user) {
     _currentUser = session.user;
-    hideAuthOverlay(session.user);
-    _appInitialized = false; // permette re-init in caso di re-login
-    await initApp();
+    // TOKEN_REFRESHED è un refresh silenzioso: non toccare overlay né re-init
+    if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+      hideAuthOverlay(session.user);
+      _appInitialized = false; // permette re-init in caso di re-login
+      await initApp();
+    }
   } else {
     _currentUser = null;
     _appInitialized = false;
