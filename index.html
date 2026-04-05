@@ -791,7 +791,7 @@ function checkSavedPosition() {
   var q = Q.find(function(x){ return x.id === S.savedPos.qid; });
   if (!q) return;
   showToastHTML(
-    'Riprendi da domad. n.' + S.savedPos.qid + ' <button class="toast-btn" onclick="jumpToSavedPosition()">Vai</button>',
+    'Riprendi da domad. n.' + S.savedPos.qid + ' <button class="toast-btn" onclick="jumpToSavedPosition()">Vai</button><button class="toast-btn" onclick="hideToast()">Chiudi</button>',
     'info', true
   );
 }
@@ -1060,11 +1060,12 @@ function showIndex() {
   for (var i = 0; i < qs.length; i++) {
     var q = qs[i], f = S.fl.has(q.id) ? '⚠️' : '', cb = q.combo ? '<span class="cbg">C</span>' : '';
     var a = S.an[q.id], ok = a === q.ans, st = a ? (ok ? '✅' : '❌') : '—';
-    r += '<tr><td>' + q.id + '</td><td style="max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + q.area.substring(5) + '</td><td style="max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(q.text) + '</td><td>' + cb + '</td><td>' + f + '</td><td>' + st + '</td><td><span class="itb-go" onclick="goQ(' + i + ')">›</span></td></tr>';
+    r += '<tr><td>' + q.id + '</td><td style="max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + q.area.substring(5) + '</td><td style="max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(q.text) + '</td><td>' + cb + '</td><td>' + f + '</td><td>' + st + '</td><td><span class="itb-go" onclick="if(!_itbTouchMoved)goQ(' + i + ')">›</span></td></tr>';
   }
   c.innerHTML = '<div class="sec-title">📋 Indice <small>(' + qs.length + ' domande)</small></div>' +
-    '<div class="itb-wrap"><table class="itb"><thead><tr><th>#</th><th>Area</th><th>Domanda</th><th></th><th></th><th></th><th></th></tr></thead><tbody>' + r + '</tbody></table></div>';
+    '<div class="itb-wrap" ontouchstart="_itbTouchMoved=false" ontouchmove="_itbTouchMoved=true"><table class="itb"><thead><tr><th>#</th><th>Area</th><th>Domanda</th><th></th><th></th><th></th><th></th></tr></thead><tbody>' + r + '</tbody></table></div>';
 }
+var _itbTouchMoved = false;
 function goQ(i) { S.ci = i; saveState(); renderQ(); scrollTo(0,0); }
 
 /* ===== EXAM MODE ===== */
