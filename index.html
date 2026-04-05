@@ -171,7 +171,9 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 .itb th{text-align:left;padding:8px 10px;background:var(--sf2);color:var(--tx3);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px;position:sticky;top:0;z-index:2;border-bottom:1px solid var(--bd)}
 .itb td{padding:8px 10px;border-bottom:1px solid var(--bd)}
 .itb tr:hover td{background:var(--sf2)}
-.itb tr{cursor:pointer}
+.itb tr{cursor:default}
+.itb-go{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--bd);border-radius:4px;background:var(--sf2);color:var(--tx2);font-size:13px;cursor:pointer;transition:background .15s,color .15s}
+.itb-go:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
 
 /* Exam bar */
 .exb{position:sticky;top:var(--hdr-h);z-index:40;background:rgba(13,17,23,.97);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);padding:8px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--bd)}
@@ -1053,34 +1055,15 @@ function showStats() {
 }
 
 /* ===== INDEX ===== */
-var _idxScrolling = false;
-var _idxScrollBlockUntil = 0;
-function idxGoQ(e, i) { if (_idxScrolling || Date.now() < _idxScrollBlockUntil) return; goQ(i); }
 function showIndex() {
   var c = document.getElementById('cnt'); filterQs(); var qs = S.fq, r = '';
   for (var i = 0; i < qs.length; i++) {
     var q = qs[i], f = S.fl.has(q.id) ? '⚠️' : '', cb = q.combo ? '<span class="cbg">C</span>' : '';
     var a = S.an[q.id], ok = a === q.ans, st = a ? (ok ? '✅' : '❌') : '—';
-    r += '<tr onclick="idxGoQ(event,' + i + ')"><td>' + q.id + '</td><td style="max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + q.area.substring(5) + '</td><td style="max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(q.text) + '</td><td>' + cb + '</td><td>' + f + '</td><td>' + st + '</td></tr>';
+    r += '<tr><td>' + q.id + '</td><td style="max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + q.area.substring(5) + '</td><td style="max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(q.text) + '</td><td>' + cb + '</td><td>' + f + '</td><td>' + st + '</td><td><span class="itb-go" onclick="goQ(' + i + ')">›</span></td></tr>';
   }
   c.innerHTML = '<div class="sec-title">📋 Indice <small>(' + qs.length + ' domande)</small></div>' +
-    '<div class="itb-wrap"><table class="itb"><thead><tr><th>#</th><th>Area</th><th>Domanda</th><th></th><th></th><th></th></tr></thead><tbody>' + r + '</tbody></table></div>';
-  var wrap = c.querySelector('.itb-wrap');
-  if (wrap) {
-    var _tx = 0, _ty = 0;
-    wrap.addEventListener('touchstart', function(e) {
-      _tx = e.touches[0].clientX; _ty = e.touches[0].clientY; _idxScrolling = false;
-    }, {passive: true});
-    wrap.addEventListener('touchmove', function(e) {
-      if (Math.abs(e.touches[0].clientX - _tx) > 15 || Math.abs(e.touches[0].clientY - _ty) > 15) {
-        _idxScrolling = true;
-      }
-    }, {passive: true});
-    wrap.addEventListener('touchend', function() {
-      if (_idxScrolling) _idxScrollBlockUntil = Date.now() + 600;
-      _idxScrolling = false;
-    }, {passive: true});
-  }
+    '<div class="itb-wrap"><table class="itb"><thead><tr><th>#</th><th>Area</th><th>Domanda</th><th></th><th></th><th></th><th></th></tr></thead><tbody>' + r + '</tbody></table></div>';
 }
 function goQ(i) { S.ci = i; saveState(); renderQ(); scrollTo(0,0); }
 
