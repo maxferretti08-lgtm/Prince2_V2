@@ -89,7 +89,7 @@ a{color:var(--ac2);text-decoration:none}
 .bex:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(88,166,255,.3)}
 .bt{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;transition:all .12s}
 .brev{background:var(--ac);color:#fff}.brev:hover{background:var(--ac2)}
-.bfl{background:var(--sf3);color:var(--yl);border:1px solid var(--bd)}.bfl.fg{background:var(--ylb);border-color:var(--yl)}
+.bfl{background:var(--sf3);color:var(--yl);border:1px solid var(--bd)}
 .bnv{background:var(--sf3);color:var(--tx);border:1px solid var(--bd)}.bnv:hover{background:var(--sf2);border-color:var(--tx3)}
 .brst{background:var(--sf3);color:var(--rd);border:1px solid var(--bd);font-size:11px;padding:5px 9px;border-radius:5px}.brst:hover{background:var(--rdb)}
 .bsv{background:var(--acg);color:var(--ac);border:1px solid var(--ac)}.bsv:hover{background:var(--ac);color:#fff}
@@ -309,17 +309,17 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   .olt{width:30px;height:30px;font-size:12px;flex-shrink:0}
 
   /* Action buttons larger for touch */
-  .bt{min-height:40px;padding:8px 14px;font-size:13px}
+  .bt{min-height:40px;padding:8px 14px;font-size:13px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
   .brev{min-height:42px;padding:9px 16px;flex:1}
   .bfl{min-height:42px;padding:9px 12px;font-size:12px}
-  .brst{min-height:36px;padding:6px 12px}
+  .brst{min-height:42px;padding:6px 12px;display:inline-flex;align-items:center;justify-content:center}
   .bt.bnv{min-height:44px;padding:10px 20px;font-size:18px;line-height:1}
   /* qact su mobile: flex wrap in 2 righe */
   .qact{flex-wrap:wrap;gap:7px}
   .qact .brev{flex:2;min-width:120px}
   .qact .bfl{flex:1;min-width:100px}
-  .qact .bsv{flex:1;min-width:100px;order:4}
-  .qact .brst{order:5}
+  .qact .bsv{flex:1;min-width:100px;order:4;min-height:42px}
+  .qact .brst{order:5;min-width:42px;flex-shrink:0}
   .qact .spc{display:none}
   .qact .bt.bnv{flex:1;order:6;text-align:center}
 
@@ -344,7 +344,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   .diff-btns{gap:6px}
   .diff-btn{padding:12px 10px}
   .modal-row{gap:6px}
-  .modal-row .bt{padding:11px 10px;font-size:13px}
+  .modal-row .bt{padding:11px 10px;font-size:13px;white-space:nowrap;display:flex;align-items:center;justify-content:center}
 
   /* Bottom nav */
   .mob-nav{display:flex}
