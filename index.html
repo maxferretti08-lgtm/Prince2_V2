@@ -1850,20 +1850,39 @@ async function authSubmit() {
 }
 
 async function authLogout() {
+  var btn = document.querySelector('#sbUser button[onclick="authLogout()"]');
+  if (btn) { btn.disabled = true; btn.textContent = '...'; }
   if (_autoSyncInterval) { clearInterval(_autoSyncInterval); _autoSyncInterval = null; }
   clearTimeout(_sbSaveTimer);
-  await _sb.auth.signOut();
+  try {
+    await _sb.auth.signOut();
+  } catch(e) {
+    console.warn('signOut error:', e);
+  }
+  // Fallback UI reset in caso onAuthStateChange non scatti
+  _currentUser = null;
+  _appInitialized = false;
+  S.fl = new Set(); S.sn = new Set(); S.an = {};
+  S.ci = 0; S.ca = '00'; S.cf = 'all'; S.lq = null;
+  try { localStorage.removeItem('p2s7'); } catch(e) {}
+  showAuthOverlay();
 }
 
 function showAuthOverlay() {
   var ov = document.getElementById('authOverlay'); if (ov) ov.style.display = 'flex';
   var su = document.getElementById('sbUser');      if (su) su.style.display = 'none';
+  // Chiudi sidebar mobile se aperta
+  var sb = document.getElementById('sb'); if (sb) sb.classList.remove('op');
+  var ovrl = document.getElementById('ovrl'); if (ovrl) ovrl.classList.remove('vis');
 }
 
 function hideAuthOverlay(user) {
   var ov = document.getElementById('authOverlay'); if (ov) ov.style.display = 'none';
   var su = document.getElementById('sbUser');      if (su) su.style.display = 'block';
   var em = document.getElementById('sbUserEmail'); if (em) em.textContent = user.email;
+  // Resetta il bottone Esci in caso fosse stato disabilitato
+  var btn = document.querySelector('#sbUser button[onclick="authLogout()"]');
+  if (btn) { btn.disabled = false; btn.textContent = 'Esci'; }
 }
 
 function updateSbSyncStatus(state) {
