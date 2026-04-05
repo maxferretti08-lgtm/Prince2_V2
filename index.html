@@ -1763,7 +1763,7 @@ document.addEventListener('keydown', function(e) {
 (function(){
   var tx=0,ty=0,moving=false;
   document.addEventListener('touchstart',function(e){
-    if(e.target.closest('.sidebar,.modal-bg,.mob-nav,.hdr')) return;
+    if(e.target.closest('.sidebar,.modal-bg,.mob-nav,.hdr,.itb-wrap')) return;
     tx=e.changedTouches[0].clientX; ty=e.changedTouches[0].clientY; moving=false;
   },{passive:true});
   document.addEventListener('touchmove',function(e){
@@ -1772,7 +1772,7 @@ document.addEventListener('keydown', function(e) {
   },{passive:true});
   document.addEventListener('touchend',function(e){
     if(!moving||S.em) return;
-    if(e.target.closest('.sidebar,.modal-bg,.mob-nav,.hdr,.opt')) return;
+    if(e.target.closest('.sidebar,.modal-bg,.mob-nav,.hdr,.opt,.itb-wrap')) return;
     var dx=e.changedTouches[0].clientX-tx;
     if(Math.abs(dx)>55){ if(dx<0) navQ(1); else navQ(-1); }
   },{passive:true});
