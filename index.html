@@ -292,8 +292,8 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   .nav-top{position:sticky;top:var(--hdr-h);z-index:40;background:var(--bg);padding:8px 0;margin:0}
   .nav-top .bt{flex:1;min-height:50px;font-size:17px;font-weight:700}
   .nav-pos{font-size:14px;font-weight:700;color:var(--tx)}
-  /* Nascondi frecce duplicate in basso su mobile */
-  .nav-bot{display:none}
+  /* Frecce in basso su mobile */
+  .nav-bot{display:flex;margin-top:12px}
 
   /* Content */
   .cnt{padding:12px;padding-bottom:80px}
@@ -380,6 +380,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   /* Toast at top on mobile */
   .toast{top:70px;bottom:auto;transform:translateX(-50%) translateY(-20px)}
   .toast.show{transform:translateX(-50%) translateY(0)}
+  .toast.persist{white-space:normal;text-align:center;line-height:1.5}
 }
 
 /* Bottom nav bar — mobile only */
@@ -618,7 +619,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
         <button class="hdr-clr" id="hdrClrBtn" onclick="clearSearch()" style="display:none">✕ Cancella</button>
         <div class="hdr-sqm">
           <button class="sqm-btn on" id="sqmAll" onclick="setSqMode('all',this)">Tutto</button>
-          <button class="sqm-btn" id="sqmText" onclick="setSqMode('text',this)">Solo dom.</button>
+          <button class="sqm-btn" id="sqmText" onclick="setSqMode('text',this)">Quest.</button>
         </div>
       </div>
     </div>
@@ -788,8 +789,7 @@ function checkSavedPosition() {
   var q = Q.find(function(x){ return x.id === S.savedPos.qid; });
   if (!q) return;
   showToastHTML(
-    '👋 Bentornato! Riprendi dalla domanda <strong>#' + S.savedPos.qid + '</strong>?' +
-    ' <button class="toast-btn" onclick="jumpToSavedPosition()">Riprendi</button>',
+    'Riprendi da domad. n.' + S.savedPos.qid + ' <button class="toast-btn" onclick="jumpToSavedPosition()">Vai</button>',
     'info', true
   );
 }
@@ -1053,15 +1053,34 @@ function showStats() {
 }
 
 /* ===== INDEX ===== */
+var _idxScrolling = false;
+var _idxScrollBlockUntil = 0;
+function idxGoQ(e, i) { if (_idxScrolling || Date.now() < _idxScrollBlockUntil) return; goQ(i); }
 function showIndex() {
   var c = document.getElementById('cnt'); filterQs(); var qs = S.fq, r = '';
   for (var i = 0; i < qs.length; i++) {
     var q = qs[i], f = S.fl.has(q.id) ? '⚠️' : '', cb = q.combo ? '<span class="cbg">C</span>' : '';
     var a = S.an[q.id], ok = a === q.ans, st = a ? (ok ? '✅' : '❌') : '—';
-    r += '<tr onclick="goQ(' + i + ')"><td>' + q.id + '</td><td style="max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + q.area.substring(5) + '</td><td style="max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(q.text) + '</td><td>' + cb + '</td><td>' + f + '</td><td>' + st + '</td></tr>';
+    r += '<tr onclick="idxGoQ(event,' + i + ')"><td>' + q.id + '</td><td style="max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + q.area.substring(5) + '</td><td style="max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(q.text) + '</td><td>' + cb + '</td><td>' + f + '</td><td>' + st + '</td></tr>';
   }
   c.innerHTML = '<div class="sec-title">📋 Indice <small>(' + qs.length + ' domande)</small></div>' +
     '<div class="itb-wrap"><table class="itb"><thead><tr><th>#</th><th>Area</th><th>Domanda</th><th></th><th></th><th></th></tr></thead><tbody>' + r + '</tbody></table></div>';
+  var wrap = c.querySelector('.itb-wrap');
+  if (wrap) {
+    var _tx = 0, _ty = 0;
+    wrap.addEventListener('touchstart', function(e) {
+      _tx = e.touches[0].clientX; _ty = e.touches[0].clientY; _idxScrolling = false;
+    }, {passive: true});
+    wrap.addEventListener('touchmove', function(e) {
+      if (Math.abs(e.touches[0].clientX - _tx) > 15 || Math.abs(e.touches[0].clientY - _ty) > 15) {
+        _idxScrolling = true;
+      }
+    }, {passive: true});
+    wrap.addEventListener('touchend', function() {
+      if (_idxScrolling) _idxScrollBlockUntil = Date.now() + 600;
+      _idxScrolling = false;
+    }, {passive: true});
+  }
 }
 function goQ(i) { S.ci = i; saveState(); renderQ(); scrollTo(0,0); }
 
