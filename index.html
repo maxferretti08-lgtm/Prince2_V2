@@ -260,6 +260,30 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 .sec-title{font-size:20px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .sec-title small{font-size:13px;color:var(--tx2);font-weight:400}
 
+/* Settings tabs/editor */
+.settings-tabs{display:flex;gap:4px;margin-bottom:8px}
+.settings-tab-btn{flex:1;padding:6px 8px;font-size:10px;font-weight:700;border-radius:6px;background:var(--sf3);color:var(--tx3);border:1px solid var(--bd);transition:all .12s}
+.settings-tab-btn.on{background:var(--acg);color:var(--ac);border-color:var(--ac)}
+.settings-tab-panel{display:none}
+.settings-tab-panel.on{display:block}
+.settings-note{font-size:10px;color:var(--tx3);line-height:1.45;margin-bottom:8px}
+.settings-select{width:100%;margin-bottom:6px}
+.settings-qmeta{font-size:10px;color:var(--tx3);line-height:1.4;margin-bottom:6px}
+.settings-qpreview{font-size:11px;line-height:1.5;color:var(--tx2);background:var(--sf2);border:1px solid var(--bd);border-radius:6px;padding:8px 10px;max-height:88px;overflow:auto;margin-bottom:8px}
+.settings-textarea{width:100%;min-height:120px;resize:vertical;padding:9px 10px;line-height:1.5;background:var(--sf3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:12px;outline:none;font-family:inherit}
+.settings-textarea:focus{border-color:var(--ac)}
+.settings-actions{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.settings-actions .bsv,.settings-actions .brst{flex:1;font-size:10px;padding:6px}
+.settings-chip{display:inline-block;font-size:10px;font-weight:700;padding:2px 6px;border-radius:999px;background:var(--sf3);border:1px solid var(--bd);color:var(--tx3)}
+.settings-chip.on{background:var(--pub);border-color:var(--pu);color:var(--pu)}
+.area-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px}
+.area-card-title{display:flex;align-items:center;gap:7px;min-width:0}
+.area-reset-btn{padding:4px 7px;font-size:10px;flex-shrink:0}
+
+@media(max-width:768px){
+  .settings-actions .bsv,.settings-actions .brst{min-height:38px;font-size:11px}
+}
+
 /* Toast notification */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);z-index:500;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:10px 18px;font-size:13px;font-weight:600;color:var(--tx);box-shadow:0 8px 32px rgba(0,0,0,.5);opacity:0;transition:all .3s ease;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -609,15 +633,41 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
   <details class="sb-coll" id="impostazioniColl">
     <summary>⚙️ Impostazioni</summary>
     <div class="sb-coll-body">
-      <button class="bnv" style="width:100%;font-size:11px;padding:7px;margin-bottom:4px" onclick="showSourceMap()">🗺️ Mappa sorgenti</button>
-      <div style="display:flex;gap:4px;margin-bottom:4px">
-        <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="exportFile()">⬇ Esporta</button>
-        <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="document.getElementById('impF').click()">⬆ Importa</button>
-        <input type="file" id="impF" accept=".json" style="display:none" onchange="importFile(this)">
+      <div class="settings-tabs">
+        <button class="settings-tab-btn on" data-tab="general" onclick="switchSettingsTab('general', this)">Generale</button>
+        <button class="settings-tab-btn" data-tab="explanations" onclick="switchSettingsTab('explanations', this)">Spiegazioni</button>
       </div>
-      <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:4px" onclick="openChangePwModal()">🔑 Cambia password</button>
-      <button class="bnv" style="width:100%;font-size:10px;padding:6px;color:var(--rd)" onclick="resetAll()">🔄 Reset risposte</button>
-      <div id="gistStatusBar" style="display:none"></div>
+
+      <div class="settings-tab-panel on" id="settingsTab-general">
+        <button class="bnv" style="width:100%;font-size:11px;padding:7px;margin-bottom:4px" onclick="showSourceMap()">🗺️ Mappa sorgenti</button>
+        <div style="display:flex;gap:4px;margin-bottom:4px">
+          <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="exportFile()">⬇ Esporta</button>
+          <button class="bnv" style="flex:1;font-size:10px;padding:6px" onclick="document.getElementById('impF').click()">⬆ Importa</button>
+          <input type="file" id="impF" accept=".json" style="display:none" onchange="importFile(this)">
+        </div>
+        <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:4px" onclick="openChangePwModal()">🔑 Cambia password</button>
+        <button class="bnv" style="width:100%;font-size:10px;padding:6px;color:var(--rd)" onclick="resetAll()">🔄 Reset risposte</button>
+        <div id="gistStatusBar" style="display:none"></div>
+      </div>
+
+      <div class="settings-tab-panel" id="settingsTab-explanations">
+        <div class="settings-note">Qui puoi modificare manualmente la spiegazione di una singola domanda. Le risposte corrette e i trucchi restano invariati.</div>
+        <button class="bnv" style="width:100%;font-size:10px;padding:6px;margin-bottom:6px" onclick="settingsUseCurrentQuestion()">📍 Usa la domanda corrente</button>
+        <select id="expQuestionSelect" class="sinp settings-select" onchange="loadExplanationEditor(this.value)">
+          <option value="">Seleziona una domanda...</option>
+        </select>
+        <div class="settings-qmeta" id="expQuestionMeta">Nessuna domanda selezionata.</div>
+        <div class="settings-qpreview" id="expQuestionPreview">Seleziona una domanda per vedere qui il testo.</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px">
+          <span style="font-size:10px;color:var(--tx3)">Stato spiegazione</span>
+          <span class="settings-chip" id="expOverrideBadge">Originale</span>
+        </div>
+        <textarea id="expEditorText" class="settings-textarea" placeholder="Scrivi qui la spiegazione personalizzata..."></textarea>
+        <div class="settings-actions">
+          <button class="bsv" onclick="saveExplanationEdit()">💾 Salva</button>
+          <button class="brst" onclick="resetExplanationEdit()">↺ Ripristina</button>
+        </div>
+      </div>
     </div>
   </details>
 </aside>
@@ -700,7 +750,7 @@ var SRC_PATTERNS = [
   {col:'SIM2-ENG',re:/SIM[_-]+2[_-]+ENG|SIM[_-]+ENG[_-]+2/i}
 ];
 
-var S = {ca:'00',cf:'all',ci:0,lq:null,fq:[],fl:new Set(),sn:new Set(),an:{},sq:'',sqMode:'all',em:false,eq:[],ea:{},es:null,et:null,examDiff:'easy',savedPos:null,examUsed:{}};
+var S = {ca:'00',cf:'all',ci:0,lq:null,fq:[],fl:new Set(),sn:new Set(),an:{},expOv:{},sq:'',sqMode:'all',em:false,eq:[],ea:{},es:null,et:null,examDiff:'easy',savedPos:null,examUsed:{}};
 var showImmediateFeedback = false;
 
 /* ===== PERSISTENCE ===== */
@@ -711,7 +761,7 @@ function loadState() {
       var p = JSON.parse(v);
       S.fl = new Set((p.fl||[]).map(function(x){return parseInt(x,10);}));
       S.sn = new Set((p.sn||[]).map(function(x){return parseInt(x,10);}));
-      S.an = p.an||{}; S.ci = p.ci||0; S.ca = p.ca||'00'; S.cf = p.cf||'all';
+      S.an = p.an||{}; S.expOv = (p.expOv && typeof p.expOv === 'object') ? p.expOv : {}; S.ci = p.ci||0; S.ca = p.ca||'00'; S.cf = p.cf||'all';
       S.lq = p.lq||null;
       if (p.savedPos) S.savedPos = p.savedPos;
       if (p.examUsed && typeof p.examUsed === 'object') S.examUsed = p.examUsed;
@@ -719,11 +769,11 @@ function loadState() {
   } catch(e) {}
 }
 function saveState() {
-  try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq,savedPos:S.savedPos,examUsed:S.examUsed})); } catch(e) {}
+  try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,expOv:S.expOv,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq,savedPos:S.savedPos,examUsed:S.examUsed})); } catch(e) {}
   sbSaveDebounced();
 }
 function hasSavedProgress() {
-  return S.sn.size > 0 || Object.keys(S.an).length > 0;
+  return S.sn.size > 0 || Object.keys(S.an).length > 0 || Object.keys(S.expOv||{}).length > 0;
 }
 
 /* ===== UTILS ===== */
@@ -734,6 +784,24 @@ function hlSearch(text, sq) {
   return parts.map(function(p, i) { return i % 2 === 1 ? '<mark>' + esc(p) + '</mark>' : esc(p); }).join('');
 }
 function gc(a) { return a.substring(0,2); }
+function hasOwn(obj, key) { return Object.prototype.hasOwnProperty.call(obj, key); }
+function getQExp(q) {
+  if (!q) return '';
+  var key = String(q.id);
+  if (S.expOv && hasOwn(S.expOv, key)) return S.expOv[key] || '';
+  return q.exp || '';
+}
+function hasExpOverride(id) { return !!(S.expOv && hasOwn(S.expOv, String(id))); }
+function shortText(text, maxLen) {
+  var t = (text || '').replace(/\s+/g, ' ').trim();
+  if (!t) return '';
+  return t.length > maxLen ? t.slice(0, maxLen - 1) + '…' : t;
+}
+function getQuestionById(id) {
+  var sid = String(id);
+  for (var i = 0; i < Q.length; i++) if (String(Q[i].id) === sid) return Q[i];
+  return null;
+}
 function renderText(text, sq) {
   if (!text) return '';
   var t = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
@@ -877,7 +945,13 @@ function filterQs() {
     if (S.sqMode === 'text') {
       q = q.filter(function(x){ return x.text.toLowerCase().indexOf(s) >= 0; });
     } else {
-      q = q.filter(function(x){ return x.text.toLowerCase().indexOf(s) >= 0 || x.opts.some(function(o){ return o.toLowerCase().indexOf(s) >= 0; }) || (x.exp && x.exp.toLowerCase().indexOf(s) >= 0) || (x.trk && x.trk.toLowerCase().indexOf(s) >= 0); });
+      q = q.filter(function(x){
+        var qExp = getQExp(x);
+        return x.text.toLowerCase().indexOf(s) >= 0 ||
+          x.opts.some(function(o){ return o.toLowerCase().indexOf(s) >= 0; }) ||
+          (qExp && qExp.toLowerCase().indexOf(s) >= 0) ||
+          (x.trk && x.trk.toLowerCase().indexOf(s) >= 0);
+      });
     }
   }
   if (S.cf === 'flagged') q = q.filter(function(x){ return S.fl.has(x.id); });
@@ -942,7 +1016,7 @@ function renderQ() {
     return;
   }
 
-  var q = S.fq[S.ci], fg = S.fl.has(q.id), aw = S.an[q.id];
+  var q = S.fq[S.ci], fg = S.fl.has(q.id), aw = S.an[q.id], qExp = getQExp(q);
   S.sn.add(q.id); S.lq = q.id; saveState();
 
   var L = ['A','B','C','D'];
@@ -982,16 +1056,16 @@ function renderQ() {
     h += '</div></div></details>';
   }
 
-  if (q.exp || q.trk) {
+  if (qExp || q.trk) {
     h += '<details class="coll"><summary>💡 Spiegazione e Trucco</summary><div class="coll-body">';
-    if (q.exp) h += '<div class="qexp">' + esc(q.exp) + '</div>';
+    if (qExp) h += '<div class="qexp">' + esc(qExp) + '</div>';
     if (q.trk) h += '<div class="qtrk">💡 ' + esc(q.trk) + '</div>';
     h += '</div></details>';
   }
 
   h += '<div class="qrv" id="rv">';
   h += '<div class="qaw">✅ Risposta: ' + q.ans + ') ' + esc(q.ansT) + '</div>';
-  if (q.exp) h += '<div class="qexp">' + esc(q.exp) + '</div>';
+  if (qExp) h += '<div class="qexp">' + esc(qExp) + '</div>';
   if (q.trk) h += '<div class="qtrk">💡 ' + esc(q.trk) + '</div>';
   h += '</div>';
 
@@ -1032,8 +1106,37 @@ function toggleFlag(el) {
   gistAutoPush();
 }
 function navQ(d) { S.ci = (S.ci + d + S.fq.length) % S.fq.length; saveState(); renderQ(); scrollTo(0,0); }
-function resetOne(el) { var id = parseInt(el.dataset.qid); if (S.an[id]) delete S.an[id]; saveState(); renderQ(); }
-function resetAll() { if (!confirm("Reset TUTTE le risposte?\nLe segnalazioni verranno mantenute.")) return; S.an = {}; S.sn = new Set(); S.cf = 'all'; S.ca = '00'; S.ci = 0; saveState(); buildSidebar(); document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('on')}); document.querySelector('.fb').classList.add('on'); filterQs(); updateProgress(); renderQ(); }
+function resetOne(el) {
+  var id = parseInt(el.dataset.qid, 10);
+  if (!S.an[id]) return;
+  delete S.an[id];
+  saveState();
+  filterQs();
+  updateProgress();
+  renderQ();
+  gistAutoPush();
+}
+function resetAll() { if (!confirm("Reset TUTTE le risposte?\nLe segnalazioni verranno mantenute.")) return; S.an = {}; S.sn = new Set(); S.cf = 'all'; S.ca = '00'; S.ci = 0; saveState(); buildSidebar(); document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('on')}); document.querySelector('.fb').classList.add('on'); filterQs(); updateProgress(); renderQ(); gistAutoPush(); }
+function resetAreaAnswers(areaCode, ev) {
+  if (ev && ev.stopPropagation) ev.stopPropagation();
+  var area = AREAS.filter(function(x){ return x.c === areaCode; })[0];
+  var areaName = area ? area.n : areaCode;
+  var idsToReset = Q.filter(function(x){ return gc(x.area) === areaCode && S.an[x.id]; }).map(function(x){ return x.id; });
+  if (idsToReset.length === 0) {
+    showToast('Nessuna risposta da resettare in ' + areaName, 'info');
+    return false;
+  }
+  if (!confirm('Reset delle risposte per l\'area "' + areaName + '"?\nVerranno cancellate solo ' + idsToReset.length + ' risposte di questa area.')) return false;
+  for (var i = 0; i < idsToReset.length; i++) delete S.an[idsToReset[i]];
+  saveState();
+  buildSidebar();
+  filterQs();
+  updateProgress();
+  showStats();
+  gistAutoPush();
+  showToast('↺ ' + idsToReset.length + ' risposte resettate in ' + areaName, 'ok');
+  return false;
+}
 
 /* ===== STATS ===== */
 function showStats() {
@@ -1042,6 +1145,7 @@ function showStats() {
   var p = aw > 0 ? Math.round(co/aw*100) : 0;
   var cm = Q.filter(function(x){ return x.combo; }).length;
   var en = Q.filter(function(x){ return x.lang === 'ENG'; }).length;
+  var ex = Object.keys(S.expOv || {}).length;
   var as = '';
   for (var j = 0; j < AREAS.length; j++) {
     var a = AREAS[j]; if (a.c === '00') continue;
@@ -1051,10 +1155,12 @@ function showStats() {
     var af = aq.filter(function(x){ return S.fl.has(x.id); }).length;
     var pc = an2 > 0 ? Math.round(ac/an2*100) : 0;
     var barW = aq.length > 0 ? Math.round(an2/aq.length*100) : 0;
+    var btnCls = an2 > 0 ? 'brst' : 'bnv';
     as += '<div class="scd" style="cursor:pointer" data-code="' + a.c + '" onclick="setArea(this.dataset.code)">' +
-      '<div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">' +
-      '<span class="nd" style="background:' + a.cl + '"></span>' +
-      '<span style="font-size:12px;font-weight:700">' + a.n + '</span></div>' +
+      '<div class="area-card-head">' +
+      '<div class="area-card-title"><span class="nd" style="background:' + a.cl + '"></span><span style="font-size:12px;font-weight:700">' + a.n + '</span></div>' +
+      '<button class="' + btnCls + ' area-reset-btn" data-code="' + a.c + '" onclick="return resetAreaAnswers(this.dataset.code, event)" title="Reset solo le risposte di quest\'area">↺ ' + an2 + '</button>' +
+      '</div>' +
       '<div style="font-size:11px;color:var(--tx3);margin-bottom:3px">' + aq.length + ' dom · ' + af + ' segn</div>' +
       '<div style="font-size:12px;font-weight:600;color:' + (pc>=65?'var(--gn)':'var(--rd)') + '">' + an2 + ' risp (' + pc + '%)</div>' +
       '<div class="area-bar-wrap"><div class="area-bar" style="width:' + barW + '%;background:' + a.cl + '"></div></div>' +
@@ -1066,6 +1172,7 @@ function showStats() {
     '<div class="scd"><div class="svl">' + sn + '</div><div class="slb">Viste (' + Math.round(sn/t*100) + '%)</div></div>' +
     '<div class="scd"><div class="svl" style="color:' + (p>=65?'var(--gn)':'var(--rd)') + '">' + p + '%</div><div class="slb">Corrette (' + co + '/' + aw + ')</div></div>' +
     '<div class="scd"><div class="svl" style="color:var(--yl)">' + fl + '</div><div class="slb">Segnalate</div></div>' +
+    '<div class="scd"><div class="svl" style="color:var(--pu)">' + ex + '</div><div class="slb">Spiegazioni mod.</div></div>' +
     '<div class="scd"><div class="svl">' + cm + '</div><div class="slb">Combo</div></div>' +
     '<div class="scd"><div class="svl">' + en + '</div><div class="slb">Da ENG</div></div>' +
     '</div><h3 style="font-size:15px;font-weight:700;margin-bottom:10px">Per area</h3>' +
@@ -1242,6 +1349,7 @@ function renderExamQ() {
   if (!S.em) return;
   var c = document.getElementById('cnt'), q = S.eq[S.ci]; if (!q) return;
   var aw = S.ea[q.id];
+  var qExp = getQExp(q);
   var L = ['A','B','C','D'];
   var opts = q._shuffledOpts || q.opts;
   var correctAns = q._shuffledAns || q.ans;
@@ -1273,7 +1381,7 @@ function renderExamQ() {
     op += '<div class="exam-feedback ' + (isOk ? 'exam-fb-ok' : 'exam-fb-no') + '">';
     op += '<div class="fb-head">' + (isOk ? '✅ Corretto!' : '❌ Sbagliato') + '</div>';
     if (!isOk) op += '<div class="fb-correct">✅ Risposta corretta: ' + correctAns + ') ' + esc(q.ansT) + '</div>';
-    if (q.exp) op += '<div class="qexp" style="margin-top:8px;margin-bottom:0;color:var(--tx2)">' + esc(q.exp) + '</div>';
+    if (qExp) op += '<div class="qexp" style="margin-top:8px;margin-bottom:0;color:var(--tx2)">' + esc(qExp) + '</div>';
     if (q.trk) op += '<div class="qtrk" style="margin-top:6px">💡 ' + esc(q.trk) + '</div>';
     op += '</div>';
   }
@@ -1445,7 +1553,7 @@ function gistAutoPush() {
   _gistPushTimer = setTimeout(function() {
     var flArr = [...S.fl].map(function(x){return parseInt(x,10);});
     var snArr = [...S.sn].map(function(x){return parseInt(x,10);});
-    var d = {fl:flArr, sn:snArr, an:JSON.parse(JSON.stringify(S.an)), ts:new Date().toISOString(), v:2};
+    var d = {fl:flArr, sn:snArr, an:JSON.parse(JSON.stringify(S.an)), expOv:JSON.parse(JSON.stringify(S.expOv)), ts:new Date().toISOString(), v:2};
     _gistPushCtrl = new AbortController();
     var ctrl = _gistPushCtrl;
     var tId = setTimeout(function() { try { ctrl.abort(); } catch(e) {} }, 10000);
@@ -1491,11 +1599,13 @@ async function autoSyncPull() {
     var remFl = (Array.isArray(d.fl)?d.fl:[]).map(function(x){return parseInt(x,10);}).filter(function(x){return !isNaN(x);});
     var remSn = (Array.isArray(d.sn)?d.sn:[]).map(function(x){return parseInt(x,10);}).filter(function(x){return !isNaN(x);});
     var remAn = (d.an && typeof d.an === 'object') ? d.an : {};
+    var remExpOv = (d.expOv && typeof d.expOv === 'object') ? d.expOv : {};
     // Merge: il remoto aggiunge ciò che manca in locale (senza sovrascrivere)
     var added = 0;
     remFl.forEach(function(x){ if (!S.fl.has(x)) { S.fl.add(x); added++; } });
     remSn.forEach(function(x){ if (!S.sn.has(x)) { S.sn.add(x); added++; } });
-    for (var k in remAn) { if (!S.an.hasOwnProperty(k)) { S.an[k] = remAn[k]; added++; } }
+    for (var k in remAn) { if (!hasOwn(S.an, k)) { S.an[k] = remAn[k]; added++; } }
+    for (var ek in remExpOv) { if (!hasOwn(S.expOv, ek)) { S.expOv[ek] = remExpOv[ek]; added++; } }
     if (added > 0) {
       saveState();
       buildSidebar(); filterQs(); updateProgress();
@@ -1531,7 +1641,7 @@ document.addEventListener('visibilitychange', function() {
   if (!token || !gistId || !hasSavedProgress()) return;
   var flArr = [...S.fl].map(function(x){return parseInt(x,10);});
   var snArr = [...S.sn].map(function(x){return parseInt(x,10);});
-  var d = {fl:flArr, sn:snArr, an:JSON.parse(JSON.stringify(S.an)), ts:new Date().toISOString(), v:2};
+  var d = {fl:flArr, sn:snArr, an:JSON.parse(JSON.stringify(S.an)), expOv:JSON.parse(JSON.stringify(S.expOv)), ts:new Date().toISOString(), v:2};
   fetch('https://api.github.com/gists/' + gistId, {
     method: 'PATCH',
     keepalive: true, // garantisce completamento anche se la pagina viene chiusa
@@ -1542,7 +1652,7 @@ document.addEventListener('visibilitychange', function() {
 
 /* ===== SYNC via LINK ===== */
 function syncLink() {
-  var d = {fl:[...S.fl], sn:[...S.sn], an:S.an};
+  var d = {fl:[...S.fl], sn:[...S.sn], an:S.an, expOv:S.expOv};
   var compressed = btoa(encodeURIComponent(JSON.stringify(d)));
   var url = location.origin + location.pathname + '#sync=' + compressed;
   document.getElementById('syncUrl').value = url;
@@ -1560,8 +1670,18 @@ function syncImport() {
     var d = JSON.parse(decodeURIComponent(atob(hash.substring(6))));
     if (!d.an) return;
     var mode = confirm("Dati ricevuti da un altro dispositivo.\n\nOK = Unisci\nAnnulla = Sostituisci tutto");
-    if (mode) { if(d.fl) d.fl.forEach(function(x){S.fl.add(x)}); if(d.sn) d.sn.forEach(function(x){S.sn.add(x)}); if(d.an) for(var k in d.an){if(!S.an[k])S.an[k]=d.an[k]} }
-    else { S.fl = new Set(d.fl||[]); S.sn = new Set(d.sn||[]); S.an = d.an||{}; }
+    if (mode) {
+      if(d.fl) d.fl.forEach(function(x){S.fl.add(x)});
+      if(d.sn) d.sn.forEach(function(x){S.sn.add(x)});
+      if(d.an) for(var k in d.an){ if(!hasOwn(S.an, k)) S.an[k]=d.an[k] }
+      if(d.expOv) for(var ek in d.expOv){ if(!hasOwn(S.expOv, ek)) S.expOv[ek]=d.expOv[ek] }
+    }
+    else {
+      S.fl = new Set(d.fl||[]);
+      S.sn = new Set(d.sn||[]);
+      S.an = d.an||{};
+      S.expOv = (d.expOv && typeof d.expOv === 'object') ? d.expOv : {};
+    }
     saveState(); history.replaceState(null, '', location.pathname);
     alert("Sync completato! Viste: " + S.sn.size + " · Risposte: " + Object.keys(S.an).length);
   } catch(e) {}
@@ -1682,6 +1802,7 @@ async function gistPush() {
       fl: flArr,
       sn: snArr,
       an: anCopy,
+      expOv: JSON.parse(JSON.stringify(S.expOv)),
       ts: new Date().toISOString(),
       v: 2  // versione formato, utile per compatibilità futura
     };
@@ -1771,14 +1892,17 @@ async function gistPull() {
     var remFl = (Array.isArray(d.fl) ? d.fl : []).map(function(x){return parseInt(x,10);}).filter(function(x){return !isNaN(x);});
     var remSn = (Array.isArray(d.sn) ? d.sn : []).map(function(x){return parseInt(x,10);}).filter(function(x){return !isNaN(x);});
     var remAn = (d.an && typeof d.an === 'object') ? d.an : {};
+    var remExpOv = (d.expOv && typeof d.expOv === 'object') ? d.expOv : {};
     var remAnCount = Object.keys(remAn).length;
+    var remExpCount = Object.keys(remExpOv).length;
     var remTs = (d.ts||'').slice(0,16).replace('T',' ') || '?';
 
     // Dialog informativo: mostra esattamente cosa c'è nel Gist
     var msg = 'Dati trovati nel Gist (' + remTs + '):\n' +
               '  • ' + remFl.length + ' domande segnalate\n' +
               '  • ' + remAnCount + ' risposte date\n' +
-              '  • ' + remSn.length + ' domande viste\n\n' +
+              '  • ' + remSn.length + ' domande viste\n' +
+              '  • ' + remExpCount + ' spiegazioni personalizzate\n\n' +
               'Premi OK per SOSTITUIRE i dati locali con questi.\n' +
               'Premi Annulla per UNIRE (le risposte locali hanno priorità).';
     var replace = confirm(msg);
@@ -1788,11 +1912,13 @@ async function gistPull() {
       S.fl = new Set(remFl);
       S.sn = new Set(remSn);
       S.an = JSON.parse(JSON.stringify(remAn));
+      S.expOv = JSON.parse(JSON.stringify(remExpOv));
     } else {
       // Unisce: aggiunge dati remoti senza sovrascrivere quelli locali
       remFl.forEach(function(x){ S.fl.add(x); });
       remSn.forEach(function(x){ S.sn.add(x); });
-      for (var k in remAn) { if (!S.an.hasOwnProperty(k)) S.an[k] = remAn[k]; }
+      for (var k in remAn) { if (!hasOwn(S.an, k)) S.an[k] = remAn[k]; }
+      for (var ek in remExpOv) { if (!hasOwn(S.expOv, ek)) S.expOv[ek] = remExpOv[ek]; }
     }
 
     // Reset filtro a "Tutte" per evitare "Nessuna domanda trovata" dopo il pull
@@ -1813,7 +1939,7 @@ async function gistPull() {
 
 /* ===== EXPORT / IMPORT ===== */
 function exportFile() {
-  var d = {fl:[...S.fl], sn:[...S.sn], an:S.an, ts:new Date().toISOString()};
+  var d = {fl:[...S.fl], sn:[...S.sn], an:S.an, expOv:S.expOv, ts:new Date().toISOString()};
   var blob = new Blob([JSON.stringify(d,null,2)], {type:'application/json'});
   var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
   a.download = 'prince2_progressi_' + new Date().toISOString().slice(0,10) + '.json';
@@ -1827,18 +1953,133 @@ function importFile(input) {
       var d = JSON.parse(e.target.result);
       if (!d.an) { alert('File non valido.'); return; }
       var mode = confirm("Vuoi UNIRE i dati?\n\nOK = Unisci\nAnnulla = Sostituisci");
-      if (mode) { if(d.fl) d.fl.forEach(function(x){S.fl.add(x)}); if(d.sn) d.sn.forEach(function(x){S.sn.add(x)}); if(d.an) for(var k in d.an){if(!S.an[k])S.an[k]=d.an[k]} }
-      else { S.fl = new Set(d.fl||[]); S.sn = new Set(d.sn||[]); S.an = d.an||{}; }
+      if (mode) {
+        if(d.fl) d.fl.forEach(function(x){S.fl.add(x)});
+        if(d.sn) d.sn.forEach(function(x){S.sn.add(x)});
+        if(d.an) for(var k in d.an){ if(!hasOwn(S.an, k)) S.an[k]=d.an[k] }
+        if(d.expOv) for(var ek in d.expOv){ if(!hasOwn(S.expOv, ek)) S.expOv[ek]=d.expOv[ek] }
+      }
+      else {
+        S.fl = new Set(d.fl||[]);
+        S.sn = new Set(d.sn||[]);
+        S.an = d.an||{};
+        S.expOv = (d.expOv && typeof d.expOv === 'object') ? d.expOv : {};
+      }
       saveState(); buildSidebar(); filterQs(); renderQ(); updateProgress();
-      alert("Importazione OK! Segnalate: " + S.fl.size + " · Risposte: " + Object.keys(S.an).length);
+      alert("Importazione OK! Segnalate: " + S.fl.size + " · Risposte: " + Object.keys(S.an).length + " · Spiegazioni: " + Object.keys(S.expOv || {}).length);
     } catch(err) { alert('Errore: ' + err.message); }
   };
   reader.readAsText(input.files[0]); input.value = '';
 }
 
+
+/* ===== SETTINGS / SPIEGAZIONI ===== */
+function switchSettingsTab(tab, el) {
+  document.querySelectorAll('.settings-tab-btn').forEach(function(btn){ btn.classList.remove('on'); });
+  document.querySelectorAll('.settings-tab-panel').forEach(function(panel){ panel.classList.remove('on'); });
+  var btn = el || document.querySelector('.settings-tab-btn[data-tab="' + tab + '"]');
+  var panel = document.getElementById('settingsTab-' + tab);
+  if (btn) btn.classList.add('on');
+  if (panel) panel.classList.add('on');
+  if (tab === 'explanations') initExplanationEditor();
+}
+
+function initExplanationEditor() {
+  var sel = document.getElementById('expQuestionSelect');
+  if (!sel || !Q || !Q.length) return;
+  if (sel.dataset.ready !== '1') {
+    var opts = '<option value="">Seleziona una domanda...</option>';
+    for (var i = 0; i < Q.length; i++) {
+      var q = Q[i];
+      opts += '<option value="' + q.id + '">#' + q.id + ' · ' + esc(shortText(q.text, 68)) + '</option>';
+    }
+    sel.innerHTML = opts;
+    sel.dataset.ready = '1';
+  }
+  if (!sel.value) {
+    var current = (S.fq && S.fq[S.ci]) ? S.fq[S.ci] : (Q[0] || null);
+    if (current) sel.value = String(current.id);
+  }
+  loadExplanationEditor(sel.value);
+}
+
+function settingsUseCurrentQuestion() {
+  switchSettingsTab('explanations');
+  var q = (S.fq && S.fq[S.ci]) ? S.fq[S.ci] : (Q[0] || null);
+  if (!q) return;
+  var sel = document.getElementById('expQuestionSelect');
+  if (!sel) return;
+  if (sel.dataset.ready !== '1') initExplanationEditor();
+  sel.value = String(q.id);
+  loadExplanationEditor(sel.value);
+}
+
+function loadExplanationEditor(id) {
+  var meta = document.getElementById('expQuestionMeta');
+  var preview = document.getElementById('expQuestionPreview');
+  var ta = document.getElementById('expEditorText');
+  var badge = document.getElementById('expOverrideBadge');
+  if (!meta || !preview || !ta || !badge) return;
+  var q = getQuestionById(id);
+  if (!q) {
+    meta.textContent = 'Nessuna domanda selezionata.';
+    preview.textContent = 'Seleziona una domanda per vedere qui il testo.';
+    ta.value = '';
+    badge.textContent = 'Originale';
+    badge.classList.remove('on');
+    return;
+  }
+  meta.innerHTML = 'Domanda <strong>#' + q.id + '</strong> · ' + esc(q.area) + (hasExpOverride(q.id) ? ' · spiegazione personalizzata' : '');
+  preview.innerHTML = renderText(shortText(q.text, 220), '');
+  ta.value = getQExp(q);
+  badge.textContent = hasExpOverride(q.id) ? 'Personalizzata' : 'Originale';
+  badge.classList.toggle('on', hasExpOverride(q.id));
+}
+
+function refreshQuestionViewsAfterExplanationEdit(id) {
+  if (S.em) {
+    var examQ = S.eq && S.eq[S.ci];
+    if (examQ && String(examQ.id) === String(id)) renderExamQ();
+    return;
+  }
+  var current = S.fq && S.fq[S.ci];
+  if (current && String(current.id) === String(id) && document.querySelector('.qc')) renderQ();
+}
+
+function saveExplanationEdit() {
+  var sel = document.getElementById('expQuestionSelect');
+  var ta = document.getElementById('expEditorText');
+  if (!sel || !ta || !sel.value) { showToast('Seleziona una domanda', 'info'); return; }
+  var q = getQuestionById(sel.value);
+  if (!q) { showToast('Domanda non trovata', 'err'); return; }
+  var key = String(q.id);
+  var newText = ta.value;
+  var original = q.exp || '';
+  if (newText === original) delete S.expOv[key];
+  else S.expOv[key] = newText;
+  saveState();
+  loadExplanationEditor(key);
+  refreshQuestionViewsAfterExplanationEdit(key);
+  gistAutoPush();
+  showToast(hasExpOverride(key) ? '💾 Spiegazione salvata' : '✅ Ripristinata la versione originale', 'ok');
+}
+
+function resetExplanationEdit() {
+  var sel = document.getElementById('expQuestionSelect');
+  if (!sel || !sel.value) { showToast('Seleziona una domanda', 'info'); return; }
+  var key = String(sel.value);
+  if (hasExpOverride(key)) delete S.expOv[key];
+  saveState();
+  loadExplanationEditor(key);
+  refreshQuestionViewsAfterExplanationEdit(key);
+  gistAutoPush();
+  showToast('↺ Spiegazione originale ripristinata', 'ok');
+}
+
 /* ===== KEYBOARD ===== */
 document.addEventListener('keydown', function(e) {
-  if (e.target.tagName === 'INPUT') return;
+  var tag = e.target.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
   if (S.em) {
     if (e.key === 'ArrowRight') examNav(1);
     else if (e.key === 'ArrowLeft') examNav(-1);
@@ -2008,13 +2249,14 @@ async function sbLoadProgress() {
     if (Array.isArray(d.fl)) S.fl = new Set(d.fl.map(function(x){ return parseInt(x, 10); }));
     if (Array.isArray(d.sn)) S.sn = new Set(d.sn.map(function(x){ return parseInt(x, 10); }));
     if (d.an && typeof d.an === 'object') S.an = d.an;
+    if (d.expOv && typeof d.expOv === 'object') S.expOv = d.expOv;
     if (d.ci !== undefined) S.ci = d.ci;
     if (d.ca !== undefined) S.ca = d.ca;
     if (d.cf !== undefined) S.cf = d.cf;
     if (d.lq !== undefined) S.lq = d.lq;
     if (d.savedPos) S.savedPos = d.savedPos;
     // Sincronizza anche localStorage
-    try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq,savedPos:S.savedPos})); } catch(e) {}
+    try { localStorage.setItem('p2s7', JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,expOv:S.expOv,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq,savedPos:S.savedPos})); } catch(e) {}
     return true;
   } catch(e) { console.warn('sbLoad exception:', e); return false; }
 }
@@ -2030,6 +2272,7 @@ async function sbSaveProgress() {
       fl:  [...S.fl].map(function(x){ return parseInt(x, 10); }),
       sn:  [...S.sn].map(function(x){ return parseInt(x, 10); }),
       an:  JSON.parse(JSON.stringify(S.an)),
+      expOv: JSON.parse(JSON.stringify(S.expOv)),
       ci: S.ci, ca: S.ca, cf: S.cf, lq: S.lq,
       savedPos: S.savedPos,
       ts: new Date().toISOString(), v: 2
@@ -2093,7 +2336,7 @@ async function initApp() {
   if (lsRaw) {
     try {
       lsParsed = JSON.parse(lsRaw);
-      lsHasData = (lsParsed.sn && lsParsed.sn.length > 0) || Object.keys(lsParsed.an || {}).length > 0;
+      lsHasData = (lsParsed.sn && lsParsed.sn.length > 0) || Object.keys(lsParsed.an || {}).length > 0 || Object.keys(lsParsed.expOv || {}).length > 0;
     } catch(e) {}
   }
 
@@ -2105,6 +2348,7 @@ async function initApp() {
   filterQs();
   updateProgress();
   updateGistStatusBar();
+  initExplanationEditor();
 
   // Primo accesso Supabase: se ci sono dati locali, offri importazione
   if (!sbHasData && lsHasData) {
@@ -2135,11 +2379,13 @@ function showImportLocalModal(lsData) {
   var an = Object.keys(lsData.an || {}).length;
   var sn = (lsData.sn || []).length;
   var fl = (lsData.fl || []).length;
+  var ex = Object.keys(lsData.expOv || {}).length;
   document.getElementById('importLocalInfo').innerHTML =
     '<div style="display:flex;gap:20px;flex-wrap:wrap">' +
     '<div class="rs-stat"><div class="n">' + sn + '</div><div class="l">Viste</div></div>' +
     '<div class="rs-stat"><div class="n">' + an + '</div><div class="l">Risposte</div></div>' +
     '<div class="rs-stat"><div class="n" style="color:var(--yl)">' + fl + '</div><div class="l">Segnalate</div></div>' +
+    '<div class="rs-stat"><div class="n" style="color:var(--pu)">' + ex + '</div><div class="l">Spiegazioni</div></div>' +
     '</div>';
   window._lsImportData = lsData;
   openModal('importLocalModal');
@@ -2150,10 +2396,11 @@ function doImportLocal() {
   if (Array.isArray(d.fl)) d.fl.forEach(function(x){ S.fl.add(parseInt(x, 10)); });
   if (Array.isArray(d.sn)) d.sn.forEach(function(x){ S.sn.add(parseInt(x, 10)); });
   if (d.an) for (var k in d.an) { S.an[k] = d.an[k]; }
+  if (d.expOv && typeof d.expOv === 'object') for (var ek in d.expOv) { if (!hasOwn(S.expOv, ek)) S.expOv[ek] = d.expOv[ek]; }
   saveState();
   buildSidebar(); filterQs(); updateProgress();
   closeModal('importLocalModal');
-  showToast('✅ Progressi importati sul cloud!', 'ok');
+  showToast('✅ Dati locali importati sul cloud!', 'ok');
   renderQ();
   window._lsImportData = null;
 }
