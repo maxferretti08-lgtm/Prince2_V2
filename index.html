@@ -2501,6 +2501,200 @@ function showAggrega(){if(APP_MODE!=='concorsi'){showToast('Aggrega è disponibi
 function saveAggrega(){var obj={}; document.querySelectorAll('.agg-sec').forEach(function(inp){obj[inp.dataset.id]=(inp.value||'Non assegnate').trim()||'Non assegnate'}); localStorage.setItem(CONCORSI_SECTIONS_KEY,JSON.stringify(obj)); applyConcorsiSections(); buildSidebar(); filterQs(); saveState(); showToast('✅ Sezioni salvate','ok'); showAggrega();}
 showAuthOverlay=function(){var ov=document.getElementById('authOverlay'); if(ov)ov.style.display='flex'; var su=document.getElementById('sbUser'); if(su)su.style.display='none'; var sb=document.getElementById('sb'); if(sb)sb.classList.remove('op'); var ovrl=document.getElementById('ovrl'); if(ovrl)ovrl.classList.remove('vis');};
 savePosition=function(){var q=(S.em?S.eq[S.ci]:S.fq[S.ci]); if(!q)return; S.savedPos={qid:q.id,ci:S.ci,ca:S.ca,cf:S.cf}; saveState(); showToast('💾 Posizione salvata','ok');};
+
+/* ===== PATCH CLOUD SYNC CONCORSI: domande + sezioni + progressi ===== */
+function _stateToPlain() {
+  return {
+    fl:[...S.fl].map(function(x){return parseInt(x,10)}),
+    sn:[...S.sn].map(function(x){return parseInt(x,10)}),
+    an:JSON.parse(JSON.stringify(S.an||{})),
+    expOv:JSON.parse(JSON.stringify(S.expOv||{})),
+    ci:S.ci||0,
+    ca:S.ca||'00',
+    cf:S.cf||'all',
+    lq:S.lq||null,
+    savedPos:S.savedPos||null,
+    examUsed:JSON.parse(JSON.stringify(S.examUsed||{}))
+  };
+}
+function _applyPlainState(p) {
+  p = p || {};
+  S.fl = new Set((p.fl||[]).map(function(x){return parseInt(x,10)}));
+  S.sn = new Set((p.sn||[]).map(function(x){return parseInt(x,10)}));
+  S.an = p.an || {};
+  S.expOv = p.expOv || {};
+  S.ci = p.ci || 0;
+  S.ca = p.ca || '00';
+  S.cf = p.cf || 'all';
+  S.lq = p.lq || null;
+  S.savedPos = p.savedPos || null;
+  S.examUsed = p.examUsed || {};
+}
+function _readJSONLS(key, fallback) {
+  try {
+    var raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch(e) { return fallback; }
+}
+function _writeJSONLS(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch(e) {}
+}
+function _getModeState(key) {
+  if (key === STATE_KEY) return _stateToPlain();
+  return _readJSONLS(key, {fl:[],sn:[],an:{},expOv:{},ci:0,ca:'00',cf:'all',lq:null,savedPos:null,examUsed:{}});
+}
+function _buildCloudPayload() {
+  var concorsiQuestions = _readJSONLS(CONCORSI_Q_KEY, []);
+  var concorsiSections  = _readJSONLS(CONCORSI_SECTIONS_KEY, {});
+  var payload = {
+    v: 3,
+    ts: new Date().toISOString(),
+    activeStateKey: STATE_KEY,
+    modes: {
+      p2s7: _getModeState('p2s7'),
+      concorsi_state_v1: _getModeState('concorsi_state_v1')
+    },
+    concorsi: {
+      questions: Array.isArray(concorsiQuestions) ? concorsiQuestions : [],
+      sections: concorsiSections && typeof concorsiSections === 'object' ? concorsiSections : {}
+    }
+  };
+  var cur = payload.modes[STATE_KEY] || _stateToPlain();
+  for (var k in cur) payload[k] = cur[k]; // compatibilità con vecchi salvataggi
+  return payload;
+}
+
+saveState = function() {
+  var plain = _stateToPlain();
+  _writeJSONLS(STATE_KEY, plain);
+  sbSaveDebounced();
+};
+
+sbLoadProgress = async function() {
+  if (!_currentUser) return false;
+  try {
+    var res = await withTimeout(
+      _sb.from('user_progress').select('data').eq('user_id', _currentUser.id).single(),
+      8000
+    );
+    if (res.error) {
+      if (res.error.code === 'PGRST116') return false;
+      console.warn('sbLoad:', res.error.message);
+      return false;
+    }
+    var d = res.data && res.data.data;
+    if (!d || typeof d !== 'object') return false;
+
+    if (d.modes && typeof d.modes === 'object') {
+      if (d.modes.p2s7) _writeJSONLS('p2s7', d.modes.p2s7);
+      if (d.modes.concorsi_state_v1) _writeJSONLS('concorsi_state_v1', d.modes.concorsi_state_v1);
+    } else {
+      // Vecchio formato: salva sullo state corrente.
+      _writeJSONLS(STATE_KEY, d);
+    }
+
+    if (d.concorsi && typeof d.concorsi === 'object') {
+      if (Array.isArray(d.concorsi.questions) && d.concorsi.questions.length) {
+        _writeJSONLS(CONCORSI_Q_KEY, d.concorsi.questions);
+      }
+      if (d.concorsi.sections && typeof d.concorsi.sections === 'object') {
+        _writeJSONLS(CONCORSI_SECTIONS_KEY, d.concorsi.sections);
+      }
+    }
+
+    _applyPlainState(_readJSONLS(STATE_KEY, d));
+    return true;
+  } catch(e) {
+    console.warn('sbLoad exception:', e.message || e);
+    return false;
+  }
+};
+
+sbSaveProgress = async function() {
+  if (!_currentUser) return false;
+  if (_sbSaving) { _sbSaveQueued = true; return false; }
+  _sbSaving = true;
+  _sbSaveQueued = false;
+  updateSbSyncStatus('saving');
+  try {
+    var d = _buildCloudPayload();
+    var r = await withTimeout(
+      _sb.from('user_progress').upsert(
+        { user_id:_currentUser.id, data:d, updated_at:new Date().toISOString() },
+        { onConflict:'user_id' }
+      ),
+      12000
+    );
+    if (r.error) { console.warn('sbSave:', r.error.message); updateSbSyncStatus('err'); return false; }
+    updateSbSyncStatus('ok');
+    return true;
+  } catch(e) {
+    console.warn('sbSave exception:', e.message || e);
+    updateSbSyncStatus('err');
+    return false;
+  } finally {
+    _sbSaving = false;
+    if (_sbSaveQueued) sbSaveDebounced();
+  }
+};
+
+sbSaveDebounced = function() {
+  if (!_currentUser) return;
+  clearTimeout(_sbSaveTimer);
+  _sbSaveTimer = setTimeout(sbSaveProgress, 1200);
+};
+
+loadConcorsiSavedOrPrompt = async function() {
+  if (_currentUser) await sbLoadProgress();
+  try {
+    var raw = localStorage.getItem(CONCORSI_Q_KEY);
+    if (raw) {
+      Q = JSON.parse(raw);
+      applyConcorsiSections();
+      _questionsLoaded = true;
+      _appInitialized = false;
+      initApp();
+      return;
+    }
+  } catch(e) {}
+  showConcorsiUpload();
+};
+
+var _parseConcorsiPDF_original_for_cloud = parseConcorsiPDF;
+parseConcorsiPDF = async function() {
+  await _parseConcorsiPDF_original_for_cloud();
+  if (Array.isArray(Q) && Q.length) {
+    await sbSaveProgress();
+    showToast('✅ Domande salvate anche sul cloud', 'ok');
+  }
+};
+
+var _saveAggrega_original_for_cloud = saveAggrega;
+saveAggrega = function() {
+  _saveAggrega_original_for_cloud();
+  sbSaveDebounced();
+};
+
+initApp = async function() {
+  if (!_questionsLoaded || !_currentUser || _appInitialized) return;
+  _appInitialized = true;
+  hideAuthOverlay(_currentUser);
+  setupTopButtons();
+  await sbLoadProgress();
+  if (APP_MODE === 'concorsi') applyConcorsiSections();
+  syncImport();
+  buildSidebar();
+  filterQs();
+  updateProgress();
+  if (APP_MODE !== 'concorsi') initExplanationEditor();
+  if (hasSavedProgress()) checkResume();
+  else {
+    S.cf='all'; S.ca='00'; S.ci=0;
+    saveState();
+    buildSidebar(); filterQs(); renderQ();
+  }
+};
+
 showAuthOverlay();
 (function(){
   if (!_sb || !_sb.auth) return;
