@@ -2187,20 +2187,23 @@ async function authSubmit() {
 async function authLogout() {
   var btn = document.querySelector('#sbUser button[onclick="authLogout()"]');
   if (btn) { btn.disabled = true; btn.textContent = '...'; }
+
   if (_autoSyncInterval) { clearInterval(_autoSyncInterval); _autoSyncInterval = null; }
   clearTimeout(_sbSaveTimer);
-  try {
-    await _sb.auth.signOut();
-  } catch(e) {
-    console.warn('signOut error:', e);
-  }
-  // Fallback UI reset in caso onAuthStateChange non scatti
+
+  // Salva l'ultimo stato prima di uscire, poi chiude davvero la sessione Supabase.
+  try { if (_currentUser) await sbSaveProgress(); } catch(e) {}
+  try { await _sb.auth.signOut({ scope: 'global' }); } catch(e) { console.warn('signOut error:', e); }
+
   _currentUser = null;
   _appInitialized = false;
-  S.fl = new Set(); S.sn = new Set(); S.an = {};
-  S.ci = 0; S.ca = '00'; S.cf = 'all'; S.lq = null;
-  try { localStorage.removeItem('p2s7'); } catch(e) {}
+  APP_MODE = null;
+
+  // Non cancelliamo i dati locali: restano come cache, ma senza sessione non si entra nell'app.
   showAuthOverlay();
+  setChromeVisible(false);
+  var c = document.getElementById('cnt');
+  if (c) c.innerHTML = '<div class="loading"><p>Effettua il login per continuare.</p></div>';
 }
 
 function showAuthOverlay() {
@@ -2477,8 +2480,8 @@ function loadState(){try{var v=localStorage.getItem(STATE_KEY); if(v){var p=JSON
 function saveState(){try{localStorage.setItem(STATE_KEY,JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,expOv:S.expOv,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq,savedPos:S.savedPos,examUsed:S.examUsed}));}catch(e){}}
 function setupTopButtons(){var box=document.querySelector('.sbx'); if(!box||document.getElementById('hubBtn'))return; var b=document.createElement('button'); b.id='hubBtn'; b.className='bt bnv'; b.style.cssText='flex:1;font-size:11px;padding:6px 8px'; b.textContent='🏠 Hub'; b.onclick=backToHub; box.insertBefore(b,box.firstChild); var a=document.createElement('button'); a.id='aggBtn'; a.className='bt bnv'; a.style.cssText='flex:1;font-size:11px;padding:6px 8px'; a.textContent='🧩 Aggrega'; a.onclick=showAggrega; box.appendChild(a);}
 function backToHub(){clearInterval(S.et);S.em=false;showHub();}
-function selectModePrince2(){APP_MODE='prince2'; AREAS=BASE_AREAS.slice(); switchStateKey('p2s7'); setChromeVisible(true); setupTopButtons(); var h=document.querySelector('.shd h2'); if(h)h.textContent='Argomenti'; var bex=document.querySelector('.bex'); if(bex)bex.textContent='🎯 Simulazione (60 dom.)'; loadQuestions();}
-function selectModeConcorsi(){APP_MODE='concorsi'; switchStateKey('concorsi_state_v1'); setChromeVisible(true); setupTopButtons(); var h=document.querySelector('.shd h2'); if(h)h.textContent='Sezioni'; var bex=document.querySelector('.bex'); if(bex)bex.textContent='🎯 Simulazione (33 dom.)'; loadConcorsiSavedOrPrompt();}
+function selectModePrince2(){if(!_currentUser){showAuthOverlay();return;} APP_MODE='prince2'; AREAS=BASE_AREAS.slice(); switchStateKey('p2s7'); setChromeVisible(true); setupTopButtons(); var h=document.querySelector('.shd h2'); if(h)h.textContent='Argomenti'; var bex=document.querySelector('.bex'); if(bex)bex.textContent='🎯 Simulazione (60 dom.)'; loadQuestions();}
+function selectModeConcorsi(){if(!_currentUser){showAuthOverlay();return;} APP_MODE='concorsi'; switchStateKey('concorsi_state_v1'); setChromeVisible(true); setupTopButtons(); var h=document.querySelector('.shd h2'); if(h)h.textContent='Sezioni'; var bex=document.querySelector('.bex'); if(bex)bex.textContent='🎯 Simulazione (33 dom.)'; loadConcorsiSavedOrPrompt();}
 function showQuestionsError(msg){document.getElementById('cnt').innerHTML='<div class="loading" style="color:var(--rd)"><p>'+esc(msg)+'</p><button class="bt brev" onclick="loadQuestions()">Riprova</button></div>';}
 function loadQuestions(){_appInitialized=false; document.getElementById('cnt').innerHTML='<div class="loading"><div class="spin"></div><p>Caricamento domande...</p></div>'; fetch('questions.json').then(function(r){if(!r.ok)throw new Error('questions.json non trovato');return r.json()}).then(function(d){Q=d;_questionsLoaded=true;initApp()}).catch(function(e){showQuestionsError(e.message)})}
 function loadConcorsiSavedOrPrompt(){try{var raw=localStorage.getItem(CONCORSI_Q_KEY); if(raw){Q=JSON.parse(raw); applyConcorsiSections(); _questionsLoaded=true; _appInitialized=false; initApp(); return;}}catch(e){} showConcorsiUpload();}
@@ -2695,20 +2698,13 @@ initApp = async function() {
   }
 };
 
+// Avvio sicuro: l'app non deve mai mostrarsi senza sessione Supabase valida.
 showAuthOverlay();
+setChromeVisible(false);
 (function(){
   if (!_sb || !_sb.auth) return;
-  _sb.auth.getSession().then(function(res){
-    var session = res && res.data ? res.data.session : null;
-    if (session && session.user) {
-      _currentUser = session.user;
-      hideAuthOverlay(session.user);
-      showHub();
-    } else {
-      showAuthOverlay();
-    }
-  });
-  _sb.auth.onAuthStateChange(function(event, session){
+
+  function handleSession(session) {
     if (session && session.user) {
       _currentUser = session.user;
       hideAuthOverlay(session.user);
@@ -2716,11 +2712,246 @@ showAuthOverlay();
     } else {
       _currentUser = null;
       APP_MODE = null;
+      _appInitialized = false;
       showAuthOverlay();
+      setChromeVisible(false);
     }
+  }
+
+  _sb.auth.getSession().then(function(res){
+    handleSession(res && res.data ? res.data.session : null);
+  }).catch(function(){
+    handleSession(null);
+  });
+
+  _sb.auth.onAuthStateChange(function(event, session){
+    handleSession(session);
   });
 })();
 
+</script>
+<!-- PATCH FINALE SYNC SUPABASE CONCORSI - preserva dati cloud -->
+<script>
+(function(){
+  var _cloudCache = null;
+
+  function _jsonClone(v){
+    try { return JSON.parse(JSON.stringify(v)); } catch(e) { return v; }
+  }
+  function _readLS(key, fallback){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; } catch(e) { return fallback; }
+  }
+  function _writeLS(key, value){
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch(e) {}
+  }
+  function _plainCurrentState(){
+    return {
+      fl: Array.from(S.fl || []).map(function(x){ return parseInt(x,10); }),
+      sn: Array.from(S.sn || []).map(function(x){ return parseInt(x,10); }),
+      an: _jsonClone(S.an || {}),
+      expOv: _jsonClone(S.expOv || {}),
+      ci: S.ci || 0,
+      ca: S.ca || '00',
+      cf: S.cf || 'all',
+      lq: S.lq || null,
+      savedPos: S.savedPos || null,
+      examUsed: _jsonClone(S.examUsed || {})
+    };
+  }
+  function _defaultState(){
+    return {fl:[],sn:[],an:{},expOv:{},ci:0,ca:'00',cf:'all',lq:null,savedPos:null,examUsed:{}};
+  }
+  function _applyState(p){
+    p = p || _defaultState();
+    S.fl = new Set((p.fl || []).map(function(x){ return parseInt(x,10); }));
+    S.sn = new Set((p.sn || []).map(function(x){ return parseInt(x,10); }));
+    S.an = p.an || {};
+    S.expOv = p.expOv || {};
+    S.ci = p.ci || 0;
+    S.ca = p.ca || '00';
+    S.cf = p.cf || 'all';
+    S.lq = p.lq || null;
+    S.savedPos = p.savedPos || null;
+    S.examUsed = p.examUsed || {};
+  }
+  function _stateFromLS(key){
+    return _readLS(key, _defaultState());
+  }
+  function _buildMergedPayload(){
+    var old = (_cloudCache && typeof _cloudCache === 'object') ? _jsonClone(_cloudCache) : {};
+    var p2 = _stateFromLS('p2s7');
+    var concState = _stateFromLS('concorsi_state_v1');
+    if (STATE_KEY === 'p2s7') p2 = _plainCurrentState();
+    if (STATE_KEY === 'concorsi_state_v1') concState = _plainCurrentState();
+
+    var localQuestions = _readLS(CONCORSI_Q_KEY, []);
+    var localSections = _readLS(CONCORSI_SECTIONS_KEY, {});
+    var oldQuestions = old.concorsi && Array.isArray(old.concorsi.questions) ? old.concorsi.questions : [];
+    var oldSections = old.concorsi && old.concorsi.sections && typeof old.concorsi.sections === 'object' ? old.concorsi.sections : {};
+
+    var finalQuestions = Array.isArray(localQuestions) && localQuestions.length ? localQuestions : oldQuestions;
+    var finalSections = localSections && Object.keys(localSections).length ? localSections : oldSections;
+
+    var payload = {
+      v: 4,
+      ts: new Date().toISOString(),
+      activeStateKey: STATE_KEY,
+      modes: {
+        p2s7: p2,
+        concorsi_state_v1: concState
+      },
+      concorsi: {
+        questions: finalQuestions,
+        sections: finalSections
+      }
+    };
+
+    var compat = STATE_KEY === 'concorsi_state_v1' ? concState : p2;
+    for (var k in compat) payload[k] = compat[k];
+    return payload;
+  }
+
+  window.sbLoadProgress = async function(){
+    if (!_currentUser) return false;
+    try {
+      var res = await withTimeout(
+        _sb.from('user_progress').select('data').eq('user_id', _currentUser.id).single(),
+        12000
+      );
+      if (res.error) {
+        if (res.error.code === 'PGRST116') return false;
+        console.warn('sbLoadProgress:', res.error.message);
+        updateSbSyncStatus('err');
+        return false;
+      }
+      var d = res.data && res.data.data;
+      if (!d || typeof d !== 'object') return false;
+      _cloudCache = _jsonClone(d);
+
+      if (d.modes && typeof d.modes === 'object') {
+        if (d.modes.p2s7) _writeLS('p2s7', d.modes.p2s7);
+        if (d.modes.concorsi_state_v1) _writeLS('concorsi_state_v1', d.modes.concorsi_state_v1);
+      } else {
+        _writeLS(STATE_KEY, d);
+      }
+
+      if (d.concorsi && typeof d.concorsi === 'object') {
+        if (Array.isArray(d.concorsi.questions) && d.concorsi.questions.length) {
+          _writeLS(CONCORSI_Q_KEY, d.concorsi.questions);
+        }
+        if (d.concorsi.sections && typeof d.concorsi.sections === 'object') {
+          _writeLS(CONCORSI_SECTIONS_KEY, d.concorsi.sections);
+        }
+      }
+
+      var modeState = _readLS(STATE_KEY, d);
+      _applyState(modeState);
+      updateSbSyncStatus('ok');
+      return true;
+    } catch(e) {
+      console.warn('sbLoadProgress exception:', e.message || e);
+      updateSbSyncStatus('err');
+      return false;
+    }
+  };
+
+  window.sbSaveProgress = async function(){
+    if (!_currentUser) return false;
+    if (_sbSaving) { _sbSaveQueued = true; return false; }
+    _sbSaving = true;
+    _sbSaveQueued = false;
+    updateSbSyncStatus('saving');
+    try {
+      // Se non abbiamo ancora cache cloud, leggila prima per non cancellare domande/sezioni salvate da un altro device.
+      if (!_cloudCache) {
+        try { await window.sbLoadProgress(); } catch(e) {}
+      }
+      var payload = _buildMergedPayload();
+      var res = await withTimeout(
+        _sb.from('user_progress').upsert(
+          { user_id: _currentUser.id, data: payload, updated_at: new Date().toISOString() },
+          { onConflict: 'user_id' }
+        ),
+        15000
+      );
+      if (res.error) {
+        console.warn('sbSaveProgress:', res.error.message);
+        updateSbSyncStatus('err');
+        return false;
+      }
+      _cloudCache = _jsonClone(payload);
+      updateSbSyncStatus('ok');
+      return true;
+    } catch(e) {
+      console.warn('sbSaveProgress exception:', e.message || e);
+      updateSbSyncStatus('err');
+      return false;
+    } finally {
+      _sbSaving = false;
+      if (_sbSaveQueued) sbSaveDebounced();
+    }
+  };
+
+  window.sbSaveDebounced = function(){
+    if (!_currentUser) return;
+    clearTimeout(_sbSaveTimer);
+    _sbSaveTimer = setTimeout(window.sbSaveProgress, 1000);
+  };
+
+  window.saveState = function(){
+    _writeLS(STATE_KEY, _plainCurrentState());
+    window.sbSaveDebounced();
+  };
+
+  window.loadConcorsiSavedOrPrompt = async function(){
+    if (_currentUser) await window.sbLoadProgress();
+    var saved = _readLS(CONCORSI_Q_KEY, []);
+    if (Array.isArray(saved) && saved.length) {
+      Q = saved;
+      applyConcorsiSections();
+      _questionsLoaded = true;
+      _appInitialized = false;
+      initApp();
+      return;
+    }
+    showConcorsiUpload();
+  };
+
+  var _oldSaveAggrega = window.saveAggrega;
+  window.saveAggrega = function(){
+    var obj = {};
+    document.querySelectorAll('.agg-sec').forEach(function(inp){
+      obj[inp.dataset.id] = (inp.value || 'Non assegnate').trim() || 'Non assegnate';
+    });
+    _writeLS(CONCORSI_SECTIONS_KEY, obj);
+    applyConcorsiSections();
+    buildSidebar();
+    filterQs();
+    window.saveState();
+    window.sbSaveProgress();
+    showToast('✅ Sezioni salvate e sincronizzate', 'ok');
+    showAggrega();
+  };
+
+  var _oldParseConcorsiPDF = window.parseConcorsiPDF;
+  window.parseConcorsiPDF = async function(){
+    await _oldParseConcorsiPDF();
+    if (Array.isArray(Q) && Q.length) {
+      _writeLS(CONCORSI_Q_KEY, Q);
+      await window.sbSaveProgress();
+      showToast('✅ Domande salvate e sincronizzate', 'ok');
+    }
+  };
+
+  window.savePosition = function(){
+    var q = (S.em ? S.eq[S.ci] : S.fq[S.ci]);
+    if (!q) return;
+    S.savedPos = { qid:q.id, ci:S.ci, ca:S.ca, cf:S.cf };
+    window.saveState();
+    window.sbSaveProgress();
+    showToast('💾 Posizione salvata e sincronizzata', 'ok');
+  };
+})();
 </script>
 </body>
 </html>
