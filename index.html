@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>PRINCE2 7 Foundation - Studio</title>
+<title>Quiz Studio</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -456,8 +456,8 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
 <div id="authOverlay" class="auth-overlay">
   <div class="auth-card">
     <div style="font-size:40px;text-align:center;margin-bottom:12px">📚</div>
-    <h1>PRINCE2 7 Foundation</h1>
-    <p class="auth-sub">Accedi per salvare i progressi nel cloud</p>
+    <h1>Quiz Studio</h1>
+    <p class="auth-sub">Accedi per salvare i tuoi progressi</p>
     <div id="authErr" class="auth-msg err"></div>
     <div id="authOk" class="auth-msg ok"></div>
     <div class="auth-field">
@@ -681,7 +681,7 @@ mark{background:rgba(210,153,34,.35);color:inherit;border-radius:2px;padding:0 1
       <div class="hdr-row1">
         <span class="hdr-area" id="hdrArea">Tutte le aree</span>
         <span class="hdr-sep">—</span>
-        <span class="hdr-cnt" id="hdrCnt">0/386 viste</span>
+        <span class="hdr-cnt" id="hdrCnt">0 viste</span>
         <div class="hdr-pb"><div class="pf" id="pf"></div></div>
       </div>
       <div class="hdr-row2">
@@ -1003,7 +1003,7 @@ function updateHdrArea() {
   var cEl = document.getElementById('hdrCnt'); if (cEl) {
     var areaQs = S.ca === '00' ? Q : Q.filter(function(x){ return gc(x.area) === S.ca; });
     var seenInArea = areaQs.filter(function(x){ return S.sn.has(x.id); }).length;
-    cEl.textContent = seenInArea + '/' + areaQs.length + ' viste';
+    cEl.textContent = areaQs.length ? (seenInArea + '/' + areaQs.length + ' viste') : (seenInArea + ' viste');
   }
 }
 
@@ -1295,12 +1295,15 @@ function pickExamQuestions(diff) {
     if (selected.indexOf(allByUsed[k]) < 0) selected.push(allByUsed[k]);
   }
 
-  // Final random order of selected questions, then shuffle options per question
-  var L = ['A','B','C','D'];
+  // Final random order of selected questions, then shuffle options per question.
+  // Supports both the main bank (4 options) and PDF banks (3 options).
+  var L = ['A','B','C','D','E','F'];
   var finalOrder = selected.slice(0, targetCount).sort(function(){ return Math.random() - 0.5; });
   return finalOrder.map(function(q) {
+    var optLen = Array.isArray(q.opts) ? q.opts.length : 0;
+    var indices = [];
+    for (var oi = 0; oi < optLen; oi++) indices.push(oi);
     // Fisher-Yates shuffle of option indices
-    var indices = [0, 1, 2, 3];
     for (var si = indices.length - 1; si > 0; si--) {
       var sj = Math.floor(Math.random() * (si + 1));
       var tmp = indices[si]; indices[si] = indices[sj]; indices[sj] = tmp;
@@ -1310,7 +1313,7 @@ function pickExamQuestions(diff) {
     qc._optIndices = indices; // indices[newPos] = originalIdx
     var origAnsIdx = L.indexOf(q.ans);
     var newAnsPos = indices.indexOf(origAnsIdx);
-    qc._shuffledAns = L[newAnsPos];
+    qc._shuffledAns = newAnsPos >= 0 ? L[newAnsPos] : q.ans;
     return qc;
   });
 }
@@ -1561,7 +1564,7 @@ function gistAutoPush() {
     fetch('https://api.github.com/gists/'+gistId, {
       method:'PATCH',
       headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
-      body:JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:JSON.stringify(d,null,2)}}}),
+      body:JSON.stringify({description:'Quiz Studio Progress',public:false,files:{'prince2_progress.json':{content:JSON.stringify(d,null,2)}}}),
       signal: ctrl.signal
     }).then(function() { clearTimeout(tId); _gistPushCtrl = null; }).catch(function() { clearTimeout(tId); _gistPushCtrl = null; });
   }, 1500); // aspetta 1.5s prima di inviare (raggruppa risposte rapide consecutive)
@@ -1647,7 +1650,7 @@ document.addEventListener('visibilitychange', function() {
     method: 'PATCH',
     keepalive: true, // garantisce completamento anche se la pagina viene chiusa
     headers: {'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
-    body: JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:JSON.stringify(d,null,2)}}})
+    body: JSON.stringify({description:'Quiz Studio Progress',public:false,files:{'prince2_progress.json':{content:JSON.stringify(d,null,2)}}})
   }).catch(function(){});
 });
 
@@ -1816,7 +1819,7 @@ async function gistPush() {
     var resp = await fetch(url, {
       method: method,
       headers: {'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
-      body: JSON.stringify({description:'PRINCE2 7 Study Progress',public:false,files:{'prince2_progress.json':{content:payload}}}),
+      body: JSON.stringify({description:'Quiz Studio Progress',public:false,files:{'prince2_progress.json':{content:payload}}}),
       signal: pushCtrl.signal
     });
     clearTimeout(pushTId);
@@ -1869,7 +1872,7 @@ async function gistPull() {
 
     // Recupera il file dal Gist
     var fileInfo = result.files && result.files['prince2_progress.json'];
-    if (!fileInfo) { bar.innerHTML = '<span class="sync-status sync-err">❌ File prince2_progress.json non trovato nel Gist</span>'; return; }
+    if (!fileInfo) { bar.innerHTML = '<span class="sync-status sync-err">❌ File progressi non trovato nel Gist</span>'; return; }
 
     // Gestisce il contenuto truncated (GitHub tronca file > ~1MB, recupera dal raw_url)
     var content = fileInfo.content;
@@ -1943,7 +1946,7 @@ function exportFile() {
   var d = {fl:[...S.fl], sn:[...S.sn], an:S.an, expOv:S.expOv, ts:new Date().toISOString()};
   var blob = new Blob([JSON.stringify(d,null,2)], {type:'application/json'});
   var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-  a.download = 'prince2_progressi_' + new Date().toISOString().slice(0,10) + '.json';
+  a.download = 'quiz_studio_progressi_' + new Date().toISOString().slice(0,10) + '.json';
   a.click(); URL.revokeObjectURL(a.href);
 }
 function importFile(input) {
@@ -2319,7 +2322,7 @@ _sb.auth.onAuthStateChange(async function(event, session) {
     // Reset stato locale al logout
     S.fl = new Set(); S.sn = new Set(); S.an = {};
     S.ci = 0; S.ca = '00'; S.cf = 'all'; S.lq = null;
-    try { localStorage.removeItem('p2s7'); } catch(e) {}
+    // Cache locale preservata: il logout non deve cancellare i salvataggi.
     showAuthOverlay();
   }
 });
@@ -2474,35 +2477,139 @@ var CONCORSI_Q_KEY='concorsi_questions_v1', CONCORSI_SECTIONS_KEY='concorsi_sect
 var CONCORSI_SELECTED_FILE=null;
 function setChromeVisible(v){var sb=document.getElementById('sb'),hdr=document.querySelector('.main > .hdr'),main=document.querySelector('.main'),mob=document.getElementById('mobNav'); if(sb)sb.style.display=v?'flex':'none'; if(hdr)hdr.style.display=v?'flex':'none'; if(main)main.style.marginLeft=v?'':'0'; if(mob)mob.style.display=v?'':'none';}
 function hideAuthForPasswordMode(){var ov=document.getElementById('authOverlay'); if(ov)ov.style.display='none'; var u=document.getElementById('sbUser'); if(u)u.style.display='none';}
-function showHub(){APP_MODE=null; setChromeVisible(false); document.getElementById('exbar').style.display='none'; document.getElementById('cnt').innerHTML='<div class="resume-card" style="max-width:760px;margin:70px auto 20px;text-align:center"><div style="font-size:42px;margin-bottom:12px">📚</div><h2 style="font-size:24px;margin-bottom:8px;color:var(--tx)">Scegli il percorso</h2><p style="color:var(--tx2);font-size:14px;margin-bottom:24px">Seleziona il database quiz da usare.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;text-align:left"><button class="scd" style="cursor:pointer;text-align:left" onclick="selectModePrince2()"><div style="font-size:30px;margin-bottom:8px">🎯</div><div style="font-size:17px;font-weight:800;color:var(--ac);margin-bottom:6px">Quiz Project Management</div><div style="font-size:13px;color:var(--tx2);line-height:1.5">Carica la logica Prince2 esistente.</div></button><button class="scd" style="cursor:pointer;text-align:left" onclick="selectModeConcorsi()"><div style="font-size:30px;margin-bottom:8px">🏥</div><div style="font-size:17px;font-weight:800;color:var(--gn);margin-bottom:6px">Concorsi</div><div style="font-size:13px;color:var(--tx2);line-height:1.5">PDF ASL Bari, simulazioni da 33 domande e feedback essenziale.</div></button></div></div>';}
+function showHub(){
+  if(!_currentUser){showAuthOverlay();setChromeVisible(false);return;}
+  APP_MODE=null;
+  setChromeVisible(false);
+  updateModeToolButtons();
+  var ex=document.getElementById('exbar'); if(ex)ex.style.display='none';
+  var c=document.getElementById('cnt'); if(!c)return;
+  c.innerHTML='<div class="resume-card" style="max-width:760px;margin:70px auto 20px;text-align:center">'+
+    '<div style="font-size:42px;margin-bottom:12px">📚</div>'+
+    '<h2 style="font-size:24px;margin-bottom:8px;color:var(--tx)">Scegli il percorso</h2>'+
+    '<p style="color:var(--tx2);font-size:14px;margin-bottom:24px">Seleziona la modalità di studio.</p>'+
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;text-align:left">'+
+      '<button class="scd" style="cursor:pointer;text-align:left" onclick="selectModePrince2()">'+
+        '<div style="font-size:30px;margin-bottom:8px">🎯</div>'+
+        '<div style="font-size:17px;font-weight:800;color:var(--ac);margin-bottom:6px">Quiz Project Management</div>'+
+        '<div style="font-size:13px;color:var(--tx2);line-height:1.5">Accedi alla banca dati principale di Project Management con filtri, statistiche e simulazioni.</div>'+
+      '</button>'+
+      '<button class="scd" style="cursor:pointer;text-align:left" onclick="selectModeConcorsi()">'+
+        '<div style="font-size:30px;margin-bottom:8px">📄</div>'+
+        '<div style="font-size:17px;font-weight:800;color:var(--gn);margin-bottom:6px">Quiz da PDF</div>'+
+        '<div style="font-size:13px;color:var(--tx2);line-height:1.5">Importa una banca dati PDF e trasformala in domande interattive.</div>'+
+      '</button>'+
+    '</div>'+
+  '</div>';
+}
 function switchStateKey(k){STATE_KEY=k; S={ca:'00',cf:'all',ci:0,lq:null,fq:[],fl:new Set(),sn:new Set(),an:{},expOv:{},sq:'',sqMode:'all',em:false,eq:[],ea:{},es:null,et:null,examDiff:'easy',savedPos:null,examUsed:{}}; loadState();}
 function loadState(){try{var v=localStorage.getItem(STATE_KEY); if(v){var p=JSON.parse(v); S.fl=new Set((p.fl||[]).map(Number)); S.sn=new Set((p.sn||[]).map(Number)); S.an=p.an||{}; S.expOv=p.expOv||{}; S.ci=p.ci||0; S.ca=p.ca||'00'; S.cf=p.cf||'all'; S.lq=p.lq||null; S.savedPos=p.savedPos||null; S.examUsed=p.examUsed||{};}}catch(e){}}
 function saveState(){try{localStorage.setItem(STATE_KEY,JSON.stringify({fl:[...S.fl],sn:[...S.sn],an:S.an,expOv:S.expOv,ci:S.ci,ca:S.ca,cf:S.cf,lq:S.lq,savedPos:S.savedPos,examUsed:S.examUsed}));}catch(e){}}
-function setupTopButtons(){var box=document.querySelector('.sbx'); if(!box||document.getElementById('hubBtn'))return; var b=document.createElement('button'); b.id='hubBtn'; b.className='bt bnv'; b.style.cssText='flex:1;font-size:11px;padding:6px 8px'; b.textContent='🏠 Hub'; b.onclick=backToHub; box.insertBefore(b,box.firstChild); var a=document.createElement('button'); a.id='aggBtn'; a.className='bt bnv'; a.style.cssText='flex:1;font-size:11px;padding:6px 8px'; a.textContent='🧩 Aggrega'; a.onclick=showAggrega; box.appendChild(a);}
+function setupTopButtons(){
+  var box=document.querySelector('.sbx');
+  if(!box)return;
+  if(!document.getElementById('hubBtn')){
+    var b=document.createElement('button');
+    b.id='hubBtn'; b.className='bt bnv'; b.style.cssText='flex:1;font-size:11px;padding:6px 8px';
+    b.textContent='🏠 Hub'; b.onclick=backToHub;
+    box.insertBefore(b,box.firstChild);
+  }
+  if(!document.getElementById('aggBtn')){
+    var a=document.createElement('button');
+    a.id='aggBtn'; a.className='bt bnv'; a.style.cssText='flex:1;font-size:11px;padding:6px 8px';
+    a.textContent='🧩 Aggrega'; a.onclick=showAggrega;
+    box.appendChild(a);
+  }
+  if(!document.getElementById('pdfToolsRow')){
+    var row=document.createElement('div');
+    row.id='pdfToolsRow';
+    row.style.cssText='display:none;padding:0 10px 4px';
+    row.innerHTML='<button class="bt bnv" style="width:100%;font-size:11px;padding:7px" onclick="showConcorsiUpload()">📄 Importa nuovo PDF</button>';
+    if(box.parentNode) box.parentNode.insertBefore(row,box.nextSibling);
+  }
+  updateModeToolButtons();
+}
+function updateModeToolButtons(){
+  var isPdf = APP_MODE === 'concorsi';
+  var agg=document.getElementById('aggBtn'); if(agg)agg.style.display=isPdf?'':'none';
+  var row=document.getElementById('pdfToolsRow'); if(row)row.style.display=isPdf?'block':'none';
+}
 function backToHub(){clearInterval(S.et);S.em=false;showHub();}
-function selectModePrince2(){if(!_currentUser){showAuthOverlay();return;} APP_MODE='prince2'; AREAS=BASE_AREAS.slice(); switchStateKey('p2s7'); setChromeVisible(true); setupTopButtons(); var h=document.querySelector('.shd h2'); if(h)h.textContent='Argomenti'; var bex=document.querySelector('.bex'); if(bex)bex.textContent='🎯 Simulazione (60 dom.)'; loadQuestions();}
-function selectModeConcorsi(){if(!_currentUser){showAuthOverlay();return;} APP_MODE='concorsi'; switchStateKey('concorsi_state_v1'); setChromeVisible(true); setupTopButtons(); var h=document.querySelector('.shd h2'); if(h)h.textContent='Sezioni'; var bex=document.querySelector('.bex'); if(bex)bex.textContent='🎯 Simulazione (33 dom.)'; loadConcorsiSavedOrPrompt();}
+function selectModePrince2(){if(!_currentUser){showAuthOverlay();return;} APP_MODE='prince2'; AREAS=BASE_AREAS.slice(); switchStateKey('p2s7'); setChromeVisible(true); setupTopButtons(); updateModeToolButtons(); var h=document.querySelector('.shd h2'); if(h)h.textContent='Argomenti'; var bex=document.querySelector('.bex'); if(bex)bex.textContent='🎯 Simulazione (60 dom.)'; loadQuestions();}
+function selectModeConcorsi(){if(!_currentUser){showAuthOverlay();return;} APP_MODE='concorsi'; switchStateKey('concorsi_state_v1'); setChromeVisible(true); setupTopButtons(); updateModeToolButtons(); var h=document.querySelector('.shd h2'); if(h)h.textContent='Sezioni'; var bex=document.querySelector('.bex'); if(bex)bex.textContent='🎯 Simulazione (33 dom.)'; loadConcorsiSavedOrPrompt();}
 function showQuestionsError(msg){document.getElementById('cnt').innerHTML='<div class="loading" style="color:var(--rd)"><p>'+esc(msg)+'</p><button class="bt brev" onclick="loadQuestions()">Riprova</button></div>';}
 function loadQuestions(){_appInitialized=false; document.getElementById('cnt').innerHTML='<div class="loading"><div class="spin"></div><p>Caricamento domande...</p></div>'; fetch('questions.json').then(function(r){if(!r.ok)throw new Error('questions.json non trovato');return r.json()}).then(function(d){Q=d;_questionsLoaded=true;initApp()}).catch(function(e){showQuestionsError(e.message)})}
 function loadConcorsiSavedOrPrompt(){try{var raw=localStorage.getItem(CONCORSI_Q_KEY); if(raw){Q=JSON.parse(raw); applyConcorsiSections(); _questionsLoaded=true; _appInitialized=false; initApp(); return;}}catch(e){} showConcorsiUpload();}
-function showConcorsiUpload(){AREAS=[{c:'00',n:'Tutte',cl:'#58a6ff'},{c:'99',n:'Non assegnate',cl:'#64748b'}]; buildSidebar(); updateProgress(); document.getElementById('cnt').innerHTML='<div class="resume-card" style="max-width:760px;margin:30px auto"><h2>🏥 Concorsi</h2><p>Carica il PDF della banca dati. Il parser usa PDF.js e legge domanda numerata, opzioni A/B/C e ID. La risposta corretta nel PDF è sempre A, poi le opzioni vengono mischiate.</p><div style="background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:16px;margin:14px 0"><input type="file" id="concorsiPdf" accept="application/pdf" class="sinp" onchange="CONCORSI_SELECTED_FILE=this.files[0]||null"><div style="font-size:11px;color:var(--tx3);margin-top:8px">Formato atteso: n) domanda, A), B), C), ID.</div></div><div class="modal-row"><button class="bt brev" style="flex:2" onclick="parseConcorsiPDF()">Importa PDF</button><button class="bt bnv" style="flex:1" onclick="showHub()">Indietro</button></div><div id="concorsiImportStatus" style="font-size:12px;color:var(--tx2);margin-top:12px"></div></div>';}
+function showConcorsiUpload(){
+  if(!_currentUser){showAuthOverlay();setChromeVisible(false);return;}
+  APP_MODE='concorsi';
+  CONCORSI_SELECTED_FILE=null;
+  setChromeVisible(true);
+  setupTopButtons();
+  updateModeToolButtons();
+  AREAS=[{c:'00',n:'Tutte',cl:'#58a6ff'},{c:'99',n:'Non assegnate',cl:'#64748b'}];
+  buildSidebar();
+  updateProgress();
+  var hasSaved = Array.isArray(Q) && Q.length > 0;
+  var savedNote = hasSaved
+    ? '<div style="background:var(--ylb);border:1px solid var(--yl);border-radius:10px;padding:10px 12px;margin:12px 0;font-size:12px;color:var(--tx);line-height:1.5">Hai già una banca dati PDF salvata. Importando un nuovo PDF sostituirai la banca dati PDF per questo account; i progressi esistenti restano salvati e verranno sincronizzati.</div>'
+    : '<div style="background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin:12px 0;font-size:12px;color:var(--tx2);line-height:1.5">Dopo l’importazione, le domande resteranno disponibili anche da telefono con lo stesso account.</div>';
+  document.getElementById('cnt').innerHTML='<div class="resume-card" style="max-width:760px;margin:30px auto">'+
+    '<h2>📄 Importa banca dati</h2>'+
+    '<p>Carica un PDF contenente domande a risposta multipla. Il sistema userà PDF.js per leggere il testo e trasformarlo in quiz interattivi.</p>'+
+    savedNote+
+    '<div style="background:var(--sf2);border:1px solid var(--bd);border-radius:10px;padding:16px;margin:14px 0">'+
+      '<input type="file" id="concorsiPdf" accept="application/pdf" class="sinp" onchange="CONCORSI_SELECTED_FILE=this.files[0]||null">'+
+      '<div style="font-size:11px;color:var(--tx3);margin-top:8px">Formato atteso: domanda numerata, opzioni A), B), C) e campo ID.</div>'+
+    '</div>'+
+    '<div class="modal-row">'+
+      '<button class="bt brev" style="flex:2" onclick="parseConcorsiPDF()">Importa PDF</button>'+
+      '<button class="bt bnv" style="flex:1" onclick="showHub()">Indietro</button>'+
+    '</div>'+
+    '<div id="concorsiImportStatus" style="font-size:12px;color:var(--tx2);margin-top:12px"></div>'+
+  '</div>';
+}
 function normalizePdfText(t){return t.replace(/\r/g,'\n').replace(/\u0000/g,'').replace(/[ \t]+/g,' ').replace(/\n{2,}/g,'\n');}
 function cleanPdf(x){return (x||'').replace(/\n/g,' ').replace(/\s+/g,' ').trim();}
 function parseConcorsiText(text){text=normalizePdfText(text); var re=/(?:^|\n)\s*(\d{1,5})\)\s*([\s\S]*?)\n\s*A\)\s*([\s\S]*?)\n\s*B\)\s*([\s\S]*?)\n\s*C\)\s*([\s\S]*?)\n\s*ID:\s*(\d+)/g; var out=[],m,L=['A','B','C']; while((m=re.exec(text))){var num=parseInt(m[1],10), id=parseInt(m[6],10), opts=[cleanPdf(m[3]),cleanPdf(m[4]),cleanPdf(m[5])], idx=[0,1,2]; for(var i=2;i>0;i--){var j=Math.floor(Math.random()*(i+1)),tmp=idx[i];idx[i]=idx[j];idx[j]=tmp;} var shuffled=idx.map(function(k){return opts[k]}), ans=L[idx.indexOf(0)]; out.push({id:id,text:cleanPdf(m[2]),opts:shuffled,ans:ans,ansT:opts[0],area:'99 - Non assegnate',section:'Non assegnate',src:['Domanda PDF n. '+num,'ID: '+id],lang:'ITA',combo:false,exp:'',trk:''});} return out;}
-async function parseConcorsiPDF(){var st=document.getElementById('concorsiImportStatus'); if(!CONCORSI_SELECTED_FILE){st.textContent='Seleziona prima un PDF.';st.style.color='var(--rd)';return;} if(!window.pdfjsLib){st.textContent='PDF.js non è caricato. Controlla la connessione.';st.style.color='var(--rd)';return;} st.style.color='var(--tx2)'; st.textContent='Lettura PDF in corso...'; pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js'; try{var buf=await CONCORSI_SELECTED_FILE.arrayBuffer(), pdf=await pdfjsLib.getDocument({data:buf}).promise, all=''; for(var p=1;p<=pdf.numPages;p++){var page=await pdf.getPage(p), tc=await page.getTextContent(); all+='\n'+tc.items.map(function(it){return it.str}).join('\n'); st.textContent='Lettura PDF: pagina '+p+' / '+pdf.numPages;} var parsed=parseConcorsiText(all); if(!parsed.length)throw new Error('Nessuna domanda riconosciuta.'); Q=parsed; localStorage.setItem(CONCORSI_Q_KEY,JSON.stringify(Q)); localStorage.removeItem(CONCORSI_SECTIONS_KEY); switchStateKey('concorsi_state_v1'); applyConcorsiSections(); _questionsLoaded=true; _appInitialized=false; initApp(); showToast('✅ Importate '+Q.length+' domande','ok');}catch(e){st.textContent='Errore import: '+e.message;st.style.color='var(--rd)';}}
+async function parseConcorsiPDF(){var st=document.getElementById('concorsiImportStatus'); if(!CONCORSI_SELECTED_FILE){st.textContent='Seleziona prima un PDF.';st.style.color='var(--rd)';return;} if(!window.pdfjsLib){st.textContent='PDF.js non è caricato. Controlla la connessione.';st.style.color='var(--rd)';return;} st.style.color='var(--tx2)'; st.textContent='Lettura PDF in corso...'; pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js'; try{var buf=await CONCORSI_SELECTED_FILE.arrayBuffer(), pdf=await pdfjsLib.getDocument({data:buf}).promise, all=''; for(var p=1;p<=pdf.numPages;p++){var page=await pdf.getPage(p), tc=await page.getTextContent(); all+='\n'+tc.items.map(function(it){return it.str}).join('\n'); st.textContent='Lettura PDF: pagina '+p+' / '+pdf.numPages;} var parsed=parseConcorsiText(all); if(!parsed.length)throw new Error('Nessuna domanda riconosciuta.'); Q=parsed; localStorage.setItem(CONCORSI_Q_KEY,JSON.stringify(Q)); var newSections={}; Q.forEach(function(q){newSections[q.id]='Non assegnate';}); localStorage.setItem(CONCORSI_SECTIONS_KEY,JSON.stringify(newSections)); switchStateKey('concorsi_state_v1'); applyConcorsiSections(); _questionsLoaded=true; _appInitialized=false; initApp(); showToast('✅ Importate '+Q.length+' domande','ok');}catch(e){st.textContent='Errore import: '+e.message;st.style.color='var(--rd)';}}
 function applyConcorsiSections(){var sections={};try{sections=JSON.parse(localStorage.getItem(CONCORSI_SECTIONS_KEY)||'{}')}catch(e){} Q.forEach(function(q){var sec=(sections[q.id]||q.section||'Non assegnate').trim()||'Non assegnate'; q.section=sec;}); var names=[]; Q.forEach(function(q){if(names.indexOf(q.section)<0)names.push(q.section)}); AREAS=[{c:'00',n:'Tutte',cl:'#58a6ff'}].concat(names.map(function(n,i){return {c:String(i+1).padStart(2,'0'),n:n,cl:['#06b6d4','#bc8cff','#ec4899','#f59e0b','#3fb950','#388bfd','#f85149','#14b8a6'][i%8]}})); var map={}; AREAS.slice(1).forEach(function(a){map[a.n]=a.c}); Q.forEach(function(q){q.area=(map[q.section]||'99')+' - '+q.section;});}
 async function initApp(){if(!_questionsLoaded||!_currentUser||_appInitialized)return; _appInitialized=true; hideAuthOverlay(_currentUser); setupTopButtons(); if(APP_MODE==='concorsi')applyConcorsiSections(); syncImport(); buildSidebar(); filterQs(); updateProgress(); if(APP_MODE!=='concorsi')initExplanationEditor(); if(hasSavedProgress())checkResume(); else{S.cf='all';S.ca='00';S.ci=0;saveState();buildSidebar();filterQs();renderQ();}}
-var _origOpenExamModal=openExamModal; openExamModal=function(){if(APP_MODE==='concorsi'){examQCount=33; var p=document.querySelector('#examModal .modal p'); if(p)p.textContent='Simulazione concorsi · 33 domande'; var tog=document.getElementById('immFeedbackToggle'); if(tog)tog.checked=true; document.querySelectorAll('.count-btn').forEach(function(b){b.style.display='none'});}else{document.querySelectorAll('.count-btn').forEach(function(b){b.style.display=''});} _origOpenExamModal();}; var _origConfirmExam=confirmExam; confirmExam=function(){if(APP_MODE==='concorsi')examQCount=33; _origConfirmExam();};
+var _origOpenExamModal=openExamModal; openExamModal=function(){if(APP_MODE==='concorsi'){examQCount=33; var p=document.querySelector('#examModal .modal p'); if(p)p.textContent='Simulazione · 33 domande'; var tog=document.getElementById('immFeedbackToggle'); if(tog)tog.checked=true; document.querySelectorAll('.count-btn').forEach(function(b){b.style.display='none'});}else{document.querySelectorAll('.count-btn').forEach(function(b){b.style.display=''});} _origOpenExamModal();}; var _origConfirmExam=confirmExam; confirmExam=function(){if(APP_MODE==='concorsi')examQCount=33; _origConfirmExam();};
 var _origRenderQ=renderQ; renderQ=function(){if(APP_MODE!=='concorsi')return _origRenderQ(); return renderConcorsiQ();};
 function renderConcorsiQ(){var c=document.getElementById('cnt');filterQs();updateProgress();if(S.em){renderExamQ();return;} if(!Q.length){showConcorsiUpload();return;} if(!S.fq.length){c.innerHTML='<div class="empty">Nessuna domanda trovata</div>';return;} var q=S.fq[S.ci],aw=S.an[q.id],fg=S.fl.has(q.id),L=['A','B','C']; S.sn.add(q.id); S.lq=q.id; saveState(); var h='<div class="nav-top"><button class="bt bnv" onclick="navQ(-1)">← Prec</button><span class="nav-pos">'+(S.ci+1)+' / '+S.fq.length+'</span><button class="bt bnv" onclick="navQ(1)">Succ →</button></div><div class="qc"><div class="qhd"><span class="qnm">'+(S.ci+1)+'/'+S.fq.length+' — ID '+q.id+'</span><span class="qar">'+esc(q.section||'Non assegnate')+'</span></div><div class="qbd"><div class="qtx">'+renderText(q.text,S.sq)+'</div><div class="qop">'; for(var i=0;i<q.opts.length;i++){var cl='opt'; if(aw){if(L[i]===q.ans)cl+=' ok'; else if(L[i]===aw)cl+=' no';} h+='<div class="'+cl+'" data-qid="'+q.id+'" data-let="'+L[i]+'" onclick="pickAns(this)"><span class="olt">'+L[i]+'</span><span class="otx">'+hlSearch(q.opts[i],S.sq)+'</span></div>';} h+='</div>'; if(aw)h+='<div class="exam-feedback '+(aw===q.ans?'exam-fb-ok':'exam-fb-no')+'"><div class="fb-head">'+(aw===q.ans?'Corretta':'Errata')+'</div>'+(aw===q.ans?'':'<div class="fb-correct">Risposta corretta: '+q.ans+') '+esc(q.ansT)+'</div>')+'</div>'; h+='<details class="coll"><summary>📎 Riferimento domanda</summary><div class="coll-body"><div class="qsrl">'+(q.src||[]).map(function(s){return '<div>• '+esc(s)+'</div>'}).join('')+'</div></div></details></div><div class="qact"><button class="bt bfl '+(fg?'fg':'')+'" data-qid="'+q.id+'" onclick="toggleFlag(this)">'+(fg?'⚠️ Segnalata':'⚠️ Segna')+'</button><button class="bt bsv" onclick="savePosition()">💾 Salva</button><button class="brst" data-qid="'+q.id+'" onclick="resetOne(this)">↺</button></div></div><div class="nav-bot"><button class="bt bnv" onclick="navQ(-1)">← Prec</button><span class="nav-pos">'+(S.ci+1)+' / '+S.fq.length+'</span><button class="bt bnv" onclick="navQ(1)">Succ →</button></div>'; c.innerHTML=h;}
 var _origRenderExamQ=renderExamQ; renderExamQ=function(){if(APP_MODE!=='concorsi')return _origRenderExamQ(); return renderConcorsiExamQ();};
 function renderConcorsiExamQ(){var c=document.getElementById('cnt'),q=S.eq[S.ci]; if(!q)return; var aw=S.ea[q.id],L=['A','B','C'],opts=q._shuffledOpts||q.opts,correct=q._shuffledAns||q.ans,op=''; for(var i=0;i<opts.length;i++){var cl='opt'; if(aw){if(L[i]===correct)cl+=' ok'; else if(L[i]===aw)cl+=' no';} op+='<div class="'+cl+'" data-qid="'+q.id+'" data-let="'+L[i]+'" '+(aw?'':'onclick="examPick(this)"')+'><span class="olt">'+L[i]+'</span><span class="otx">'+esc(opts[i])+'</span></div>';} var fb=''; if(aw)fb='<div class="exam-feedback '+(aw===correct?'exam-fb-ok':'exam-fb-no')+'"><div class="fb-head">'+(aw===correct?'Corretta':'Errata')+'</div>'+(aw===correct?'':'<div class="fb-correct">Risposta corretta: '+correct+') '+esc(opts[L.indexOf(correct)])+'</div>')+'</div>'; var dots='<div class="exam-dots-wrap">'; for(var d=0;d<S.eq.length;d++){var qq=S.eq[d],a=S.ea[qq.id],cc=qq._shuffledAns||qq.ans; dots+='<button class="exam-dot '+(a?'answered ':'')+(a&&a!==cc?'wrong-dot ':'')+(d===S.ci?'current':'')+'" onclick="S.ci='+d+';renderExamQ();scrollTo(0,0)">'+(d+1)+'</button>';} dots+='</div>'; c.innerHTML='<div class="nav-top"><button class="bt bnv" onclick="examNav(-1)">←</button><span class="nav-pos">'+(S.ci+1)+' / '+S.eq.length+'</span><button class="bt bnv" onclick="examNav(1)">→</button></div><div class="qc"><div class="qhd"><span class="qnm">Simulazione — ID '+q.id+'</span><span class="qar">'+esc(q.section||'')+'</span></div><div class="qbd"><div class="qtx">'+esc(q.text)+'</div><div class="qop">'+op+'</div>'+fb+'</div></div>'+dots;}
 function examPick(el){var id=parseInt(el.dataset.qid,10); if(S.ea[id])return; S.ea[id]=el.dataset.let; renderExamQ();}
 function examNav(d){S.ci=(S.ci+d+S.eq.length)%S.eq.length; renderExamQ(); scrollTo(0,0);}
-var _origEndExam=endExam; endExam=function(){if(APP_MODE!=='concorsi')return _origEndExam(); clearInterval(S.et); var co=0; S.eq.forEach(function(q){var ca=q._shuffledAns||q.ans;if(S.ea[q.id]===ca)co++;S.examUsed[q.id]=(S.examUsed[q.id]||0)+1}); var pct=S.eq.length?Math.round(co/S.eq.length*100):0; S.em=false; saveState(); document.getElementById('exbar').style.display='none'; document.getElementById('cnt').innerHTML='<div class="eres"><h2 class="'+(pct>=65?'epas':'efai')+'">Risultato: '+pct+'%</h2><p>'+co+' corrette su '+S.eq.length+'</p><button class="bt brev" onclick="S.ci=0;renderQ()">Torna alle domande</button></div>';};
-function showAggrega(){if(APP_MODE!=='concorsi'){showToast('Aggrega è disponibile per Concorsi','info');return;} if(!Q.length){showConcorsiUpload();return;} var sections={};try{sections=JSON.parse(localStorage.getItem(CONCORSI_SECTIONS_KEY)||'{}')}catch(e){} var rows=Q.map(function(q){var sec=sections[q.id]||q.section||''; return '<tr><td style="min-width:190px"><input class="sinp agg-sec" data-id="'+q.id+'" value="'+esc(sec)+'" placeholder="Sezione"></td><td class="td-mono">'+q.id+'</td><td>'+esc(q.text)+'</td></tr>'}).join(''); document.getElementById('cnt').innerHTML='<div class="sec-title">🧩 Aggrega <small>'+Q.length+' domande</small></div><p style="color:var(--tx2);font-size:13px;margin-bottom:12px">Scrivi una sezione prima di ogni domanda e salva. Le sezioni diventano aree nel menu laterale.</p><div style="display:flex;gap:8px;margin-bottom:12px"><button class="bt brev" onclick="saveAggrega()">💾 Salva sezioni</button><button class="bt bnv" onclick="renderQ()">Torna alle domande</button></div><div class="itb-wrap"><table class="itb"><thead><tr><th>Sezione</th><th>ID</th><th>Domanda</th></tr></thead><tbody>'+rows+'</tbody></table></div>';}
+var _origEndExam=endExam; endExam=function(){
+  if(APP_MODE!=='concorsi')return _origEndExam();
+  clearInterval(S.et);
+  var co=0,L=['A','B','C','D'];
+  S.eq.forEach(function(q){
+    var ca=q._shuffledAns||q.ans;
+    if(S.ea[q.id]===ca)co++;
+    S.examUsed[q.id]=(S.examUsed[q.id]||0)+1;
+    if(S.ea[q.id]){
+      S.sn.add(parseInt(q.id,10));
+      if(q._optIndices){
+        var shuffledIdx=L.indexOf(S.ea[q.id]);
+        var origIdx=shuffledIdx>=0 ? q._optIndices[shuffledIdx] : -1;
+        S.an[q.id]=origIdx>=0 ? L[origIdx] : S.ea[q.id];
+      } else {
+        S.an[q.id]=S.ea[q.id];
+      }
+    }
+  });
+  var pct=S.eq.length?Math.round(co/S.eq.length*100):0;
+  S.em=false;
+  saveState();
+  document.getElementById('exbar').style.display='none';
+  document.getElementById('cnt').innerHTML='<div class="eres"><h2 class="'+(pct>=65?'epas':'efai')+'">Risultato: '+pct+'%</h2><p>'+co+' corrette su '+S.eq.length+'</p><button class="bt brev" onclick="S.ci=0;renderQ()">Torna alle domande</button></div>';
+};
+function showAggrega(){if(APP_MODE!=='concorsi'){showToast('Aggrega è disponibile solo per Quiz da PDF','info');return;} if(!Q.length){showConcorsiUpload();return;} var sections={};try{sections=JSON.parse(localStorage.getItem(CONCORSI_SECTIONS_KEY)||'{}')}catch(e){} var rows=Q.map(function(q){var sec=sections[q.id]||q.section||''; return '<tr><td style="min-width:190px"><input class="sinp agg-sec" data-id="'+q.id+'" value="'+esc(sec)+'" placeholder="Sezione"></td><td class="td-mono">'+q.id+'</td><td>'+esc(q.text)+'</td></tr>'}).join(''); document.getElementById('cnt').innerHTML='<div class="sec-title">🧩 Aggrega <small>'+Q.length+' domande</small></div><p style="color:var(--tx2);font-size:13px;margin-bottom:12px">Scrivi una sezione prima di ogni domanda e salva. Le sezioni diventano aree nel menu laterale.</p><div style="display:flex;gap:8px;margin-bottom:12px"><button class="bt brev" onclick="saveAggrega()">💾 Salva sezioni</button><button class="bt bnv" onclick="renderQ()">Torna alle domande</button></div><div class="itb-wrap"><table class="itb"><thead><tr><th>Sezione</th><th>ID</th><th>Domanda</th></tr></thead><tbody>'+rows+'</tbody></table></div>';}
 function saveAggrega(){var obj={}; document.querySelectorAll('.agg-sec').forEach(function(inp){obj[inp.dataset.id]=(inp.value||'Non assegnate').trim()||'Non assegnate'}); localStorage.setItem(CONCORSI_SECTIONS_KEY,JSON.stringify(obj)); applyConcorsiSections(); buildSidebar(); filterQs(); saveState(); showToast('✅ Sezioni salvate','ok'); showAggrega();}
-showAuthOverlay=function(){var ov=document.getElementById('authOverlay'); if(ov)ov.style.display='flex'; var su=document.getElementById('sbUser'); if(su)su.style.display='none'; var sb=document.getElementById('sb'); if(sb)sb.classList.remove('op'); var ovrl=document.getElementById('ovrl'); if(ovrl)ovrl.classList.remove('vis');};
+showAuthOverlay=function(){var ov=document.getElementById('authOverlay'); if(ov)ov.style.display='flex'; var su=document.getElementById('sbUser'); if(su)su.style.display='none'; var sb=document.getElementById('sb'); if(sb)sb.classList.remove('op'); var ovrl=document.getElementById('ovrl'); if(ovrl)ovrl.classList.remove('vis'); setChromeVisible(false);};
 savePosition=function(){var q=(S.em?S.eq[S.ci]:S.fq[S.ci]); if(!q)return; S.savedPos={qid:q.id,ci:S.ci,ca:S.ca,cf:S.cf}; saveState(); showToast('💾 Posizione salvata','ok');};
 
 /* ===== PATCH CLOUD SYNC CONCORSI: domande + sezioni + progressi ===== */
@@ -2600,7 +2707,7 @@ sbLoadProgress = async function() {
       if (Array.isArray(d.concorsi.questions) && d.concorsi.questions.length) {
         _writeJSONLS(CONCORSI_Q_KEY, d.concorsi.questions);
       }
-      if (d.concorsi.sections && typeof d.concorsi.sections === 'object') {
+      if (d.concorsi.sections && typeof d.concorsi.sections === 'object' && Object.keys(d.concorsi.sections).length) {
         _writeJSONLS(CONCORSI_SECTIONS_KEY, d.concorsi.sections);
       }
     }
@@ -2839,7 +2946,7 @@ setChromeVisible(false);
         if (Array.isArray(d.concorsi.questions) && d.concorsi.questions.length) {
           _writeLS(CONCORSI_Q_KEY, d.concorsi.questions);
         }
-        if (d.concorsi.sections && typeof d.concorsi.sections === 'object') {
+        if (d.concorsi.sections && typeof d.concorsi.sections === 'object' && Object.keys(d.concorsi.sections).length) {
           _writeLS(CONCORSI_SECTIONS_KEY, d.concorsi.sections);
         }
       }
@@ -2933,13 +3040,64 @@ setChromeVisible(false);
     showAggrega();
   };
 
-  var _oldParseConcorsiPDF = window.parseConcorsiPDF;
   window.parseConcorsiPDF = async function(){
-    await _oldParseConcorsiPDF();
-    if (Array.isArray(Q) && Q.length) {
+    var st = document.getElementById('concorsiImportStatus');
+    if (!CONCORSI_SELECTED_FILE) {
+      if (st) { st.textContent = 'Seleziona prima un PDF.'; st.style.color = 'var(--rd)'; }
+      return;
+    }
+    if (!window.pdfjsLib) {
+      if (st) { st.textContent = 'PDF.js non è caricato. Controlla la connessione.'; st.style.color = 'var(--rd)'; }
+      return;
+    }
+    if (!_cloudCache && _currentUser) {
+      try { await window.sbLoadProgress(); } catch(e) {}
+    }
+    if (st) { st.style.color = 'var(--tx2)'; st.textContent = 'Lettura PDF in corso...'; }
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+    try {
+      var buf = await CONCORSI_SELECTED_FILE.arrayBuffer();
+      var pdf = await pdfjsLib.getDocument({data:buf}).promise;
+      var all = '';
+      for (var p = 1; p <= pdf.numPages; p++) {
+        var page = await pdf.getPage(p);
+        var tc = await page.getTextContent();
+        all += '\n' + tc.items.map(function(it){ return it.str; }).join('\n');
+        if (st) st.textContent = 'Lettura PDF: pagina ' + p + ' / ' + pdf.numPages;
+      }
+      var parsed = parseConcorsiText(all);
+      if (!parsed.length) throw new Error('Nessuna domanda riconosciuta.');
+
+      var defaultSections = {};
+      parsed.forEach(function(q){
+        q.section = 'Non assegnate';
+        q.area = '99 - Non assegnate';
+        defaultSections[q.id] = 'Non assegnate';
+      });
+
+      Q = parsed;
       _writeLS(CONCORSI_Q_KEY, Q);
+      _writeLS(CONCORSI_SECTIONS_KEY, defaultSections);
+      switchStateKey('concorsi_state_v1');
+      S.cf = 'all'; S.ca = '00'; S.ci = 0; S.lq = null;
+      applyConcorsiSections();
+      _questionsLoaded = true;
+      _appInitialized = true;
+      setChromeVisible(true);
+      setupTopButtons();
+      updateModeToolButtons();
+      buildSidebar();
+      filterQs();
+      updateProgress();
+      window.saveState();
+      renderQ();
+
+      if (st) { st.style.color = 'var(--gn)'; st.textContent = 'Importate ' + Q.length + ' domande. Sincronizzazione in corso...'; }
       await window.sbSaveProgress();
-      showToast('✅ Domande salvate e sincronizzate', 'ok');
+      showToast('✅ Importate ' + Q.length + ' domande e sincronizzate', 'ok');
+    } catch(e) {
+      if (st) { st.textContent = 'Errore import: ' + (e.message || e); st.style.color = 'var(--rd)'; }
+      else showToast('❌ Errore import: ' + (e.message || e), 'err');
     }
   };
 
